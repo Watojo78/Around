@@ -1,0 +1,44 @@
+.f3wrapper{
+    color: white;
+    background-image: linear-gradient(90deg, rgba(0, 76, 255, .35), rgba(0, 76, 255, 1)), url("../../../assets/backhero.svg");
+    background-size: cover;
+    margin-bottom: 2.8rem;
+    flex-direction: row-reverse;
+    padding: 4.2rem 0;
+}
+
+.f3{
+    &.elts{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        margin: auto 10rem;
+    }
+
+    &.resume{text-align: right;}
+
+    &.resume, &.illus{width: 100%;}
+}
+
+p{font-weight: 400;}
+
+@media only screen and (max-width: 600px) {
+    .f3{
+        &wrapper{
+            padding: 2.8rem 0;
+        }
+
+        &.elts{
+            flex-direction: column-reverse;
+            margin: auto 1.4rem;
+        }
+    
+        &.resume{
+            text-align: center;
+            margin-bottom: 1.4rem;
+        }
+    
+        &.resume, &.illus{width: 100%;}
+    }
+}

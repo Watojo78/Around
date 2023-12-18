@@ -1,0 +1,198 @@
+<div class="new">
+    <div class="new-header">
+        <div class="new-infos">
+            <h4>Nouvelle Boutique</h4>
+            <div class="new-route">
+                <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/shop/list']" routerLinkActive="router-link-active" >Boutiques</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/shop/new']" routerLinkActive="router-link-active" >Nouvelle Boutique</a>
+            </div>
+        </div>
+    </div> 
+    <form class="new-content" [formGroup]="shopForm" (ngSubmit)="onFormSubmit()">
+        <div class="content-logo">
+            <div class="logo">
+                <div class="logo-wrapper" (click)="openLogoInput()">
+                    <input 
+                        accept="image/*" 
+                        type="file" 
+                        #logoInput
+                        (change)="selectLogo($event)"
+                        style="display: none;">
+                    <div *ngIf="logoUrl" class="logo-preview">
+                        <img [src]="logoUrl" alt="Preview">
+                    </div>
+                    <div class="logo-placeholder">
+                        <i class="fi fi-sr-cloud-upload-alt" style="font-size: 28px;"></i>
+                        <p *ngIf="!logoUrl">Charger Le Logo</p>
+                        <p *ngIf="logoUrl">Changer de Logo</p>
+                    </div>
+                </div>
+            </div>
+            <span>Format(s) d'images accepté(s): *.png, *.jpg, *jpeg, *svg</span>
+            <div class="logo-activation">
+                <div class="activation-infos">
+                    <h5>Activation de la Boutique</h5>
+                    <p>En cliquant, vous consentez à activer la boutique à la création.</p>
+                </div>
+                <mat-slide-toggle formControlName="active"></mat-slide-toggle>
+            </div>
+        </div>
+        <div class="content-form">
+            <div class="form-section">
+                <span style="font-size: 15px; font-weight: 500">Infos basiques</span>
+                <div class="form-group">
+                    <mat-form-field appearance="fill"> 
+                        <mat-label>Nom de la Boutique</mat-label>
+                        <input 
+                            matInput 
+                            type="text" 
+                            formControlName="nomBoutique"
+                            required>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <mat-form-field appearance="fill"> 
+                        <mat-label>Quartier</mat-label>
+                        <mat-select formControlName="quartierId">
+                            <mat-option *ngFor="let address of loadedAddresses" [value]="address.id">
+                                {{address.nomQuartier}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix style="display: none;">
+                            <i class="fi fi-sr-angle-down"></i>
+                        </mat-icon>
+                    </mat-form-field>
+                </div>
+                <span style="font-size: 15px; font-weight: 500">Location</span>
+                <div class="form-group">
+                    <mat-form-field appearance="fill"> 
+                        <mat-label>Longitude</mat-label>
+                        <input 
+                            matInput 
+                            type="text" 
+                            formControlName="longitude"
+                            required>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill"> 
+                        <mat-label>Latitude</mat-label>
+                        <input 
+                            matInput 
+                            type="text" 
+                            formControlName="latitude"
+                            required>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <mat-form-field appearance="fill"> 
+                        <mat-label>Emplacement</mat-label>
+                        <input 
+                            matInput 
+                            type="text" 
+                            formControlName="emplacement">
+                    </mat-form-field>
+                </div>
+                <span style="font-size: 15px; font-weight: 500">Contact infos</span>
+                <div class="form-group">
+                    <mat-form-field appearance="fill"> 
+                        <mat-label>Téléphone</mat-label>
+                        <input 
+                            matInput 
+                            type="text" 
+                            formControlName="tel">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill"> 
+                        <mat-label>NIU</mat-label>
+                        <input 
+                            matInput 
+                            type="text" 
+                            formControlName="niu"
+                            required>
+                    </mat-form-field>
+                </div>
+            </div>  
+            <div class="form-section">
+                <span style="font-size: 15px; font-weight: 500">Gérants & Services</span>
+                <div class="form-group">
+                    <mat-form-field appearance="fill"> 
+                        <mat-label>Gérant(s)</mat-label>
+                        <mat-select formControlName="compteIds" multiple>
+                            <mat-option *ngFor="let user of loadedUsers" [value]="user.id">
+                                {{user.firstName}} {{user.lastName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <mat-form-field appearance="fill"> 
+                        <mat-label>Service(s) proposé(s)</mat-label>
+                        <mat-select formControlName="serviceIds" multiple>
+                            <mat-option *ngFor="let service of loadedServices" [value]="service.id">
+                                {{service.nomService}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <span style="font-size: 15px; font-weight: 500">Images</span>
+                <div class="form-group thumb" (click)="openFileInput()">
+                    <input 
+                        accept="image/*" 
+                        type="file" 
+                        #fileInput
+                        multiple
+                        (change)="selectImages($event)"
+                        style="display: none;">
+                    <div class="upload-placeholder">
+                        <div *ngIf="imageUrl" class="placeholder after">
+                            <img src="../../..../assets/fileupload1.svg" alt="" height="160">
+                            <h3><i class="fi fi-sr-camera-viewfinder"></i>&ensp;Remplacer l'image par une autre</h3>
+                            <span>Naviguer depuis la machine ou cherchez l'image depuis la machine</span>
+                        </div>
+                        <div *ngIf="!imageUrl" class="placeholder before">
+                            <img src="../../../assets/thumbnail.svg" alt="" height="198">
+                            <h5>Selectionner l'image</h5>
+                            <span>Naviguer depuis la machine ou cherchez l'image depuis la machine</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group imgs">
+                    <div *ngFor='let multiple of multiples let i = index' class="preview-wrapper">
+                        <span class="preview-cancel" (click)="removeItem(i)">
+                            <i class="fi fi-sr-cross-small"></i>
+                        </span>
+                        <img [src]="multiple" height="84">
+                    </div>
+                </div>
+            </div>
+            <div class="form-section">
+                <label for="heureOuverture" id="heureOuverture" style="font-size: 15px; font-weight: 500">Heures d'Ouverture:</label>
+                <div class="form-group ophours" formGroupName="heureOuverture">
+                    <div class="openHours" *ngFor="let day of daysOfWeek" [formGroupName]="day">
+                        <span style="width: 40%; font-size: 14px; text-transform: lowercase;">{{day}}</span>
+                        <mat-form-field appearance="fill"> 
+                            <mat-label>Heure de début</mat-label>
+                            <input 
+                                matInput 
+                                type="text" 
+                                formControlName="heureDebut">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill"> 
+                            <mat-label>Heure de fin</mat-label>
+                            <input 
+                                matInput 
+                                type="text" 
+                                formControlName="heureFin">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>  
+            <div class="form-submission">
+                <button mat-raised-button class="submit" type="submit">
+                    Créer la boutique
+                </button>
+            </div>
+        </div>
+    </form> 
+</div>

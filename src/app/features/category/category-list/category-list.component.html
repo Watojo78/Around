@@ -1,0 +1,89 @@
+<div class="list">
+    <div class="list-header">
+        <div class="list-infos">
+            <h4>Liste</h4>
+            <div class="list-route">
+                <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/service/list']" routerLinkActive="router-link-active" >Services</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/service/category/list']" routerLinkActive="router-link-active">Catégories</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/service/category/list']" routerLinkActive="router-link-active">Liste</a>
+            </div>
+        </div>
+        <a [routerLink]="['/dashboard/service/category/new']" routerLinkActive="router-link-active" >
+            <button mat-raised-button>
+                <span>Nouvelle Catégorie
+                    
+                </span>
+            </button>
+        </a>
+    </div>
+    <div class="list-content">
+      <table 
+        mat-table 
+        [dataSource]="dataSource" 
+        matSort>
+      
+          <!-- name Column -->
+          <ng-container matColumnDef="nomCategorie">
+            <th 
+              mat-header-cell 
+              *matHeaderCellDef 
+              mat-sort-header 
+              sortActionDescription="Sort by name">Nom Catégorie</th>
+            <td mat-cell *matCellDef="let element"> 
+              <div class="categoryName">
+                <img src="../../../assets/servicesample.svg" height="56">
+                <span>{{element.nomCategorie}}</span>
+              </div>
+            </td>
+          </ng-container>
+        
+          <!-- desc Column -->
+          <ng-container matColumnDef="description">
+            <th 
+              mat-header-cell 
+              *matHeaderCellDef
+              mat-sort-header>Description</th>
+            <td mat-cell *matCellDef="let element">{{element.description}}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="actions">
+            <th 
+              mat-header-cell 
+              *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> 
+              <div class="actions">
+                <button [routerLink]="['/dashboard/service/category/',element.idCategorie]" mat-icon-button color="primary">
+                  <i class="fi fi-rr-angle-double-small-right"></i>
+                </button>
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                  <i class="fi fi-sr-menu-dots-vertical"></i>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <a 
+                    mat-menu-item 
+                    [routerLink]="['/dashboard/service/category/',element.idCategorie,'\edit']">
+                    <i class="fa-solid fa-pen"></i>
+                    <span>Editer</span>
+                  </a>
+                  <button mat-menu-item (click)="deleteCat(element.idCategorie)" disabled>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span>Supprimer</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </td>
+        </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator
+          [length]="catsLength"
+          [pageSizeOptions]="[5, 10, 25, 100]" 
+          aria-label="Services"></mat-paginator>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="new">
+    <div class="new-header">
+        <div class="new-infos">
+            <h4>Nouveau Service</h4>
+            <div class="new-route">
+                <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/service/list']" routerLinkActive="router-link-active" >Services</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/service/new']" routerLinkActive="router-link-active">Nouveau Service</a>
+            </div>
+        </div>
+    </div> 
+    <form class="new-service" [formGroup]="serviceForm" (ngSubmit)="onFormSubmit()">
+        <div class="content-infos">
+            <h5>Infos</h5>
+            <span>Titre, description, catégorie, miniature...</span>
+        </div>
+        <div class="content-form">
+            <div class="form-group">
+                <mat-form-field appearance="fill"> 
+                    <mat-label>Nom du service</mat-label>
+                    <input 
+                        matInput 
+                        type="text" 
+                        formControlName="nomService"
+                        required>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill"> 
+                    <mat-label>Choisir une catégorie</mat-label>
+                    <mat-select 
+                        required
+                        formControlName="categorieId">
+                        <mat-option *ngFor="let category of loadedCats" [value]="category.idCategorie">
+                            {{category.nomCategorie}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill"> 
+                    <mat-label>Description</mat-label>
+                    <textarea 
+                        matInput 
+                        formControlName="description"
+                        placeholder="Max 500 caractères."></textarea>
+                </mat-form-field>
+            </div>
+            <div class="form-submission">
+                <button mat-raised-button class="submit" type="submit">
+                    Ajouter le service
+                </button>
+            </div>
+        </div>  
+    </form> 
+</div>

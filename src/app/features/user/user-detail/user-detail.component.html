@@ -1,0 +1,107 @@
+<div class="detail">
+    <div class="detail-header">
+        <div class="detail-infos">
+            <h4>Profil Utilisateur</h4>
+            <div class="detail-route">
+                <a [routerLink]="['/dashboard']" >Dashboard</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/user/list']" >Utilisateurs</a>
+                <i class="fi fi-ss-bullet"></i>
+                <button mat-button disabled>{{firstName}} {{lastName}}</button>
+            </div>
+        </div>
+        <a [routerLink]="['/dashboard/user/',id,'\edit']" routerLinkActive="router-link-active" >
+            <button mat-raised-button>
+                <i class="fa-solid fa-pencil"></i>
+                <span>Editer</span>
+            </button>
+        </a>
+    </div> 
+    <div class="detail-content"> 
+        <div class="content-head">   
+            <img src="../../../assets/avatar_pp_icon.svg" height="126">
+            <div class="head-fullName ">
+                <h5>{{firstName}} {{lastName}}</h5>
+                <span *ngIf="roleId == 1">Client</span>
+                <span *ngIf="roleId == 2">Administrateur</span>
+                <span *ngIf="roleId == 3">Gérant</span>
+                <span *ngIf="roleId == 4">Partenaire</span>
+            </div>
+        </div>
+        <div class="content-nfos">
+            <div class="nfos-about">
+                <div class="about-header">
+                    <h5>A propos</h5>
+                </div>
+                <div class="about-group">
+                    <h6>Email</h6>
+                    <span>{{email}}</span>
+                </div>
+                <div class="about-group">
+                    <h6>Téléphone</h6>
+                    <span>{{tel}}</span>
+                    <span *ngIf="!tel">Aucun N° enregistré</span>
+                </div>
+                <div class="about-group">
+                    <h6>Nom Complet</h6>
+                    <span>{{firstName}} {{lastName}}</span>
+                </div>
+                <div class="about-group">
+                    <h6>Statut du compte</h6>
+                    <span *ngIf="active" class="status active">Activé</span>
+                    <span *ngIf="!active" class="status pending">En cours</span>
+                </div>
+                <div class="about-group">
+                    <h6>Mot de passe</h6>
+                    <span>**********</span>
+                </div>
+                <div class="about-group">
+                    <h6>N° CNI</h6>
+                    <span>{{numeroCni}}</span>
+                    <span *ngIf="!numeroCni">Aucun N° de CNI enregistré</span>
+                </div>
+                <div class="about-footer">
+                    <button mat-button>Désactiver le compte</button>
+                </div>
+            </div>
+            <div class="nfos-others">
+                <div class="others-shop" *ngFor="let shop of shops">
+                    <div class="shop-header">
+                        <h5>Boutique: {{shop.nomBoutique}}</h5>
+                    </div>
+                    <div class="shop-body">
+                        <img src="../../..../assets/backhero.svg" alt="">
+                        <div class="container">
+                            <h6>Services</h6>
+                            <div class="categories">
+                              <h2 *ngFor="let category of categories">
+                                {{ category }}
+                              </h2>
+                              <div *ngFor="let service of services">
+                                <div class="service">
+                                  <h3>{{ service.category }} - {{ service.nomService }}</h3>
+                                  <p>{{ service.description }}</p>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shop-footer">
+                        <button mat-button>Désactiver la boutique</button>
+                    </div>
+                </div>
+                <div class="others-management">
+                    <div class="management-header">
+                        <h5>Gestion du Compte</h5>
+                    </div>
+                    <div class="management-body">
+                        <button mat-raised-button color="warn">Supprimer le compte</button>
+                    </div>
+                    <div class="management-footer">
+                        <p>Supprimez le compte de cet Utilisateur s'il l'a demandé, sinon sachez que ce qui a été supprimé ne pourra jamais être récupéré.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

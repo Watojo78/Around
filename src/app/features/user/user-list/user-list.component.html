@@ -1,0 +1,596 @@
+<div class="list">
+    <div class="list-header">
+        <div class="list-infos">
+            <h4>Liste</h4>
+            <div class="list-route">
+                <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/user/list']" routerLinkActive="router-link-active" >Utilisateurs</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/user/list']" routerLinkActive="router-link-active" >Liste</a>
+            </div>
+        </div>
+        <a [routerLink]="['/dashboard/user/new']" routerLinkActive="router-link-active" >
+            <button mat-raised-button>
+                <i class="fa-solid fa-plus"></i>
+                <span>Nouvel Utilisateur</span>
+            </button>
+        </a>
+    </div>
+    <mat-tab-group 
+      fitInkBarToContent 
+      mat-stretch-tabs="false" 
+      mat-align-tabs="start"
+      animationDuration="1ms">
+        <mat-tab label="Tous">
+          <ng-template mat-tab-label>
+            <span>Tous</span>
+            <span class="tab-label-count">{{usersLength}}</span>
+          </ng-template>
+            <table 
+              mat-table 
+              [dataSource]="dataSource" 
+              matSort>
+                <!-- fullName & Email Column -->
+                <ng-container matColumnDef="firstName">
+                  <th 
+                    mat-header-cell 
+                    *matHeaderCellDef 
+                    mat-sort-header 
+                    sortActionDescription="Sort by name"
+                    class="fname-head"> Nom </th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <div class="fname">
+                      <div class="fname-profile">
+                        <img *ngIf="element.profileId == 0 || !element.profileId" src="{{defaultSrc}}" height="42">
+                        <img *ngIf="element.profileId > 0" src="data:{{getImageType(element.profileId)}};base64,{{getImageSrc(element.profileId)}}" height="42">
+                      </div>
+                      <div class="fullName">
+                        <span>{{element.firstName}} {{element.lastName}}</span>
+                        <span>{{element.email}}</span>
+                      </div>
+                    </div>
+                  </td>
+                </ng-container>
+              
+                <!-- telName Column -->
+                <ng-container matColumnDef="tel">
+                  <th 
+                    mat-header-cell 
+                    *matHeaderCellDef
+                    mat-sort-header>Téléphone</th>
+                  <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
+                </ng-container>
+
+                <!-- niu Column -->
+                <ng-container matColumnDef="numeroCni">
+                  <th 
+                    mat-header-cell 
+                    *matHeaderCellDef
+                    mat-sort-header>Numéro CNI</th>
+                  <td mat-cell *matCellDef="let element"> {{element.numeroCni}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="role">
+                  <th 
+                    mat-header-cell 
+                    *matHeaderCellDef
+                    mat-sort-header> Role </th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <span class="role">{{getRoleName(element.roleId)}}</span>
+                  </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="active">
+                    <th 
+                      mat-header-cell 
+                      *matHeaderCellDef
+                      mat-sort-header>Statut</th>
+                    <td mat-cell *matCellDef="let element" class="active"> 
+                      <span class="status active" *ngIf="element.active">Activé</span> 
+                      <span class="status pending" *ngIf="!element.active">En cours</span> 
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th 
+                      mat-header-cell 
+                      *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element"> 
+                      <div class="actions">
+                        <button [routerLink]="['/dashboard/user/', element.id]" mat-icon-button color="primary">
+                          <i class="fi fi-rr-angle-double-small-right"></i>
+                        </button>
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                          <i class="fi fi-sr-menu-dots-vertical"></i>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                          <button 
+                            *ngIf="!element.active" 
+                            mat-menu-item 
+                            (click)="enableUser(element.id)">
+                            <i class="fi fi-sr-shield-check"></i>
+                            <span>Activer</span>
+                          </button>
+                          <a 
+                            mat-menu-item 
+                            [routerLink]="['/dashboard/user/',element.id,'\edit']">
+                            <i class="fa-solid fa-pen"></i>
+                            <span>Editer</span>
+                          </a>
+                          <button mat-menu-item (click)="deleteUser(element.id)" disabled>
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span>Supprimer</span>
+                          </button>
+                        </mat-menu>
+                      </div>
+                    </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator
+              [length]="usersLength"
+              [pageSizeOptions]="[5, 10, 25, 100]" 
+              aria-label="Utilisateurs"></mat-paginator>
+        </mat-tab>
+        <mat-tab label="Admins">
+          <ng-template mat-tab-label>
+            <span>Admins</span>
+            <span class="tab-label-count">{{adminsLength}}</span>
+          </ng-template>
+          <table 
+            mat-table 
+            [dataSource]="admins" 
+            matSort>
+              <!-- fullName & Email Column -->
+              <ng-container matColumnDef="firstName">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef 
+                  mat-sort-header 
+                  sortActionDescription="Sort by name"
+                  class="fname-head"> Nom </th>
+                <td mat-cell *matCellDef="let element"> 
+                  <div class="fname">
+                      <div class="fname-profile">
+                        <img *ngIf="element.profileId == 0 || !element.profileId" src="{{defaultSrc}}" height="42">
+                        <img *ngIf="element.profileId > 0" src="data:{{getImageType(element.profileId)}};base64,{{getImageSrc(element.profileId)}}" height="42">
+                      </div>
+                    <div class="fullName">
+                      <span>{{element.firstName}} {{element.lastName}}</span>
+                      <span>{{element.email}}</span>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+            
+              <!-- telName Column -->
+              <ng-container matColumnDef="tel">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef
+                  mat-sort-header>Téléphone</th>
+                <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
+              </ng-container>
+
+              <!-- niu Column -->
+              <ng-container matColumnDef="numeroCni">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef
+                  mat-sort-header>Numéro CNI</th>
+                <td mat-cell *matCellDef="let element"> {{element.numeroCni}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="role">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef
+                  mat-sort-header> Role </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <span class="role">{{getRoleName(element.roleId)}}</span>
+                </td>
+              </ng-container>
+
+              <!-- Status Column -->
+              <ng-container matColumnDef="active">
+                  <th 
+                    mat-header-cell 
+                    *matHeaderCellDef
+                    mat-sort-header>Statut</th>
+                  <td mat-cell *matCellDef="let element" class="active"> 
+                    <span class="status active" *ngIf="element.active">Activé</span> 
+                    <span class="status pending" *ngIf="!element.active">En cours</span> 
+                  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                  <th 
+                    mat-header-cell 
+                    *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <div class="actions">
+                      <button [routerLink]="['/dashboard/user/', element.id]" mat-icon-button color="primary">
+                        <i class="fi fi-rr-angle-double-small-right"></i>
+                      </button>
+                      <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <i class="fi fi-sr-menu-dots-vertical"></i>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button 
+                          *ngIf="!element.active" 
+                          mat-menu-item 
+                          (click)="enableUser(element.id)">
+                          <i class="fi fi-sr-shield-check"></i>
+                          <span>Activer</span>
+                        </button>
+                        <a 
+                          mat-menu-item 
+                          [routerLink]="['/dashboard/user/',element.id,'\edit']">
+                          <i class="fa-solid fa-pen"></i>
+                          <span>Editer</span>
+                        </a>
+                        <button mat-menu-item (click)="deleteUser(element.id)" disabled>
+                          <i class="fa-solid fa-trash-can"></i>
+                          <span>Supprimer</span>
+                        </button>
+                      </mat-menu>
+                    </div>
+                  </td>
+              </ng-container>
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+            <mat-paginator
+              [length]="adminsLength"
+              [pageSizeOptions]="[5, 10]" 
+              aria-label="Administrateurs"></mat-paginator>
+        </mat-tab>
+        <mat-tab label="Partners">
+          <ng-template mat-tab-label>
+            <span>Partenaires</span>
+            <span class="tab-label-count">{{partnersLength}}</span>
+          </ng-template>
+          <table 
+            mat-table 
+            [dataSource]="partners" 
+            matSort>
+              <!-- fullName & Email Column -->
+              <ng-container matColumnDef="firstName">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef 
+                  mat-sort-header 
+                  sortActionDescription="Sort by name"
+                  class="fname-head"> Nom </th>
+                <td mat-cell *matCellDef="let element"> 
+                  <div class="fname">
+                      <div class="fname-profile">
+                        <img *ngIf="element.profileId == 0 || !element.profileId" src="{{defaultSrc}}" height="42">
+                        <img *ngIf="element.profileId > 0" src="data:{{getImageType(element.profileId)}};base64,{{getImageSrc(element.profileId)}}" height="42">
+                      </div>
+                    <div class="fullName">
+                      <span>{{element.firstName}} {{element.lastName}}</span>
+                      <span>{{element.email}}</span>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+            
+              <!-- telName Column -->
+              <ng-container matColumnDef="tel">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef
+                  mat-sort-header>Téléphone</th>
+                <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
+              </ng-container>
+
+              <!-- niu Column -->
+              <ng-container matColumnDef="numeroCni">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef
+                  mat-sort-header>Numéro CNI</th>
+                <td mat-cell *matCellDef="let element"> {{element.numeroCni}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="role">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef
+                  mat-sort-header> Role </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <span class="role">{{getRoleName(element.roleId)}}</span>
+                </td>
+              </ng-container>
+
+              <!-- Status Column -->
+              <ng-container matColumnDef="active">
+                  <th 
+                    mat-header-cell 
+                    *matHeaderCellDef
+                    mat-sort-header>Statut</th>
+                  <td mat-cell *matCellDef="let element" class="active"> 
+                    <span class="status active" *ngIf="element.active">Activé</span> 
+                    <span class="status pending" *ngIf="!element.active">En cours</span> 
+                  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                  <th 
+                    mat-header-cell 
+                    *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <div class="actions">
+                      <button [routerLink]="['/dashboard/user/', element.id]" mat-icon-button color="primary">
+                        <i class="fi fi-rr-angle-double-small-right"></i>
+                      </button>
+                      <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <i class="fi fi-sr-menu-dots-vertical"></i>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button 
+                          *ngIf="!element.active" 
+                          mat-menu-item 
+                          (click)="enableUser(element.id)">
+                          <i class="fi fi-sr-shield-check"></i>
+                          <span>Activer</span>
+                        </button>
+                        <a 
+                          mat-menu-item 
+                          [routerLink]="['/dashboard/user/',element.id,'\edit']">
+                          <i class="fa-solid fa-pen"></i>
+                          <span>Editer</span>
+                        </a>
+                        <button mat-menu-item (click)="deleteUser(element.id)" disabled>
+                          <i class="fa-solid fa-trash-can"></i>
+                          <span>Supprimer</span>
+                        </button>
+                      </mat-menu>
+                    </div>
+                  </td>
+              </ng-container>
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+            <mat-paginator
+              [length]="partnersLength"
+              [pageSizeOptions]="[5, 10, 25, 100]" 
+              aria-label="Utilisateurs"></mat-paginator>
+        </mat-tab>
+        <mat-tab label="Managers">
+          <ng-template mat-tab-label>
+            <span>Gérants</span>
+            <span class="tab-label-count">{{managersLength}}</span>
+          </ng-template>
+          <table 
+            mat-table 
+            [dataSource]="managers" 
+            matSort>
+              <!-- fullName & Email Column -->
+              <ng-container matColumnDef="firstName">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef 
+                  mat-sort-header 
+                  sortActionDescription="Sort by name"
+                  class="fname-head"> Nom </th>
+                <td mat-cell *matCellDef="let element"> 
+                  <div class="fname">
+                      <div class="fname-profile">
+                        <img *ngIf="element.profileId == 0 || !element.profileId" src="{{defaultSrc}}" height="42">
+                        <img *ngIf="element.profileId > 0" src="data:{{getImageType(element.profileId)}};base64,{{getImageSrc(element.profileId)}}" height="42">
+                      </div>
+                    <div class="fullName">
+                      <span>{{element.firstName}} {{element.lastName}}</span>
+                      <span>{{element.email}}</span>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+            
+              <!-- telName Column -->
+              <ng-container matColumnDef="tel">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef
+                  mat-sort-header>Téléphone</th>
+                <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
+              </ng-container>
+
+              <!-- niu Column -->
+              <ng-container matColumnDef="numeroCni">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef
+                  mat-sort-header>Numéro CNI</th>
+                <td mat-cell *matCellDef="let element"> {{element.numeroCni}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="role">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef
+                  mat-sort-header> Role </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <span class="role">{{getRoleName(element.roleId)}}</span>
+                </td>
+              </ng-container>
+
+              <!-- Status Column -->
+              <ng-container matColumnDef="active">
+                  <th 
+                    mat-header-cell 
+                    *matHeaderCellDef
+                    mat-sort-header>Statut</th>
+                  <td mat-cell *matCellDef="let element" class="active"> 
+                    <span class="status active" *ngIf="element.active">Activé</span> 
+                    <span class="status pending" *ngIf="!element.active">En cours</span> 
+                  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                  <th 
+                    mat-header-cell 
+                    *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <div class="actions">
+                      <button [routerLink]="['/dashboard/user/', element.id]" mat-icon-button color="primary">
+                        <i class="fi fi-rr-angle-double-small-right"></i>
+                      </button>
+                      <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <i class="fi fi-sr-menu-dots-vertical"></i>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button 
+                          *ngIf="!element.active" 
+                          mat-menu-item 
+                          (click)="enableUser(element.id)">
+                          <i class="fi fi-sr-shield-check"></i>
+                          <span>Activer</span>
+                        </button>
+                        <a 
+                          mat-menu-item 
+                          [routerLink]="['/dashboard/user/',element.id,'\edit']">
+                          <i class="fa-solid fa-pen"></i>
+                          <span>Editer</span>
+                        </a>
+                        <button mat-menu-item (click)="deleteUser(element.id)" disabled>
+                          <i class="fa-solid fa-trash-can"></i>
+                          <span>Supprimer</span>
+                        </button>
+                      </mat-menu>
+                    </div>
+                  </td>
+              </ng-container>
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+              <mat-paginator
+                [length]="managersLength"
+                [pageSizeOptions]="[5, 10, 25, 100]" 
+                aria-label="Utilisateurs"></mat-paginator>
+        </mat-tab>
+        <mat-tab label="Customers">
+          <ng-template mat-tab-label>
+            <span>Clients</span>
+            <span class="tab-label-count">{{customersLength}}</span>
+          </ng-template>
+          <table 
+            mat-table 
+            [dataSource]="customers" 
+            matSort>
+              <!-- fullName & Email Column -->
+              <ng-container matColumnDef="firstName">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef 
+                  mat-sort-header 
+                  sortActionDescription="Sort by name"
+                  class="fname-head"> Nom </th>
+                <td mat-cell *matCellDef="let element"> 
+                  <div class="fname">
+                      <div class="fname-profile">
+                        <img *ngIf="element.profileId == 0 || !element.profileId" src="{{defaultSrc}}" height="42">
+                        <img *ngIf="element.profileId > 0" src="data:{{getImageType(element.profileId)}};base64,{{getImageSrc(element.profileId)}}" height="42">
+                      </div>
+                    <div class="fullName">
+                      <span>{{element.firstName}} {{element.lastName}}</span>
+                      <span>{{element.email}}</span>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+            
+              <!-- telName Column -->
+              <ng-container matColumnDef="tel">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef
+                  mat-sort-header>Téléphone</th>
+                <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
+              </ng-container>
+
+              <!-- niu Column -->
+              <ng-container matColumnDef="numeroCni">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef
+                  mat-sort-header>Numéro CNI</th>
+                <td mat-cell *matCellDef="let element"> {{element.numeroCni}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="role">
+                <th 
+                  mat-header-cell 
+                  *matHeaderCellDef
+                  mat-sort-header> Role </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <span class="role">{{getRoleName(element.roleId)}}</span>
+                </td>
+              </ng-container>
+
+              <!-- Status Column -->
+              <ng-container matColumnDef="active">
+                  <th 
+                    mat-header-cell 
+                    *matHeaderCellDef
+                    mat-sort-header>Statut</th>
+                  <td mat-cell *matCellDef="let element" class="active"> 
+                    <span class="status active" *ngIf="element.active">Activé</span> 
+                    <span class="status pending" *ngIf="!element.active">En cours</span> 
+                  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                  <th 
+                    mat-header-cell 
+                    *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <div class="actions">
+                      <button [routerLink]="['/dashboard/user/', element.id]" mat-icon-button color="primary">
+                        <i class="fi fi-rr-angle-double-small-right"></i>
+                      </button>
+                      <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <i class="fi fi-sr-menu-dots-vertical"></i>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button 
+                          *ngIf="!element.active" 
+                          mat-menu-item 
+                          (click)="enableUser(element.id)">
+                          <i class="fi fi-sr-shield-check"></i>
+                          <span>Activer</span>
+                        </button>
+                        <a 
+                          mat-menu-item 
+                          [routerLink]="['/dashboard/user/',element.id,'\edit']">
+                          <i class="fa-solid fa-pen"></i>
+                          <span>Editer</span>
+                        </a>
+                        <button mat-menu-item (click)="deleteUser(element.id)" disabled>
+                          <i class="fa-solid fa-trash-can"></i>
+                          <span>Supprimer</span>
+                        </button>
+                      </mat-menu>
+                    </div>
+                  </td>
+              </ng-container>
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+              <mat-paginator
+                [length]="customersLength"
+                [pageSizeOptions]="[5, 10, 25, 100]" 
+                aria-label="Utilisateurs"></mat-paginator>
+        </mat-tab>
+    </mat-tab-group>      
+</div>

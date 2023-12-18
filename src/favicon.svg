@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 428.1 586.1">
+  <defs>
+    <linearGradient id="Dégradé_sans_nom" data-name="Dégradé sans nom" x1="142.46" y1="973.43" x2="343.51" y2="640.3" gradientTransform="translate(0 -340.6)" gradientUnits="userSpaceOnUse">
+      <stop offset=".04" stop-color="#7cc2eb"/>
+      <stop offset=".25" stop-color="#86c8ec"/>
+      <stop offset=".6" stop-color="#a1daef"/>
+      <stop offset=".75" stop-color="#aee2f0"/>
+    </linearGradient>
+    <linearGradient id="Dégradé_sans_nom_2" data-name="Dégradé sans nom 2" x1="284.48" y1="533.36" x2="369.02" y2="405.79" gradientTransform="translate(0 -340.6)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6b6ba3"/>
+      <stop offset=".42" stop-color="#5b609e"/>
+      <stop offset="1" stop-color="#485398"/>
+    </linearGradient>
+    <linearGradient id="Dégradé_sans_nom_3" data-name="Dégradé sans nom 3" x1="61.97" y1="793.91" x2="242.84" y2="491.39" gradientTransform="translate(0 -340.6)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff6a6e"/>
+      <stop offset=".91" stop-color="#ff6a75"/>
+      <stop offset="1" stop-color="#ff6a76"/>
+    </linearGradient>
+    <linearGradient id="Dégradé_sans_nom_4" data-name="Dégradé sans nom 4" x1="137.79" y1="589.48" x2="297.77" y2="439.97" gradientTransform="translate(0 -340.6)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff6a6e"/>
+      <stop offset=".17" stop-color="#ff6e72"/>
+      <stop offset=".35" stop-color="#ff7b7f"/>
+      <stop offset=".53" stop-color="#ff9093"/>
+      <stop offset=".72" stop-color="#ffaeb1"/>
+      <stop offset=".91" stop-color="#ffd4d6"/>
+      <stop offset="1" stop-color="#ffe9ea"/>
+    </linearGradient>
+  </defs>
+  <g id="Calque_2-2" data-name="Calque 2">
+    <g>
+      <polygon points="39 582 232 276.8 428.1 381.8 39 582" style="fill: url(#Dégradé_sans_nom);"/>
+      <g>
+        <polygon points="256.4 102.6 409.4 136.8 346.7 223.2 256.4 102.6" style="fill: url(#Dégradé_sans_nom_2);"/>
+        <path d="m346.7,223.2l-38.8-51.8s31.6,50.7,86.5-14l-47.7,65.8Z" style="fill: #15307c; isolation: isolate; opacity: .36;"/>
+      </g>
+      <g>
+        <polygon points="428.1 381.8 409.4 136.8 346.7 223.2 286.6 306 428.1 381.8" style="fill: #65bee4;"/>
+        <path d="m330.4,245.6l-11,39.5c-2.7,9.6,1,19.9,9.1,25.7l99.6,70.9-141.5-75.8,43.8-60.3h0Z" style="fill: #2a75c2; isolation: isolate; opacity: .36;"/>
+      </g>
+      <polygon points="0 586.1 215.9 228.7 352.4 301.2 133.5 0 0 586.1" style="fill: url(#Dégradé_sans_nom_3);"/>
+      <polygon points="215.9 228.7 133.5 0 352.4 301.2 215.9 228.7" style="fill: url(#Dégradé_sans_nom_4);"/>
+      <path d="m215.9,228.7l-30.7-85.1s45,86.8,88.2,115.7" style="fill: #861554; isolation: isolate; opacity: .36;"/>
+    </g>
+  </g>
+</svg>

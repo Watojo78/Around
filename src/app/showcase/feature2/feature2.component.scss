@@ -1,0 +1,26 @@
+#f2wrapper{
+    margin-bottom: 2.8rem;
+    &_elts{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        margin: 2.4rem 10rem;
+        text-align: left;
+    }
+}
+
+.resume,.illus{
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    #f2wrapper{
+        &_elts{
+            flex-direction: column-reverse;
+            margin: 1.4rem;
+        }
+    }
+
+    .illus,h3,p{margin-bottom: 1rem;}
+}

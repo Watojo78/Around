@@ -1,0 +1,69 @@
+<div class="new">
+    <div class="new-header">
+        <div class="new-infos">
+            <h4>Nouvelle Catégorie</h4>
+            <div class="new-route">
+                <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active">Dashboard</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/service/category/list']" routerLinkActive="router-link-active">Catégories</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/service/category/new']" routerLinkActive="router-link-active">Nouvelle Catégorie</a>
+            </div>
+        </div>
+    </div> 
+    <form class="new-category" [formGroup]="categoryForm" (ngSubmit)="onFormSubmit()">
+        <div class="content-infos">
+            <h5>Infos</h5>
+            <span>Titre, description, services, miniature...</span>
+        </div>
+        <div class="content-form">
+            <div class="form-group">
+                <mat-form-field appearance="fill"> 
+                    <mat-label>Nom de la catégorie</mat-label>
+                    <input 
+                        matInput 
+                        type="text" 
+                        formControlName="nomCategorie"
+                        required>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill"> 
+                    <mat-label>Description</mat-label>
+                    <textarea 
+                        matInput 
+                        formControlName="description"
+                        placeholder="Max 500 caractères."></textarea>
+                </mat-form-field>
+            </div>
+            <div class="form-group thumb" (click)="openFileInput()">
+                <input 
+                    accept="image/*" 
+                    type="file" 
+                    #fileInput
+                    (change)="onFileSelected($event)"
+                    style="display: none;">
+                <div *ngIf="imageUrl" class="image-preview">
+                    <img [src]="imageUrl" alt="Service-Preview">
+                </div>
+                <div class="upload-placeholder">
+                    <div *ngIf="imageUrl" class="placeholder after">
+                        <img src="../../../assets/fileupload1.svg" alt="" height="160">
+                        <h3><i class="fi fi-sr-camera-viewfinder"></i>&ensp;Remplacer l'image par une autre</h3>
+                        <span>Naviguer depuis la machine ou cherchez l'image depuis la machine</span>
+                    </div>
+                    <div *ngIf="!imageUrl" class="placeholder before">
+                        <img src="../../../assets/thumbnail.svg" alt="" height="198">
+                        <h5>Selectionner l'image</h5>
+                        <span>Naviguer depuis la machine ou cherchez l'image depuis la machine</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-submission">
+                <button mat-raised-button class="submit" type="submit">
+                    Ajouter la Catégorie
+                </button>
+            </div>
+        </div>  
+    </form> 
+</div>

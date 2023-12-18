@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2005.7 586.1">
+  <defs>
+    <linearGradient id="Dégradé_sans_nom" data-name="Dégradé sans nom" x1="142.46" y1="122.82" x2="343.51" y2="455.95" gradientTransform="translate(0 755.65) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset=".04" stop-color="#7cc2eb"/>
+      <stop offset=".25" stop-color="#86c8ec"/>
+      <stop offset=".6" stop-color="#a1daef"/>
+      <stop offset=".75" stop-color="#aee2f0"/>
+    </linearGradient>
+    <linearGradient id="Dégradé_sans_nom_2" data-name="Dégradé sans nom 2" x1="284.48" y1="562.89" x2="369.02" y2="690.46" gradientTransform="translate(0 755.65) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6b6ba3"/>
+      <stop offset=".42" stop-color="#5b609e"/>
+      <stop offset="1" stop-color="#485398"/>
+    </linearGradient>
+    <linearGradient id="Dégradé_sans_nom_3" data-name="Dégradé sans nom 3" x1="61.97" y1="302.34" x2="242.84" y2="604.86" gradientTransform="translate(0 755.65) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff6a6e"/>
+      <stop offset=".91" stop-color="#ff6a75"/>
+      <stop offset="1" stop-color="#ff6a76"/>
+    </linearGradient>
+    <linearGradient id="Dégradé_sans_nom_4" data-name="Dégradé sans nom 4" x1="137.79" y1="506.77" x2="297.77" y2="656.28" gradientTransform="translate(0 755.65) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff6a6e"/>
+      <stop offset=".17" stop-color="#ff6e72"/>
+      <stop offset=".35" stop-color="#ff7b7f"/>
+      <stop offset=".53" stop-color="#ff9093"/>
+      <stop offset=".72" stop-color="#ffaeb1"/>
+      <stop offset=".91" stop-color="#ffd4d6"/>
+      <stop offset="1" stop-color="#ffe9ea"/>
+    </linearGradient>
+    <linearGradient id="Dégradé_sans_nom_3-2" data-name="Dégradé sans nom 3" x1="495.51" y1="293.05" x2="745.06" y2="293.05" gradientTransform="matrix(1,0,0,1,0,0)" xlink:href="#Dégradé_sans_nom_3"/>
+    <linearGradient id="Dégradé_sans_nom_3-3" data-name="Dégradé sans nom 3" x1="766.71" y1="293.05" x2="968.02" y2="293.05" gradientTransform="matrix(1,0,0,1,0,0)" xlink:href="#Dégradé_sans_nom_3"/>
+    <linearGradient id="Dégradé_sans_nom_3-4" data-name="Dégradé sans nom 3" x1="982.83" y1="293.05" x2="1266.56" y2="293.05" gradientTransform="matrix(1,0,0,1,0,0)" xlink:href="#Dégradé_sans_nom_3"/>
+    <linearGradient id="Dégradé_sans_nom_3-5" data-name="Dégradé sans nom 3" x1="1290.11" y1="294.95" x2="1489.9" y2="294.95" gradientTransform="matrix(1,0,0,1,0,0)" xlink:href="#Dégradé_sans_nom_3"/>
+    <linearGradient id="Dégradé_sans_nom_3-6" data-name="Dégradé sans nom 3" x1="1521.42" y1="293.05" x2="1751.6" y2="293.05" gradientTransform="matrix(1,0,0,1,0,0)" xlink:href="#Dégradé_sans_nom_3"/>
+    <linearGradient id="Dégradé_sans_nom_3-7" data-name="Dégradé sans nom 3" x1="1783.5" y1="293.05" x2="2005.7" y2="293.05" gradientTransform="matrix(1,0,0,1,0,0)" xlink:href="#Dégradé_sans_nom_3"/>
+  </defs>
+  <g id="Calque_1-2" data-name="Calque 1">
+    <g>
+      <g>
+        <polygon points="39 582 232 276.8 428.1 381.8 39 582" style="fill: url(#Dégradé_sans_nom);"/>
+        <g>
+          <polygon points="256.4 102.6 409.4 136.8 346.7 223.2 256.4 102.6" style="fill: url(#Dégradé_sans_nom_2);"/>
+          <path d="m346.7,223.2l-38.8-51.8s31.6,50.7,86.5-14l-47.7,65.8Z" style="fill: #15307c; isolation: isolate; opacity: .36;"/>
+        </g>
+        <g>
+          <polygon points="428.1 381.8 409.4 136.8 346.7 223.2 286.6 306 428.1 381.8" style="fill: #65bee4;"/>
+          <path d="m330.4,245.6l-11,39.5c-2.7,9.6,1,19.9,9.1,25.7l99.6,70.9-141.5-75.8,43.8-60.3Z" style="fill: #2a75c2; isolation: isolate; opacity: .36;"/>
+        </g>
+        <polygon points="0 586.1 215.9 228.7 352.4 301.2 133.5 0 0 586.1" style="fill: url(#Dégradé_sans_nom_3);"/>
+        <polygon points="215.9 228.7 133.5 0 352.4 301.2 215.9 228.7" style="fill: url(#Dégradé_sans_nom_4);"/>
+        <path d="m215.9,228.7l-30.7-85.1s45,86.8,88.2,115.7" style="fill: #861554; isolation: isolate; opacity: .36;"/>
+      </g>
+      <g>
+        <path d="m594.27,154.41h52.04l98.76,277.28h-53.94l-17.09-49.38h-107.49l-17.09,49.38h-53.94l98.76-277.28Zm-10.25,178.52h72.93l-36.46-105.21-36.46,105.21Z" style="fill: url(#Dégradé_sans_nom_3-2);"/>
+        <path d="m766.71,431.69V154.41h88.88c65.33,0,103.69,39.12,103.69,96.48,0,33.43-16.33,64.57-46.72,80.9l55.46,99.9h-58.87l-44.44-84.7h-46.34v84.7h-51.66Zm84.32-132.18c42.54,0,56.59-23.17,56.59-50.52s-17.09-46.34-56.59-46.34h-32.67v96.86h32.67Z" style="fill: url(#Dégradé_sans_nom_3-3);"/>
+        <path d="m982.83,293.05c0-78.62,62.67-142.44,141.68-142.44s142.06,63.81,142.06,142.44-63.05,142.44-142.06,142.44-141.68-63.43-141.68-142.44Zm232.46,0c0-50.52-40.26-91.54-90.78-91.54s-90.4,41.02-90.4,91.54,39.88,91.54,90.4,91.54,90.78-41.02,90.78-91.54Z" style="fill: url(#Dégradé_sans_nom_3-4);"/>
+        <path d="m1290.11,335.97v-181.56h51.66v184.6c0,27.35,20.51,48.62,47.86,48.62s48.62-21.27,48.62-48.62v-184.6h51.66v181.56c0,64.95-42.54,99.52-99.89,99.52s-99.89-34.56-99.89-99.52Z" style="fill: url(#Dégradé_sans_nom_3-5);"/>
+        <path d="m1521.42,154.41h58.49l120.03,188.78v-188.78h51.66v277.28h-55.08l-123.44-194.85v194.85h-51.66V154.41Z" style="fill: url(#Dégradé_sans_nom_3-6);"/>
+        <path d="m1783.5,154.41h75.59c93.44,0,146.61,60.01,146.61,138.64s-60.01,138.64-144.34,138.64h-77.86V154.41Zm51.66,47.86v181.56h20.13c60.77,0,98.76-39.12,98.76-90.78s-32.28-90.78-101.03-90.78h-17.85Z" style="fill: url(#Dégradé_sans_nom_3-7);"/>
+      </g>
+    </g>
+  </g>
+</svg>

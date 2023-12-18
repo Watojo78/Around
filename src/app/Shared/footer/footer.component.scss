@@ -1,0 +1,15 @@
+.footerwrapper{
+    padding: 1rem 16rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 600px) {
+    .footerwrapper{
+        padding: 1rem 1.4rem;
+        flex-direction: column;
+        text-align: center;
+        justify-content: space-between;
+    }
+  }

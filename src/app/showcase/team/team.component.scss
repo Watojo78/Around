@@ -1,0 +1,89 @@
+#team-wrapper{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 10rem;
+    .slogan{ 
+        h3{  
+            font-size: 35px;
+        }
+        p{
+            font-size: 18px;
+            line-height: 28px;
+        }
+    }
+
+    swiper{
+        &-container{
+            margin: 1rem 0;
+
+            &:hover{
+                cursor: grab;
+            }
+        }
+        
+        &-slide{
+            margin: 1.6rem;
+        }
+    }
+
+    .member{
+        &1,&2,&3,&4,&5,&6{
+            border-radius: 50%;
+            position: relative;
+            background-image: url("../../../assets/mrAbanda.jpg");
+            background-size: contain;
+            height: 15rem;
+            width: 15rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            flex-direction: column;
+
+            h4{font-size: 20px;}
+
+            p{font-size: 20px;}
+
+            h4,p{
+                opacity: 0;
+                z-index: 1;
+                transition: all .2s;
+                visibility: hidden;
+            }
+            
+            .overflow{
+                position: absolute;
+                top: 1rem;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 50%;
+                z-index: 0;
+                opacity: 0;
+                visibility: hidden;
+                transition: all .2s;
+                background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+            }
+        }
+
+        &1:hover h4,&1:hover p,
+        &2:hover h4,&2:hover p,
+        &3:hover h4,&3:hover p,
+        &4:hover h4,&4:hover p{
+            visibility: visible;
+            opacity: 1;
+        }
+
+        &1:hover .overflow,
+        &2:hover .overflow,
+        &3:hover .overflow,
+        &4:hover .overflow{
+            visibility: visible;
+            opacity: .56;
+            top: 0;
+        }
+    }
+}

@@ -1,0 +1,76 @@
+<div class="dashboard">
+    <div class="welcome">
+        <div class="welcome box">
+            <div class="resume">
+                <h3>Bon retour {{ lastName }}</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet consectetur adipisicing elit.</p>
+                <a mat-flat-button routerLink="/dashboard/settings" style="font-size: 14px;">Commencer</a>
+            </div>
+            <img src="../../../assets/welcomedashboard.svg" alt="" height="210">
+        </div>
+        <div class="welcome shops">
+            <swiper-container 
+                pagination="true" 
+                slides-per-view="1" 
+                pagination-clickable="true" 
+                autoplay-disable-on-interaction="false">
+                <swiper-slide>
+                    <img src="../../../assets/welcomedashboard.svg" alt="" height="210">
+                </swiper-slide>
+                <swiper-slide>
+                    <img src="../../../assets/welcomedashboard.svg" alt="" height="210">
+                </swiper-slide>
+                <swiper-slide>
+                    <img src="../../../assets/welcomedashboard.svg" alt="" height="210">
+                </swiper-slide>
+            </swiper-container>
+        </div>
+    </div>
+    <div class="counters">
+        <div class="counters block1">
+            <div class="infos">
+                <h4>Total Boutiques</h4>
+                <h3>{{countShops}}</h3>
+            </div>
+            <i class="fi fi-sr-bags-shopping"></i>
+        </div>
+        <div class="counters block2">
+            <div class="infos">
+                <h4>Total Roles</h4>
+                <h3>{{countRoles}}</h3>
+            </div>
+            <i class="fi fi-rr-user-gear"></i>
+        </div>
+        <div class="counters block3">
+            <div class="infos">
+                <h4>Total Users</h4>
+                <h3>{{countUsers}}</h3>
+            </div>
+            <i class="fi fi-sr-users"></i>
+        </div>
+        <div class="counters block3">
+            <div class="infos">
+                <h4>Total Services</h4>
+                <h3>{{countServices}}</h3>
+            </div>
+            <i class="fi fi-rr-time-twenty-four"></i>
+        </div>
+    </div>
+    
+    <div class="recent">
+        <div class="recent-transactions">
+            <apx-chart> 
+            </apx-chart>
+        </div>
+        <div class="recent-accounts">
+            <apx-chart
+                [series]="chartOptions.series"
+                [chart]="chartOptions.chart"
+                [xaxis]="chartOptions.xaxis"
+                [stroke]="chartOptions.stroke"
+                [tooltip]="chartOptions.tooltip"
+                [dataLabels]="chartOptions.dataLabels">
+            </apx-chart>
+        </div>
+    </div>
+</div>

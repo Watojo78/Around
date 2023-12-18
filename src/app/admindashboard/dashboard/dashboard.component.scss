@@ -1,0 +1,167 @@
+.dashboard{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.4rem;
+    margin: 5.6rem 2.4rem;
+}
+
+.welcome{
+    display: flex;
+    align-items: center;
+    column-gap: 1.26rem;
+
+    &.box, &.shops{
+        border-radius: 16px;
+        height: 17rem;
+    }
+
+    &.box{
+        width: 70%;
+        justify-content: space-between;
+        padding: 0 1.4rem;
+        background-color: rgba($color: rgb(23, 181, 181), $alpha: .21);
+    }
+
+    &.shops{
+        width: 30%;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba($color: rgb(23, 181, 181), $alpha: .3);
+    }
+}
+
+.resume{
+    display: flex;
+    flex-direction: column;
+    row-gap: .56rem;
+}
+
+.mat-mdc-button-base{
+    width: max-content;
+    border-radius: 10px !important;
+}
+
+.counters{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 1.26rem;
+    justify-content: space-between;
+    width: 100%;
+
+    &.block1,
+    &.block2,
+    &.block3{
+        padding: 2.4rem;
+        background-color: rgb(255, 255, 255);
+        color: rgb(33, 43, 54);
+        width: 100%;
+        transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+        border-radius: 16px;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+    }
+}
+
+.fi{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 42px;
+    color: blue;
+}
+
+h4{font-weight: 400;}
+
+h3{
+    font-size: 35px !important;
+}
+
+.recent{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    column-gap: 1.26rem;
+    width: 100%;
+
+    &-transactions{
+        width: 30%;
+    }
+
+    &-accounts{
+        width: 70%;
+    }
+
+    &-transactions, &-accounts{
+        padding: .7rem;
+        background-color: rgb(255, 255, 255);
+        color: rgb(33, 43, 54);
+        transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        background-image: none;
+        overflow: hidden;
+        position: relative;
+        box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+        border-radius: 16px;
+        display: flex;
+        text-align: center;
+        -webkit-box-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &.transactions{}
+    &.accounts{}
+}
+
+.infos{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+h3{
+    font-size: 30px;
+}
+
+swiper{
+    &-container{
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &-slide,
+    &-slide img{
+        border-radius: 20px;
+    }
+
+    &-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-y: hidden;
+    }
+
+    &-slide img{
+        padding-bottom: 1.96rem;
+    }
+}
+
+.apexcharts-tooltip.apexcharts-theme-light {
+    backdrop-filter: blur(6px) !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    color: rgb(33, 43, 54);
+    box-shadow: rgba(145, 158, 171, 0.24) 0px 0px 2px 0px, rgba(145, 158, 171, 0.24) -20px 20px 40px -4px;
+    border-radius: 10px !important;
+}
+
+.apexcharts-tooltip.apexcharts-active {
+    opacity: 1;
+    transition: .15s ease all;
+}
+
+

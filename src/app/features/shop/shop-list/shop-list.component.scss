@@ -1,0 +1,101 @@
+.list{
+    padding: 5.6rem 2.8rem;
+    flex-direction: column;
+    row-gap: 2rem;
+
+    &,&-header,&-infos,&-route{
+        display: flex;
+        align-items: flex-start;
+    }
+
+    &-header{
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    &-infos{
+        justify-content: flex-start;
+        flex-direction: column;
+    }    
+
+    &-route{
+        align-items: center;
+        justify-content: space-between;
+        i{
+            padding: 0 .4rem;
+            display: flex;
+            align-items: center;
+            font-size: 9.1px;
+        }
+    }
+}
+
+.shops {
+    width: 100%;
+    color: rgb(33, 43, 54);
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.actions{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+th, td{
+    border: none;
+    padding: .7rem 1rem;
+    border-bottom: 1.4px dotted rgba(230, 233, 239, 0.814);
+}
+
+h4{
+    font-size: 24px;
+    margin-bottom: .7rem;
+}
+
+.mat-mdc-raised-button{
+    color: white !important;
+    background-color: black !important;
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+
+    img{
+        margin-right: .56rem;
+    }
+}
+
+.status{
+    border-radius: 8px;
+    font-size: 12px;
+    padding: .35rem .42rem;
+    &.active{
+        background-color: rgba(0, 128, 0, 0.179);
+    }
+    &.pending{
+        background-color: rgba(255, 166, 0, 0.179);
+    }
+}
+
+table{
+    width: 100%;
+    border: none;
+}
+
+.map{
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.mat-mdc-icon-button{
+    i{
+        font-size: 16px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

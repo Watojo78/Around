@@ -1,0 +1,50 @@
+<div class="sidebar">
+    <div class="sidebar-profile">
+        <img src="../../../assets/logoaround_withoutfont.svg" alt="" height="40">
+    </div>
+    <div class="sidebar-overview">
+        <h4>Overview</h4>
+        <div class="submenu">
+            <a [routerLink]="['/dashboard/']" routerLinkActive="active" class="submenu-item 1">
+                <i class="fi fi-sr-home" style="font-size: 17px;"></i>&ensp;App
+            </a>
+            <a [routerLink]="['/dashboard/analytics/']" routerLinkActive="active" class="submenu-item 1">
+                <i class="fi fi-sr-chart-pie-alt" style="font-size: 17px;"></i>&ensp;Analytique
+            </a>
+            <a [routerLink]="['/dashboard/booking/']" routerLinkActive="active" class="submenu-item 2">
+                <i class="fi fi-sr-users" style="font-size: 17px;"></i>&ensp;Réservations
+            </a>
+            <a [routerLink]="['/dashboard/payments-stats/']" routerLinkActive="active" class="submenu-item 3">
+                <i class="fi fi-br-earnings" style="font-size: 17px;"></i>&ensp;Stats Paiements
+            </a>
+        </div>
+    </div>
+    <div class="sidebar-management">
+        <h4>Management</h4>
+        <div class="submenu">
+            <mat-tree [dataSource]="navSource" [treeControl]="treeControl">
+                <!-- This is the tree node template for leaf nodes -->
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                  <!-- use a disabled button to provide padding for tree leaf -->
+                    <a 
+                        mat-button 
+                        [routerLink]="[node.route]" 
+                        class="leaf-node">
+                        <i [class]="node.icon"></i>
+                        <span>{{node.name}}</span>
+                    </a>
+                </mat-tree-node>
+                <!-- This is the tree node template for expandable nodes -->
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                  <a mat-button matTreeNodeToggle class="expandable-node"> 
+                    <div class="expandable-title">
+                        <i [class]="node.icon"  style="font-size: 17px;"></i>
+                        <span>{{node.name}}</span>
+                    </div>
+                    <i [class]="treeControl.isExpanded(node) ? 'fi fi-sr-angle-small-down' : 'fi fi-sr-angle-small-right'"></i>
+                  </a>
+                </mat-tree-node>
+            </mat-tree>
+        </div>
+    </div>
+</div>

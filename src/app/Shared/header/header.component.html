@@ -1,0 +1,63 @@
+<div class="headerwrapper">
+    <div class="logo web">
+        <a [routerLink]="['/home']" routerLinkActive="router-link-active" >
+            <img src="../../../assets/logoaround_1.svg" alt="logoaround" height="49">
+        </a>
+    </div>
+    <div class="logo mobile">
+        <a [routerLink]="['/home']" routerLinkActive="router-link-active" >
+            <img src="../../../assets/logoaround_withoutfont.svg" alt="logoaround" height="42">
+        </a>
+    </div>
+    <div class="submenu">
+        <a [routerLink]="['/home']" routerLinkActive="router-link-active"  class="submenu-item 1">Accueil</a>
+        <a [routerLink]="['/']" routerLinkActive="router-link-active"  class="submenu-item 2">Pourquoi Around ?</a>
+        <a [routerLink]="['/']" routerLinkActive="router-link-active"  class="submenu-item 3">Fonctionnalités</a>
+        <a [routerLink]="['/']" routerLinkActive="router-link-active"  class="submenu-item 4">Screenshots</a>
+        <a [routerLink]="['/']" routerLinkActive="router-link-active"  class="submenu-item 5">FAQ</a>
+        <a [routerLink]="['/']" routerLinkActive="router-link-active"  class="submenu-item 6">Contact</a>
+    </div>
+    <div class="menu-icon">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="">
+            <i class="fi fi-sr-bars-staggered"></i>
+        </button>
+        <mat-menu #menu="matMenu">
+            <a [routerLink]="['/home']" routerLinkActive="router-link-active" >
+                <button mat-menu-item>
+                    <mat-icon>home</mat-icon>
+                    <span class="submenu-item 1">Accueil</span>
+                </button>
+            </a>
+            <a [routerLink]="['/home']" routerLinkActive="router-link-active" >
+                <button mat-menu-item>
+                    <mat-icon>voicemail</mat-icon>
+                    <span class="submenu-item 2">Pourquoi Around ?</span>
+                </button>
+            </a>
+            <a [routerLink]="['/home']" routerLinkActive="router-link-active" >
+                <button mat-menu-item>
+                    <mat-icon>notifications_off</mat-icon>
+                    <span class="submenu-item 3">Fonctionnalités</span>
+                </button>
+            </a>
+            <a [routerLink]="['/home']" routerLinkActive="router-link-active" >
+                <button mat-menu-item>
+                    <mat-icon>notifications_off</mat-icon>
+                    <span class="submenu-item 4">Screenshots</span>
+                </button>
+            </a>
+            <a [routerLink]="['/home']" routerLinkActive="router-link-active" >
+                <button mat-menu-item>
+                    <mat-icon>notifications_off</mat-icon>
+                    <span class="submenu-item 5">FAQ</span>
+                </button>
+            </a>
+            <a [routerLink]="['/home']" routerLinkActive="router-link-active" >
+                <button mat-menu-item>
+                    <mat-icon>phone</mat-icon>
+                    <span class="submenu-item 6">Contact</span>
+                </button>
+            </a>
+        </mat-menu>
+    </div>
+</div>

@@ -1,0 +1,115 @@
+<div class="list">
+    <div class="list-header">
+        <div class="list-infos">
+            <h4>Liste</h4>
+            <div class="list-route">
+                <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/shop/list']" routerLinkActive="router-link-active" >Boutiques</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/shop/list']" routerLinkActive="router-link-active" >Liste</a>
+            </div>
+        </div>
+        <a [routerLink]="['/dashboard/shop/new']" routerLinkActive="router-link-active" >
+            <button mat-raised-button>
+                <img src="../../../assets/plus-small.svg" alt="" height="14">
+                <span>Nouvelle Boutique</span>
+            </button>
+        </a>
+    </div>
+    <div class="shops">  
+      <table mat-table [dataSource]="dataSource">      
+        <!-- nomBoutique Column -->
+        <ng-container matColumnDef="nomBoutique">
+          <th mat-header-cell *matHeaderCellDef> Nom de la Boutique </th>
+          <td mat-cell *matCellDef="let element"> {{element.nomBoutique}} </td>
+        </ng-container>
+      
+        <!-- Longitude Column -->
+        <ng-container matColumnDef="longitude">
+          <th mat-header-cell *matHeaderCellDef> Longitude </th>
+          <td mat-cell *matCellDef="let element"> {{element.longitude}} </td>
+        </ng-container>
+      
+        <!-- Latitude Column -->
+        <ng-container matColumnDef="latitude">
+          <th mat-header-cell *matHeaderCellDef> Latitude </th>
+          <td mat-cell *matCellDef="let element"> {{element.latitude}} </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="active">
+          <th 
+            mat-header-cell 
+            *matHeaderCellDef>Statut</th>
+          <td mat-cell *matCellDef="let element" class="active"> 
+            <span class="status active" *ngIf="element.active">Activé</span> 
+            <span class="status pending" *ngIf="!element.active">En cours</span> 
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="serviceIds">
+          <th mat-header-cell *matHeaderCellDef> Services </th>
+          <td mat-cell *matCellDef="let element"> {{element.serviceIds}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quartierId">
+          <th mat-header-cell *matHeaderCellDef> Quartier </th>
+          <td mat-cell *matCellDef="let element"> {{getNeighborhoodName(element.quartierId)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th 
+            mat-header-cell 
+            *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element"> 
+            <div class="actions">
+              <button [routerLink]="['/dashboard/shop/', element.id]" mat-icon-button color="primary">
+                <i class="fi fi-rr-angle-double-small-right"></i>
+              </button>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <i class="fi fi-sr-menu-dots-vertical"></i>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button 
+                  *ngIf="!element.active" 
+                  mat-menu-item>
+                  <i class="fi fi-sr-shield-check"></i>
+                  <span>Activer</span>
+                </button>
+                <a 
+                  mat-menu-item 
+                  [routerLink]="['/dashboard/shop/',element.id,'\edit']">
+                  <i class="fa-solid fa-pen"></i>
+                  <span>Editer</span>
+                </a>
+                <button mat-menu-item (click)="deleteShop(element.id)" disabled>
+                  <i class="fa-solid fa-trash-can"></i>
+                  <span>Supprimer</span>
+                </button>
+              </mat-menu>
+            </div>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>    
+      <mat-paginator
+        [length]="shopsLength"
+        [pageSizeOptions]="[5, 10, 25, 100]" 
+        aria-label="Utilisateurs"></mat-paginator>
+    </div>
+    <div class="map">
+      <google-map 
+        height="400px"
+        width="750px"
+        [center]="center"
+        [zoom]="zoom"
+        (mapClick)="addMarker($event)">
+          @for (position of markerPositions; track position) {
+            <map-marker [position]="position" [options]="markerOptions" />
+          }
+      </google-map>
+    </div>
+</div>

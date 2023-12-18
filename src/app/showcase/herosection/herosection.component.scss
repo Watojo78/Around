@@ -1,0 +1,102 @@
+#hswrapper{
+    color: white;
+    margin-bottom: 2.8rem;
+    background-image: linear-gradient(-90deg, rgba(0, 0, 0, 0), rgba(0, 76, 255, .84)), url("../../../assets/backhero.svg");
+    background-size: cover;
+    width: 100%;
+    &_elts{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        padding-left: 10rem;
+    }
+}
+
+
+.resume,.illus{
+    width: 100%;
+    h3{  
+        font-size: 40px;
+        font-weight: 800;
+        font-family: Montserrat;
+    }
+}
+
+p{
+    font-size: 20px;
+    line-height: 32px;
+    padding: 1rem 0;
+    font-weight: 400;
+}
+
+.link{
+    display: flex;
+    flex-direction: row;
+}
+
+.illus{
+    display: flex;
+    justify-content: center;
+}
+
+.mat-mdc-raised-button{
+    margin-right: 1.6rem;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 1.6rem 2rem;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    #hswrapper{
+        background-image: linear-gradient(-90deg, rgba(0, 76, 255, .35), rgba(0, 76, 255, 1)), url("../../../assets/backhero.svg");
+        &_elts{
+            flex-direction: column;
+            padding: 5.2rem 1.4rem 1.6rem 1.4rem;
+        } 
+    }
+
+    .resume{
+        width: 100%;
+        h3{  
+            font-size: 32px;
+        }
+    }
+
+    .link{
+        flex-direction: column;
+    }
+    
+    .illus{
+        display: none;
+    }
+
+    .mat-mdc-raised-button{
+        margin: .49rem 0;
+        font-size: 16px;
+        width: max-content;
+        padding: 1.4rem;
+    }
+  }
+
+  
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) {
+
+  }
+  
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+  } 
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .example {background: orange;}
+  } 
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    .submenu {display: flex;}
+  }

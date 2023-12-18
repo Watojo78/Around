@@ -1,0 +1,126 @@
+<div class="new">
+    <div class="new-header">
+        <div class="new-infos">
+            <h4>Nouvel Utilisateur</h4>
+            <div class="new-route">
+                <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active">Dashboard</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/user/list']" routerLinkActive="router-link-active">Utilisateurs</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/user/new']" routerLinkActive="router-link-active">Nouvel Utilisateur</a>
+            </div>
+        </div>
+    </div> 
+    <form class="new-content" [formGroup]="userForm" (ngSubmit)="onFormSubmit()">
+        <div class="content-profile">
+            <div class="profile">
+                <div class="profile-wrapper" (click)="openFileInput()">
+                    <input 
+                        accept="image/*" 
+                        type="file" 
+                        #fileInput
+                        (change)="onFileSelected($event)"
+                        style="display: none;">
+                    <div *ngIf="imageUrl" class="image-preview">
+                        <img [src]="imageUrl" alt="Preview">
+                    </div>
+                    <div class="upload-placeholder">
+                        <i class="fi fi-sr-camera"></i>
+                        <p *ngIf="!imageUrl">Charger l'image</p>
+                        <p *ngIf="imageUrl">Changer l'image</p>
+                    </div>
+                </div>
+            </div>
+            <span>Format(s) d'images accepté(s): *.png, *.jpg, *jpeg, *svg</span>
+            <div class="profile-activation">
+                <div class="activation-infos">
+                    <h5>Activation du Compte</h5>
+                    <p>En cliquant, vous consentez à activer le compte à la création.</p>
+                </div>
+                <mat-slide-toggle formControlName="active"></mat-slide-toggle>
+            </div>
+        </div>
+        <div class="content-form">
+            <div class="form-group">
+                <mat-form-field appearance="fill"> 
+                    <mat-label>Nom</mat-label>
+                    <input 
+                        matInput 
+                        type="text" 
+                        formControlName="firstName"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill"> 
+                    <mat-label>Prénom(s)</mat-label>
+                    <input 
+                        matInput 
+                        type="text" 
+                        formControlName="lastName"
+                        required>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill"> 
+                    <mat-label>Email</mat-label>
+                    <input 
+                        matInput 
+                        type="email"
+                        formControlName="email"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill"> 
+                    <mat-label>mot de passe</mat-label>
+                    <input 
+                        matInput 
+                        type="password" 
+                        formControlName="password"
+                        required>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill"> 
+                    <mat-label>Tel</mat-label>
+                    <input 
+                        matInput 
+                        type="tel"
+                        formControlName="tel"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill"> 
+                    <mat-label>CNI</mat-label>
+                    <input 
+                        matInput 
+                        type="text"
+                        formControlName="numeroCni"
+                        required>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill"> 
+                    <mat-label>Choisir un rôle</mat-label>
+                    <mat-select formControlName="roleId">
+                        <mat-option *ngFor="let role of loadedRoles" [value]="role.id">
+                            {{role.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill"> 
+                    <mat-label>Boutiques</mat-label>
+                    <input 
+                        matInput 
+                        type="text"
+                        required 
+                        disabled>
+                </mat-form-field>
+            </div>
+            <div class="form-submission">
+                <button mat-raised-button color="warn" class="cancel" disabled>
+                    Réinitialiser
+                </button>
+                <button mat-raised-button class="submit" type="submit">
+                    Ajouter l'Utilisateur
+                </button>
+            </div>
+        </div>  
+    </form> 
+</div>

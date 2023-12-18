@@ -1,0 +1,17 @@
+.wrapper{
+    display: grid;
+    grid-template-columns: 18% 82%;
+    overflow: hidden;
+    height: 100vh;
+    &-sidebar, &-content{
+        overflow-y: scroll;
+        height: 100%;
+        scroll-behavior: smooth;
+    }
+
+    &-sidebar{
+        border-right: 1.4px dotted rgba(207, 203, 199, 0.8);
+    }
+}
+
+

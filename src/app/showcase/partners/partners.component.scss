@@ -1,0 +1,58 @@
+.partners{
+    &wrapper{
+        margin-bottom: 2.8rem;
+    }
+
+    &.elts{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        margin: 2.4rem 10rem;
+    }
+
+    &-resume{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+swiper{
+    &-container{
+        width: 100%;
+    }
+
+    &-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 3.2rem auto;
+    }
+}
+
+.partnerSwiper{
+    &.web{
+        display: flex;
+    }
+    &.mobile{
+        display: none;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .partners{
+        &.elts{margin: 1.4rem;}
+    }
+
+    .partnerSwiper{
+        &.web{
+            display: none;
+        }
+        &.mobile{
+            display: flex;
+        }
+    }
+}

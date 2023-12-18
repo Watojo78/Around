@@ -1,0 +1,40 @@
+<div class="headerwrapper">
+    <div class="menu icon">
+            <i class="fi fi-rr-search"></i>
+    </div>
+    <div class="submenu">
+        <span class="submenu-item one">
+            <i class="fi fi-sr-bells" matBadge="10" matBadgeColor="warn"></i>
+        </span>
+        <span class="submenu-item two">
+            <i class="fi fi-sr-users" matBadge="5" matBadgeColor="warn"></i>
+        </span>
+        <span class="submenu-item three">
+            <i class="fi fi-sr-settings" matBadge="7" matBadgeColor="warn"></i>
+        </span>
+        <span class="submenu-item four">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <div class="thumb">
+                    <img *ngIf="profileId == 0" src="{{defaultSrc}}">
+                    <img *ngIf="profileId != 0" src="data:{{imgType}};base64,{{imgSrc}}">
+                </div>
+            </button>
+            <mat-menu #menu="matMenu">
+                <div class="profile-header">
+                    <span>{{firstName}} {{lastName}}</span>
+                    <span>{{email}}</span>
+                </div>
+                <div class="profile-body">
+                    <a mat-menu-item routerLink="/dashboard">Dashboard</a>
+                    <a mat-menu-item routerLink="/dashboard/user/profile">Profil</a>
+                    <a mat-menu-item routerLink="/dashboard/settings">Paramètres</a>
+                </div>
+                <div class="profile-footer">
+                    <button mat-menu-item (click)="onLogout()">
+                        Se déconnecter
+                    </button>
+                </div>
+              </mat-menu>     
+        </span>
+    </div>
+</div>
