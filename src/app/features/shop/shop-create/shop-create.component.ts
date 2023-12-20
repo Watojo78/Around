@@ -1,4 +1,3 @@
-import { trigger, transition, style, animate } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,29 +11,18 @@ import { UserService } from '../../../services/user.service';
   selector: 'shop-create',
   templateUrl: './shop-create.component.html',
   styleUrls: ['./shop-create.component.scss'],
-  animations: [
-    trigger('fadeOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('200ms ease-out', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        animate('200ms ease-out', style({ opacity: 0 })),
-      ]),
-    ]),
-  ],
 })
 export class ShopCreateComponent {
-  files: any;
   logo: any;
-  index!: number;
+  isLimit = false
   selectedLogo: File | null = null;
   urls: any[] = [];
+  imageIds: any[] = [];
   multiples: any[] = [];
   loadedServices : any;
   loadedUsers : any;
   loadedAddresses : any;
-  shopForm:FormGroup;
+  shopForm: FormGroup;
   previews: string[] = [];
   selectedFiles?: FileList;
   logoUrl: string | ArrayBuffer | null = null;
@@ -64,6 +52,7 @@ export class ShopCreateComponent {
       niu: 0,
       serviceIds:[''],
       compteIds:[''],
+      imageIds: this.fb.array([]), 
       quartierId: 0,
       heureOuverture: this.fb.group(
         this.daysOfWeek.reduce((acc: any, day) => {
@@ -89,7 +78,29 @@ export class ShopCreateComponent {
       this.shopService.newShop(this.shopForm.value)
       .subscribe({
         next :(res)=>{
-          alert("Boutique créée avec succès :)")
+          console.log("Boutique créée à 75% :); now processing shop's logo...", res)
+
+          if (!this.selectedLogo) {
+            console.log('Please select an image before uploading.:(');
+            return;
+          }
+
+          const logoData = new FormData();
+          logoData.append('fichier', this.selectedLogo);
+          logoData.append('description', "shop's logo");
+          logoData.append('boutiqueId', res);
+          console.log(logoData.get('description'));
+          this.uploadLogo(logoData)
+          .subscribe({
+              next: (res: any)=>{
+                console.log('Instance créée avec succès :).')
+                alert("Création Boutique 100%, succès :)")
+              },
+              error: (err: any)=>{
+                alert("erreur lors de création du logo de la boutique")
+                console.log("Création Boutique 100%, echec :(", err)
+              }
+            })
         },
         error: (err)=>{
           alert("Erreur lors de la création de la boutique")
@@ -117,35 +128,44 @@ export class ShopCreateComponent {
     }
   }
 
-  selectImages(event: any): void {
-    this.files = event.target.files && event.target.files.length;
-    if (this.files > 0 && this.files < 7) {
-      let i: number = 0;
-      for (const singlefile of event.target.files) {
+  selectImages(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const shopThumbs = inputElement.files;
+    const shopThumbsCond = inputElement.files && inputElement.files.length;
+
+    if (shopThumbsCond && shopThumbsCond < 6) {
+      let singleFile: File | any = null;
+
+      for(let i=0; i<shopThumbsCond; i++){
+        singleFile = shopThumbs![i];
+        this.urls.push(URL.createObjectURL(singleFile));
         var reader = new FileReader();
-        singlefile.index = i;
-        reader.readAsDataURL(singlefile);
-        this.urls.push(singlefile);
+        reader.readAsDataURL(singleFile);
         this.cf.detectChanges();
-        i++;
-        this.index = this.urls.indexOf(singlefile);
-        console.log(this.urls);
         reader.onload = (event) => {
           const url = (<FileReader>event.target).result as string;
+          const src = url.split(',')
+          const base64url = src.pop()
           this.multiples.push(url);
+          const desc = "Shop's thumbnail "+(i+1);
+          const imageFormGroup = this.fb.group({ type: singleFile.type, donnees: base64url, description: desc });
+          const imgIdsGroup: any = this.shopForm.get('imageIds');
+          imgIdsGroup.push(imageFormGroup);  
+          this.imageIds = imgIdsGroup.value;
+          console.log("current urls thumb list :", this.urls);
+          console.log("current multiples pop list :", this.multiples);
+          console.log("current urls pop list :", this.imageIds);
           this.cf.detectChanges();
         };
-        console.log(singlefile);
       }
-    }
+    }else{this.isLimit = true;}
   }
 
   removeItem(index: number) {
     this.urls.splice(index, 1);
     this.multiples.splice(index, 1);
+    this.imageIds.splice(index, 1);
     this.cf.detectChanges();
-    console.log("nouvelle liste chaînée:", this.urls);
-    console.log(this.multiples);
   }
 
   previewLogo(file: File): void {
@@ -157,8 +177,8 @@ export class ShopCreateComponent {
     };
   }
 
-  uploadImage(data: any) {
-    return this.imgService.newAccountImage(data);
+  uploadLogo(data: any) {
+    return this.imgService.newShopImage(data);
   }
 
   private fetchServices(){

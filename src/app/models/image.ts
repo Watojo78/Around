@@ -4,8 +4,8 @@ export interface Image {
     type: string,
     donnees: string[],
     boutiqueId: number,
-    compteId: number,
+    compteId?: number,
     categorieId: number,
-    serviceId: number,
+    serviceId?: number,
     fichier: string,
   }

@@ -62,18 +62,19 @@ export class UserCreateComponent {
               console.log('Please select an image before uploading.:(');
               return;
             }
-      
+            
+
             const formData = new FormData();
             formData.append('fichier', this.selectedImage);
-            formData.append('description', "profil utilisateur de"+fullName);
+            formData.append('description', "profil utilisateur de "+fullName);
             formData.append('compteId', compteId);
-            console.log(formData.get('compteId'));
+            console.log(formData.get('description'));
+            console.log(formData.get('fichier'))
             this.uploadImage(formData)
             .subscribe({
               next: (res: any)=>{
                 console.log('Instance créée avec succès :).')
                 alert("profil créé avec succès")
-                this.router.navigate(['/dashboard/user/list'])
               },
               error: (err: any)=>{
                 alert("erreur lors de création du profil")
@@ -100,6 +101,7 @@ export class UserCreateComponent {
     if (file) {
       this.selectedImage = file;
       this.previewImage(file);
+      console.log(this.selectedImage)
     }
   }
 
