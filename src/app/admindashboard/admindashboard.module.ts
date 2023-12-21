@@ -13,6 +13,7 @@ import { AnalyticComponent } from './analytic/analytic.component';
 import { PaymentStatisticComponent } from './payment-statistic/payment-statistic.component';
 import { SettingsComponent } from './settings/settings.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { NotificationComponent } from '../features/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     AnalyticComponent,
     PaymentStatisticComponent,
     SettingsComponent,
+    NotificationComponent,
   ],
   imports: [ 
     AdmindashboardRoutingModule,

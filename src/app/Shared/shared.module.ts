@@ -21,6 +21,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
@@ -48,6 +49,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     MatDialogModule,
     ReactiveFormsModule,
     MatDatepickerModule,
+    MatSidenavModule,
     GoogleMapsModule,
   ],
 
@@ -73,6 +75,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     MatDialogModule,
     ReactiveFormsModule,
     MatDatepickerModule,
+    MatSidenavModule,
     GoogleMapsModule
   ],
 })

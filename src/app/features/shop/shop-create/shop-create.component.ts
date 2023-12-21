@@ -16,14 +16,12 @@ export class ShopCreateComponent {
   logo: any;
   isLimit = false
   selectedLogo: File | null = null;
-  urls: any[] = [];
   imageIds: any[] = [];
   multiples: any[] = [];
   loadedServices : any;
   loadedUsers : any;
   loadedAddresses : any;
   shopForm: FormGroup;
-  previews: string[] = [];
   selectedFiles?: FileList;
   logoUrl: string | ArrayBuffer | null = null;
   imageUrl: string | ArrayBuffer | null = null;
@@ -98,7 +96,7 @@ export class ShopCreateComponent {
               },
               error: (err: any)=>{
                 alert("erreur lors de création du logo de la boutique")
-                console.log("Création Boutique 100%, echec :(", err)
+                console.log("Création Boutique 100%, échec :(", err)
               }
             })
         },
@@ -138,37 +136,36 @@ export class ShopCreateComponent {
 
       for(let i=0; i<shopThumbsCond; i++){
         singleFile = shopThumbs![i];
-        this.urls.push(URL.createObjectURL(singleFile));
+        //this.urls.push(URL.createObjectURL(singleFile));
         var reader = new FileReader();
         reader.readAsDataURL(singleFile);
         this.cf.detectChanges();
         reader.onload = (event) => {
-          const url = (<FileReader>event.target).result as string;
-          const src = url.split(',')
-          const base64url = src.pop()
+          let url = (<FileReader>event.target).result as string;
+          let src = url.split(',')
+          let base64url = src.pop()
           this.multiples.push(url);
-          const desc = "Shop's thumbnail "+(i+1);
-          const imageFormGroup = this.fb.group({ type: singleFile.type, donnees: base64url, description: desc });
-          const imgIdsGroup: any = this.shopForm.get('imageIds');
+          let desc = "Shop's thumbnail "+(i+1);
+          let imageFormGroup = this.fb.group({ type: singleFile.type, donnees: base64url, description: desc });
+          let imgIdsGroup: any = this.shopForm.get('imageIds');
           imgIdsGroup.push(imageFormGroup);  
           this.imageIds = imgIdsGroup.value;
-          console.log("current urls thumb list :", this.urls);
-          console.log("current multiples pop list :", this.multiples);
-          console.log("current urls pop list :", this.imageIds);
           this.cf.detectChanges();
+          console.log("current urls pop list :", this.imageIds);
         };
       }
     }else{this.isLimit = true;}
   }
 
   removeItem(index: number) {
-    this.urls.splice(index, 1);
+    //this.urls.splice(index, 1);
     this.multiples.splice(index, 1);
     this.imageIds.splice(index, 1);
     this.cf.detectChanges();
+    console.log("updated urls pop list :", this.imageIds);
   }
 
-  previewLogo(file: File): void {
+  private previewLogo(file: File): void {
     const reader = new FileReader();
     reader.readAsDataURL(file);
 

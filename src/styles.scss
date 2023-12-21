@@ -118,6 +118,30 @@ table{
   border: none;
 }
 
+.mat-badge-medium .mat-badge-content {
+  border-radius: 50%;
+  width: 21px;
+  height: 21px;
+  padding: .04rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.mat-badge-content {
+  position: absolute;
+  text-align: center;
+  display: inline-block;
+  border-radius: 50%;
+  transition: transform 200ms ease-in-out;
+  transform: none; 
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: "Poppins";
+  font-size: 13px;
+}
+
 .mat-mdc-menu-panel{
   border-radius: 16px !important;
 }
