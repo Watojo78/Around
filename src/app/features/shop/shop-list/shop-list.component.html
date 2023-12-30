@@ -102,14 +102,17 @@
     </div>
     <div class="map">
       <google-map 
-        height="400px"
-        width="750px"
-        [center]="center"
-        [zoom]="zoom"
-        (mapClick)="addMarker($event)">
-          @for (position of markerPositions; track position) {
-            <map-marker [position]="position" [options]="markerOptions" />
-          }
+        height="490px"
+        width="100%"
+        [options]="mapOptions">
+        <!--<map-marker *ngFor="let shop of shops"
+                    [position]="shop.position"
+                    (mapClick)="onMarkerClick(shop)">
+        </map-marker>-->
+        <map-marker 
+          *ngIf="myPositionMarker"
+          [position]="myPositionMarker.getPosition()">
+        </map-marker>
       </google-map>
     </div>
 </div>

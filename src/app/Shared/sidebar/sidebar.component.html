@@ -9,10 +9,10 @@
                 <i class="fi fi-sr-home" style="font-size: 17px;"></i>&ensp;App
             </a>
             <a [routerLink]="['/dashboard/analytics/']" routerLinkActive="active" class="submenu-item 1">
-                <i class="fi fi-sr-chart-pie-alt" style="font-size: 17px;"></i>&ensp;Analytique
+                <i class="fi fi-sr-chart-pie-alt"></i>&ensp;Analytique
             </a>
-            <a [routerLink]="['/dashboard/booking/']" routerLinkActive="active" class="submenu-item 2">
-                <i class="fi fi-sr-users" style="font-size: 17px;"></i>&ensp;Réservations
+            <a [routerLink]="['/dashboard/packs/']" routerLinkActive="active" class="submenu-item 2">
+                <i class="fi fi-sr-box-alt" style="font-size: 17px;"></i>&ensp;Packages
             </a>
             <a [routerLink]="['/dashboard/payments-stats/']" routerLinkActive="active" class="submenu-item 3">
                 <i class="fi fi-br-earnings" style="font-size: 17px;"></i>&ensp;Stats Paiements
@@ -30,7 +30,7 @@
                         mat-button 
                         [routerLink]="[node.route]" 
                         class="leaf-node">
-                        <i [class]="node.icon"></i>
+                        <i [class]="node.icon" style="font-size: 10px; margin-left: .35rem"></i>
                         <span>{{node.name}}</span>
                     </a>
                 </mat-tree-node>

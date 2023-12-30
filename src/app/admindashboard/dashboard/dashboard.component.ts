@@ -7,6 +7,7 @@ import { ShopService } from '../../services/shop.service';
 import { SubscriptionService } from '../../services/subscription.service';
 import { UserService } from '../../services/user.service';
 
+
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -68,8 +69,8 @@ export class DashboardComponent implements AfterViewInit {
           }
         ],
         chart: {
-          height: 350,
-          width: 750,
+          height: 400,
+          width: 570,
           type: "area",
           fontFamily: "poppins"
         },

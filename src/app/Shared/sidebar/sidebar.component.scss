@@ -14,6 +14,10 @@
         align-items: flex-start;
         width: 100%;
     }
+
+    &-overview, &-management{
+        row-gap: 1.2rem;
+    }
 }
 
 .submenu{
@@ -41,7 +45,8 @@
 }
 
 h4{
-    margin-bottom: 1.2rem;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
 a,.fi{
@@ -58,7 +63,7 @@ a{
 }
 
 i{
-    background: linear-gradient(115deg, #62cff4, #2c67f2); 
+    background: linear-gradient(115deg, #62a4f4, #2c67f2); 
     -webkit-text-fill-color: transparent; 
     -webkit-background-clip: text;
     background-clip: text;
