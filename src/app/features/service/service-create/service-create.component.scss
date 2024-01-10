@@ -184,3 +184,15 @@ h4{
 textarea{
     min-height: 9.4rem;
 }
+
+.success-snackbar {
+    background-color: lightgreen;
+}
+  
+.error-snackbar {
+    background-color: tomato;
+}
+  
+.complete-snackbar {
+    background-color: lightblue;
+}

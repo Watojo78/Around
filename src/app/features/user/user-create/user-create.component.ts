@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ImageService } from '../../../services/image.service';
 import { RoleService } from '../../../services/role.service';
 import { UserService } from '../../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'user-create',
@@ -26,6 +27,7 @@ export class UserCreateComponent {
     private imgService: ImageService,
     private userService: UserService, 
     private roleService: RoleService,
+    private snackBar: MatSnackBar,
     private fb:FormBuilder){
 
     this.userForm = this.fb.group({
@@ -62,7 +64,6 @@ export class UserCreateComponent {
               console.log('Please select an image before uploading.:(');
               return;
             }
-            
 
             const formData = new FormData();
             formData.append('fichier', this.selectedImage);
@@ -74,20 +75,38 @@ export class UserCreateComponent {
             .subscribe({
               next: (res: any)=>{
                 console.log('Instance créée avec succès :).')
-                alert("profil créé avec succès")
+                this.snackBar.open(
+                  this.formatSnackbar('User 100% created successfully!', 'Created', 'User'),
+                  '',
+                  {
+                    duration: 3000,
+                    panelClass: ['success-snackbar'] // Optional custom CSS class
+                  }
+                );
               },
               error: (err: any)=>{
                 alert("erreur lors de création du profil")
-                console.log("erreur lors de création du profil", err)
+                console.log("Erreur lors de création du profil", err)
               }
             })
           },
           error: (err: any)=>{
-            alert("erreur lors de l'enregistrement de l'utilisateur")
-            console.log("erreur d'enregistrement: ", err)
+            this.snackBar.open(
+              this.formatSnackbar('Error creating user: ' + err.message, 'Error', 'User'),
+              '',
+              {
+                duration: 5000,
+                panelClass: ['error-snackbar'] // Optional custom CSS class
+              }
+            );
+            console.log("erreur d'enregistrement: ", err.message)
           }
         })
     }
+  }
+
+  private formatSnackbar(message: string, action: string, entityName: string): string {
+    return `${action.toUpperCase()} ${entityName}: ${message}`;
   }
 
   openFileInput(): void {

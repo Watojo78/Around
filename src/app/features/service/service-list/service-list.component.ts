@@ -111,26 +111,26 @@ export class ServiceListComponent implements AfterViewInit {
               console.log("liste des categories", this.loadedCats)
               this.catMap = new Map();
               this.loadedCats.forEach((cat: { idCategorie: number; nomCategorie: string; }) => {
-              this.catMap.set(cat.idCategorie, cat.nomCategorie);
-            });
-            console.log("catMap", this.catMap)
+                this.catMap.set(cat.idCategorie, cat.nomCategorie);
+              });
+              //console.log("catMap", this.catMap)
     
-            // Enrich service objects with cat names
-            for (const service of this.loadedServices) {
-              if (this.catMap.has(service.catId)) {
-                service.cat = this.catMap.get(service.catId);
-              } else {
-                service.cat = 'Unknown cat';
+              // Enrich service objects with cat names
+              for (const service of this.loadedServices) {
+                if (this.catMap.has(service.catId)) {
+                  service.cat = this.catMap.get(service.catId);
+                } else {
+                  service.cat = 'Unknown category';
+                }
               }
-            }
                   
-            this.dataSource = new MatTableDataSource(this.loadedServices);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-            },
-            error: (err) => {
-              console.log("An unexpected error occurs while retreiving categories", err)
-            }
+              this.dataSource = new MatTableDataSource(this.loadedServices);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+              },
+              error: (err) => {
+                console.log("An unexpected error occurs while retreiving categories", err)
+              }
           });
         },
         error: (err) =>{

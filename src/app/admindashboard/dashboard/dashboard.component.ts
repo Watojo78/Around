@@ -7,7 +7,6 @@ import { ShopService } from '../../services/shop.service';
 import { SubscriptionService } from '../../services/subscription.service';
 import { UserService } from '../../services/user.service';
 
-
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -17,6 +16,7 @@ import {
   ApexTooltip,
   ApexStroke
 } from "ng-apexcharts";
+import { CategoryService } from '../../services/category.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -38,22 +38,24 @@ export class DashboardComponent implements AfterViewInit {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: ChartOptions;
 
-  countUsers!: number;
-  countShops!: number;
-  countRoles!: number;
+  users: any;
+  shops: any;
+  services: any;
+  lastEightServices: any;
   countServices!: number;
   lastName!: string;
   adminsLength = 0;
   partnersLength = 0;
   managersLength = 0;
   customersLength = 0;
+  catMap!: Map<number, string>;
   userSeries = [49, 70, 89, 55]; 
 
   constructor(
-    private roleService: RoleService,
     private userService: UserService,
     private shopService: ShopService,
     private serService: ServiceService,
+    private categoryService: CategoryService,
     private subscriptionService: SubscriptionService,
     private countryService: CountryService,
     private promotionService: PromotionService){
@@ -104,7 +106,6 @@ export class DashboardComponent implements AfterViewInit {
     this.currentUser()
     this.fetchAccounts()
     this.fetchShops()
-    this.fetchRoles()
     this.fetchServices()
   }
 
@@ -124,11 +125,19 @@ export class DashboardComponent implements AfterViewInit {
     })
   }
 
+  catName(catId: number): string | undefined {
+    if (!this.catMap?.has(catId)) {
+      return 'Unknown Category';
+    }
+
+    return this.catMap.get(catId);
+  }
+
   private fetchAccounts(){
     this.userService.getAllUsers()
     .subscribe({
       next: (loadedUsers) => {
-        this.countUsers = loadedUsers.length
+        this.users = loadedUsers
       },
       error: (err) => {
         console.log("there was an error while retreiving numbers of users", err)
@@ -139,20 +148,8 @@ export class DashboardComponent implements AfterViewInit {
   private fetchShops(){
     this.shopService.getAllShops()
     .subscribe({
-      next: (shops) => {
-        this.countShops = shops.length
-      },
-      error: (err) => {
-        console.log("there was an error while retreiving numbers of users", err)
-      },
-    });
-  }
-
-  private fetchRoles(){
-    this.roleService.getAllRoles()
-    .subscribe({
-      next: (loadedRoles) => {
-        this.countRoles = loadedRoles.length
+      next: (shopRes) => {
+        this.shops = shopRes;
       },
       error: (err) => {
         console.log("there was an error while retreiving numbers of users", err)
@@ -164,7 +161,32 @@ export class DashboardComponent implements AfterViewInit {
     this.serService.getAllServices()
     .subscribe({
       next: (loadedServices) => {
-        this.countServices = loadedServices.length
+        this.services = loadedServices;
+        this.countServices = this.services.length;
+        this.lastEightServices = this.services.slice(-8);
+
+        this.categoryService.getAllCategories()
+        .subscribe({
+          next: (loadedCats) => {
+
+            this.catMap = new Map<number, string>();
+            loadedCats.forEach((cat: { idCategorie: number; nomCategorie: string; }) => {
+              this.catMap.set(cat.idCategorie, cat.nomCategorie);
+            });
+
+            // Enrich service objects with cat names
+            for (const service of this.services) {
+              if (this.catMap.has(service.catId)) {
+                service.cat = this.catMap.get(service.catId);
+              } else {
+                service.cat = 'Unknown category';
+              }
+            }
+          },
+          error: (err) => {
+            
+          },
+        })
       },
       error: (err) => {
         console.log("there was an error while retreiving numbers of users", err)

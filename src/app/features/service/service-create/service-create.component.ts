@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import { ImageService } from '../../../services/image.service';
 import { ServiceService } from '../../../services/service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'service-create',
@@ -27,6 +28,7 @@ export class ServiceCreateComponent {
     private imgService: ImageService,
     private serService: ServiceService, 
     private catService: CategoryService,
+    private snackBar: MatSnackBar,
     private fb:FormBuilder){
 
     this.serviceForm = this.fb.group({
@@ -45,17 +47,34 @@ export class ServiceCreateComponent {
         console.warn(this.serviceForm.value)
         this.serService.newService(this.serviceForm.value)
         .subscribe({
-          next :(serviceRes: any)=>{
-            const serviceName = serviceRes.nomService
-            console.log("Service créée avec succès :)")
-            this.router.navigate(['/dashboard/service/list'])
+          next :()=>{
+            console.log("Service créé avec succès :)")
+            this.snackBar.open(
+              this.formatSnackbar('Service 100% created successfully!', 'Created', 'Service'),
+              '',
+              {
+                duration: 3000,
+                panelClass: ['success-snackbar'] // Optional custom CSS class
+              }
+            );
           },
           error: (err: any)=>{
-            alert("Unexpected error while registering the service"+err)
-            console.log("Erreur d'enregistrement: ", err)
+            this.snackBar.open(
+              this.formatSnackbar('Error creating user: ' + err.message, 'Error', 'User'),
+              '',
+              {
+                duration: 5000,
+                panelClass: ['error-snackbar'] // Optional custom CSS class
+              }
+            );
+            console.log("Erreur d'enregistrement du service: ", err.message)
           }
         })
       }
+    }
+
+    private formatSnackbar(message: string, action: string, entityName: string): string {
+      return `${action.toUpperCase()} ${entityName}: ${message}`;
     }
 
     openFileInput(): void {

@@ -13,7 +13,7 @@ import { AnalyticComponent } from './analytic/analytic.component';
 import { PaymentStatisticComponent } from './payment-statistic/payment-statistic.component';
 import { SettingsComponent } from './settings/settings.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { NotificationComponent } from '../features/notification/notification.component';
+import { CustomPipeModule } from '../custom-pipe/custom-pipe.module';
 
 @NgModule({
   declarations: [
@@ -25,12 +25,12 @@ import { NotificationComponent } from '../features/notification/notification.com
     AnalyticComponent,
     PaymentStatisticComponent,
     SettingsComponent,
-    NotificationComponent,
   ],
   imports: [ 
     AdmindashboardRoutingModule,
     NgApexchartsModule,
     SharedModule,
+    CustomPipeModule,
     HttpClientModule,
   ],
   providers: [],

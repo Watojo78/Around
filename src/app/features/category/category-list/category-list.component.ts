@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CategoryService } from '../../../services/category.service';
 import { ShopService } from '../../../services/shop.service';
 import { ServiceService } from '../../../services/service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'category-list',
@@ -24,8 +25,7 @@ export class CategoryListComponent implements AfterViewInit {
   constructor(
     private serService: ServiceService,
     private catService : CategoryService,
-    private shopService: ShopService,
-    private paginatorIntl: MatPaginatorIntl){}
+    private snackBar: MatSnackBar){}
 
     ngAfterViewInit() {
       this.fetchCats()
@@ -45,10 +45,36 @@ export class CategoryListComponent implements AfterViewInit {
 
     deleteCat(id: number){
       this.catService.delCategorie(id)
-      .subscribe(res => {
-        alert("Catégorie supprimée avec succès ")
-        window.location.reload();
+      .subscribe({
+        next: () => {
+          console.log("Catégorie supprimée avec succès ")
+          this.snackBar.open(
+            this.formatSnackbar('Category deleted successfully!', 'Deleted', 'Categoy'),
+            '',
+            {
+              duration: 3000,
+              panelClass: ['success-snackbar'] // Optional custom CSS class
+            }
+          );
+          window.location.reload();
+        },
+        error: (err) => {
+          this.snackBar.open(
+            this.formatSnackbar('Error deleting category: ' + err.message, 'Error', 'Category'),
+            '',
+            {
+              duration: 5000,
+              panelClass: ['error-snackbar'] // Optional custom CSS class
+            }
+          );
+          console.log("Erreur lors de la suppression de la catégorie", err.message)
+        }
       });
     }
+
+    private formatSnackbar(message: string, action: string, entityName: string): string {
+      return `${action.toUpperCase()} ${entityName}: ${message}`;
+    }
+
 
 }

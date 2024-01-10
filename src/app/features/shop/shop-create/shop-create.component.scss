@@ -39,7 +39,7 @@
 
 .content{
 
-    &-logo{
+    &-marker{
         width: 30%;
         display: flex;
         align-items: center;
@@ -70,7 +70,7 @@
     }
 }
 
-.logo{
+.marker{
     border-radius: 50%;
     border: 1px dotted rgba($color: #9e9595, $alpha: .35);
     padding: .49rem;
@@ -95,7 +95,7 @@
             font-weight: 500;
         }
 
-        &:hover>.logo-placeholder{
+        &:hover>.marker-placeholder{
             z-index: 1;
             color: white;
             backdrop-filter: blur(7px);
@@ -117,6 +117,10 @@
         flex-direction: column;
         justify-content: center;
         transition: .2s;
+
+        & p{
+            line-height: 16px;
+        }
     }
 
     

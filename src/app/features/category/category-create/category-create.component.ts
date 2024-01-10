@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import { ImageService } from '../../../services/image.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'category-create',
@@ -22,6 +23,7 @@ export class CategoryCreateComponent {
     private router: Router,
     private imgService: ImageService,
     private catService: CategoryService,
+    private snackBar: MatSnackBar,
     private fb:FormBuilder){
 
     this.categoryForm = this.fb.group({
@@ -57,9 +59,15 @@ export class CategoryCreateComponent {
             this.uploadImage(formData)
             .subscribe({
               next: (res: any)=>{
-                console.log('Instance créée avec succès :).')
-                alert("marqueur créé avec succès")
-                this.router.navigate(['/dashboard/service/category/list'])
+                console.log('Marqueur créé avec succès :).')
+                this.snackBar.open(
+                  this.formatSnackbar('Category 100% created successfully!', 'Created', 'Category'),
+                  '',
+                  {
+                    duration: 3000,
+                    panelClass: ['success-snackbar'] // Optional custom CSS class
+                  }
+                );
               },
               error: (err: any)=>{
                 alert("erreur lors de création de la miniature du de la categorie")
@@ -68,11 +76,22 @@ export class CategoryCreateComponent {
             })
           },
           error: (err: any)=>{
-            alert("Unexpected error while registering the category"+err)
-            console.log("Erreur d'enregistrement: ", err)
+            this.snackBar.open(
+              this.formatSnackbar('Error creating category: ' + err.message, 'Error', 'Category'),
+              '',
+              {
+                duration: 5000,
+                panelClass: ['error-snackbar'] // Optional custom CSS class
+              }
+            );
+            console.log("Erreur d'enregistrement: ", err.message)
           }
         })
       }
+    }
+
+    private formatSnackbar(message: string, action: string, entityName: string): string {
+      return `${action.toUpperCase()} ${entityName}: ${message}`;
     }
 
     openFileInput(): void {

@@ -4,9 +4,36 @@
     </div>
     <div class="submenu">
         <span class="submenu-item one">
-            <button mat-icon-button>
-                <i class="fi fi-sr-bells" matBadge="10" matBadgeColor="warn"></i>
+            <button mat-icon-button [matMenuTriggerFor]="notifications">
+                <i class="fi fi-sr-bells" [matBadge]="notificationCount" matBadgeColor="warn"></i>
             </button>
+            <mat-menu #notifications="matMenu">
+                <div class="notifs-header">
+                    <span>Notifications</span>
+                    <i class="fi fi-tr-bells"></i>
+                </div>
+                <div class="notifs-body">
+                    <div class="notification-row" *ngFor="let notification of lastEightNotifs | orderBy:'createdAt':true">
+                        <div class="account-profile">
+                            <img 
+                              *ngIf="notification.compteId == 0 || !notification.compteId" 
+                              src="{{defaultSrc}}" 
+                              loading="lazy" 
+                              height="42">
+                            <img 
+                              *ngIf="notification.compteId" 
+                              [src]="notification | profileUserNotification | async" 
+                              [alt]="notification.firstName" 
+                              loading="lazy" 
+                              height="42">
+                        </div>
+                        <div class="details">
+                            <p><span>{{ notification.firstName }} {{ notification.lastName }}</span> a créé une nouvelle boutique et attend activation</p>
+                            <span>{{ notification.createdAt | formatDate }}</span>
+                        </div>
+                    </div>
+                </div>
+            </mat-menu> 
         </span>
         <span class="submenu-item three">
             <button mat-icon-button>
@@ -35,7 +62,7 @@
                         Se déconnecter
                     </button>
                 </div>
-              </mat-menu>     
+            </mat-menu>     
         </span>
     </div>
 </div>

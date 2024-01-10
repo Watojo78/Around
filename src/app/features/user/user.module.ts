@@ -9,6 +9,7 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { CustomPipeModule } from '../../custom-pipe/custom-pipe.module';
 
 
 @NgModule({
@@ -18,12 +19,13 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     UserCreateComponent,
     UserEditComponent,
     UserDetailComponent,
-    UserProfileComponent
+    UserProfileComponent,
   ],
   imports: [
     UserRoutingModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    CustomPipeModule
   ],
   
   providers: [],

@@ -11,30 +11,20 @@
         <div class="welcome shops">
             <swiper-container 
                 speed="800" 
+                loop="true"
                 parallax="true"
                 pagination="true" 
-                slides-per-view="1" 
-                pagination-clickable="true" 
+                pagination-dynamic-bullets="true"
                 autoplay-disable-on-interaction="false">
-                <swiper-slide>
+                <swiper-slide *ngFor="let service of lastEightServices | orderBy:'createdAt':true">
                     <div class="cat">
-                        <span data-swiper-parallax="-300">Category</span>
+                        <span data-swiper-parallax="-300">{{catName(service.categorieId)}}</span>
                     </div>
                     <div class="service">
-                        <h4 data-swiper-parallax="-200">Shoes stores</h4>
+                        <h4 data-swiper-parallax="-200">{{service.nomService}}</h4>
                         <p data-swiper-parallax="-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     </div>
-                    <img src="../../../assets/shoes-stores.jpg">
-                </swiper-slide>
-                <swiper-slide>
-                    <div class="cat">
-                        <span data-swiper-parallax="-300">Category</span>
-                    </div>
-                    <div class="service">
-                        <h4 data-swiper-parallax="-200">Tech stores</h4>
-                        <p data-swiper-parallax="-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                    <img src="../../../assets/tech-stores.jpg">
+                    <img src="../../../assets/servicesample.svg">
                 </swiper-slide>
             </swiper-container>
         </div>
@@ -42,24 +32,17 @@
     <div class="counters">
         <div class="counters block1">
             <div class="infos">
-                <h4>Total Boutiques</h4>
-                <h3>{{countShops}}</h3>
+                <h4>Total Boutiques Actives</h4>
+                <h3>{{shops | activeCount }}</h3>
             </div>
-            <i class="fi fi-sr-bags-shopping"></i>
-        </div>
-        <div class="counters block2">
-            <div class="infos">
-                <h4>Total Roles</h4>
-                <h3>{{countRoles}}</h3>
-            </div>
-            <i class="fi fi-rr-user-gear"></i>
+            <i class="fi fi-sr-shopping-cart-check"></i>
         </div>
         <div class="counters block3">
             <div class="infos">
-                <h4>Total Users</h4>
-                <h3>{{countUsers}}</h3>
+                <h4>Total Comptes Actifs</h4>
+                <h3>{{ users | activeCount }}</h3>
             </div>
-            <i class="fi fi-sr-users"></i>
+            <i class="fi fi-sr-user-check"></i>
         </div>
         <div class="counters block3">
             <div class="infos">

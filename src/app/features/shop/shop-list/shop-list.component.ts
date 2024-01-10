@@ -159,7 +159,7 @@ export class ShopListComponent implements AfterViewInit {
         })
       },
       error: (err) =>{
-
+        console.log("Unexpected error occurs while fetching the shops", err)
       }
     });
   }

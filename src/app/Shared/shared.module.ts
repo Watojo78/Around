@@ -18,6 +18,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -51,6 +52,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     MatDatepickerModule,
     MatSidenavModule,
     GoogleMapsModule,
+    MatSnackBarModule,
   ],
 
   exports: [
@@ -76,7 +78,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatSidenavModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    MatSnackBarModule,
   ],
 })
 
