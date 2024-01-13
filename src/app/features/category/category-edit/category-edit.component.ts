@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import { ImageService } from '../../../services/image.service';
 import { ServiceService } from '../../../services/service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-category-edit',
@@ -15,6 +16,7 @@ export class CategoryEditComponent {
   id!: number;
   file: any;
   categorieId: any;
+  catName!: string;
   loadedServices: any;
   categoryForm: FormGroup;
   selectedImage: File | null = null;
@@ -28,6 +30,7 @@ export class CategoryEditComponent {
     private route: ActivatedRoute,
     private serService: ServiceService, 
     private catService: CategoryService,
+    private matSnackbar: MatSnackBar,
     private fb:FormBuilder){
 
     this.categoryForm = this.fb.group({
@@ -45,19 +48,21 @@ export class CategoryEditComponent {
           this.imgService.getCatImage(this.id)
           .subscribe({
             next: (catThumb) => {
-              const file = catThumb;
-              if(file){
-                console.log(this.imageUrl)
-                this.imageUrl = file
+              const type = catThumb.type;
+              const url = catThumb.donnees
+              if(type && url){
+                this.imageUrl = `data:${type};base64,${url}`;
               }
             },
             error: (err) => {
-              console.log("La catégorie n'a aucune miniature", err)
+              console.log("Une erreur est survenue lors de la récupération de la miniature", err.message)
+              this.matSnackbar.open("Une erreur est survenue lors de la récupération du profil", "Erreur profil", {duration: 5000});
             }
           })
           this.catService.getCategorie(this.id)
             .subscribe({
               next: (category) => {
+                this.catName = category.nomCategorie;
                 this.categoryForm.patchValue(category)
               },
               error: (error) => {
@@ -67,7 +72,8 @@ export class CategoryEditComponent {
                   this.router.navigate(['/dashboard/service/category/list']);
                 } else {
                   // Handle other errors
-                  console.error('Unexpected error occurs while retrieving category:', error);
+                  console.error('Unexpected error occurs while retrieving category:', error.message);
+                  this.matSnackbar.open("Une erreur est survenue lors de la récupération de la catégorie", "Erreur catégorie", {duration: 5000});
                 }
               },
             });
@@ -77,11 +83,13 @@ export class CategoryEditComponent {
     onFormSubmit(){
       if(this.categoryForm.valid){
         console.warn(this.categoryForm.value)
-        this.catService.newCategorie(this.categoryForm.value)
+        this.catService.updateCategorie(this.id, this.categoryForm.value)
         .subscribe({
           next :(res: any)=>{
             const categoryName = res.nomCategorie
-            console.log("Categorie créée avec succès :)")
+
+            console.log("Categorie Maj avec succès :)")
+            this.matSnackbar.open("Catégorie mise à jour avec succès", "Succès", {duration: 5000});
             console.log("Now registering profile img...")
 
             if (!this.selectedImage) {
@@ -95,16 +103,16 @@ export class CategoryEditComponent {
             formData.append('categorieId', this.categorieId);
             console.log(formData.get('categorieId'));
             
-            this.uploadImage(formData)
+            this.updateThumbnail(this.id, formData)
             .subscribe({
               next: (res: any)=>{
-                console.log('Instance créée avec succès :).')
-                alert("profil créé avec succès")
+                console.log('Miniature maj avec avec succès :).')
+                this.matSnackbar.open("Miniature Maj avec succès", "Succès", {duration: 5000});
                 this.router.navigate(['/dashboard/user/list'])
               },
               error: (err: any)=>{
-                alert("erreur lors de création de la miniature du service")
-                console.log("erreur lors de création de la miniature du service", err)
+                alert("erreur lors de Maj de la miniature du service")
+                console.log("erreur lors de Maj de la miniature du service", err)
               }
             })
             this.router.navigate(['/dashboard/service/list'])
@@ -131,7 +139,7 @@ export class CategoryEditComponent {
       }
     }
   
-    previewImage(file: File): void {
+    private previewImage(file: File): void {
       const reader = new FileReader();
       reader.readAsDataURL(file);
   
@@ -140,8 +148,8 @@ export class CategoryEditComponent {
       };
     }
   
-    uploadImage(data: any) {
-      return this.imgService.newCatImage(data);
+    private updateThumbnail(id:number, data: any) {
+      return this.imgService.updateImage(id, data);
     }
 
     private fetchServices(){

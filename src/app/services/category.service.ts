@@ -32,9 +32,9 @@ export class CategoryService {
     return this.http.get(url, {headers: headers});
   } //ok
 
-  updateCategorie(id: any): Observable<any>{
+  updateCategorie(id: number, data: any): Observable<any>{
     const url = this.apiUrl + `/api-around2/categorie/update/${id}`;
-    return this.http.patch(url, {headers: headers});
+    return this.http.patch(url, data, {headers: headers});
   }
 
   delCategorie(id:number): Observable<any>{

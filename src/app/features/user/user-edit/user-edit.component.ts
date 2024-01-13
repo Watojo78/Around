@@ -59,7 +59,7 @@ export class UserEditComponent implements OnInit {
             },
             error: (err) => {
               console.log("Une erreur est survenue lors de la récupération du profil", err.message);
-              this.matSnackbar.open("Une erreur est survenue lors de la récupération du profil", "Fermer", {duration: 5000});
+              this.matSnackbar.open("Une erreur est survenue lors de la récupération du profil", "Erreur profil", {duration: 5000});
             }
           })
           this.userService.getUser(this.id)
@@ -98,7 +98,7 @@ export class UserEditComponent implements OnInit {
               const fullName = payloadJson.fullName;
   
               this.matSnackbar.open("L'utilisateur a été modifié avec succès", "Fermer", {duration: 3000});
-              console.log("Now registering profile img...")
+              console.log("Now updating profile img...")
   
               if (!this.selectedImage) {
                 console.log('Please select an image before uploading.:(');
@@ -110,6 +110,7 @@ export class UserEditComponent implements OnInit {
               formData.append('description', "profil utilisateur de"+fullName);
               formData.append('compteId', compteId);
               console.log(formData.get('compteId'));
+
               this.updateProfile(this.id, formData)
               .subscribe({
                 next: (res: any)=>{

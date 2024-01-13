@@ -144,7 +144,7 @@
           </ng-template>
           <table 
             mat-table 
-            [dataSource]="dataSource.data | filterByRole: role.id | excludeAdmin"
+            [dataSource]="dataSource.data | filterByRole: role.id"
             matSort>
             <!-- fullName & Email Column -->
             <ng-container matColumnDef="firstName">
@@ -220,13 +220,6 @@
                       <i class="fi fi-sr-menu-dots-vertical"></i>
                     </button>
                     <mat-menu #menu="matMenu">
-                      <button 
-                        *ngIf="!element.active" 
-                        mat-menu-item 
-                        (click)="enableUser(element.id)">
-                        <i class="fi fi-sr-shield-check"></i>
-                        <span>Activer</span>
-                      </button>
                       <a 
                         mat-menu-item 
                         [routerLink]="['/dashboard/user/',element.id,'\edit']">

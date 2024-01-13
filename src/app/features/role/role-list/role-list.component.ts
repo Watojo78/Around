@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RoleCreateComponent } from '../role-create/role-create.component';
 import { RoleDetailComponent } from '../role-detail/role-detail.component';
 import { RoleDeleteComponent } from '../role-delete/role-delete.component';
+import { map } from 'rxjs';
 
 const token = sessionStorage.getItem('token');
 const headers = new HttpHeaders()
@@ -37,11 +38,22 @@ export class RoleListComponent implements OnInit {
   
   private fetchRoles(){
     this.roleService.getAllRoles()
-    .subscribe(res => {
-      this.loadedRoles = res; // on data receive populate dataSource.data array
-      this.dataSource = new MatTableDataSource(this.loadedRoles)
-      console.log("Liste des boutiques : ", this.dataSource)
-    });
+      .pipe(
+        map((roles: any[]) => roles.filter(role => role.name !== "ADMIN"))
+      )
+      .subscribe({
+        next:(res) => {
+          this.loadedRoles = res; // on data receive populate dataSource.data array
+          this.dataSource = new MatTableDataSource(this.loadedRoles)
+          console.log("Liste des boutiques : ", this.dataSource)
+        },
+        error:(err) => {
+          console.log("Erreur lors de la récupération des rôles", err.message)
+          this.matSnackbar.open("Erreur lors de la récupération des rôles", "Erreur recupération", {
+            duration: 2000,
+          })
+        },
+      });
   }
 
   createRole(name: string){

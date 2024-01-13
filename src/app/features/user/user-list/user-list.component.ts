@@ -10,6 +10,7 @@ import { Image } from '../../../models/image';
 import { User } from '../../../models/user';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'user-list',
@@ -61,6 +62,9 @@ export class UserListComponent implements AfterViewInit {
 
   private fetchUsers() {
     this.userService.getAllUsers()
+      .pipe(
+        map((users: any[]) => users.filter(user => user.id !== this.currentUser.id))
+      )
       .subscribe({
         next: (users) => {
           this.dataSource.data = users;
@@ -68,7 +72,8 @@ export class UserListComponent implements AfterViewInit {
           this.roleCounts = this.countByRole(users); // Update role counts
         },
         error: (err) => {
-          console.error("An unexpected error occurs while retreiving users: =>",err);
+          console.error("An unexpected error occurs while retreiving users: =>", err.message);
+          this.snackBar.open("Unexpected error occurs while retreiving users.", "OK");
         },
       });
   
