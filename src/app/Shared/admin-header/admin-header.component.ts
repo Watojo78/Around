@@ -23,7 +23,6 @@ export class AdminHeaderComponent implements AfterViewInit {
   imgType: any;
   imgSrc: any;
   notifs: any;
-  lastEightNotifs: any;
   notificationCount: any;
   loadingName = false;
   defaultSrc= "../../../assets/avatar_pp_icon.svg";
@@ -36,8 +35,8 @@ export class AdminHeaderComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.getCurrentUser();
-    this.lastEightNotifs = this.fetchNotifications();
-    this.lastEightNotifs?.subscribe((notifications: any[]) => {
+    this.notifs = this.fetchNotifications();
+    this.notifs?.subscribe((notifications: any[]) => {
       notifications.forEach((notification: { compteId: number; firstName: any; lastName: any; }) => {
         if (notification.compteId) {
           this.loadingName = true;
@@ -97,7 +96,6 @@ export class AdminHeaderComponent implements AfterViewInit {
       next: (notificationsRes) => {
         this.notifs = notificationsRes;
         this.notificationCount = this.notifs.length;
-        this.lastEightNotifs = this.notifs.slice(-8);
       },
       error: (err) => {
         console.log("Unexpected error while retreiving notifications", err);

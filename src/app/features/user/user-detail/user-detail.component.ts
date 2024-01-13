@@ -4,6 +4,7 @@ import { CategoryService } from '../../../services/category.service';
 import { ServiceService } from '../../../services/service.service';
 import { ShopService } from '../../../services/shop.service';
 import { UserService } from '../../../services/user.service';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -13,6 +14,7 @@ import { UserService } from '../../../services/user.service';
 export class UserDetailComponent implements OnInit {
   user: any;
   id!: number;
+  profileId!: number;
   firstName: any;
   lastName: any;
   email: any;  
@@ -28,11 +30,15 @@ export class UserDetailComponent implements OnInit {
   shops: any;
   categories: any;
   services: any;
+  imgType: any;
+  imgSrc: any;
+  defaultSrc= "../../../assets/avatar_pp_icon.svg";
  
   constructor(
     private router: Router,
     private userService: UserService,
     private shopService: ShopService,
+    private imgService: ImageService,
     private serService: ServiceService,
     private catService: CategoryService,
     private route: ActivatedRoute){}
@@ -45,6 +51,7 @@ export class UserDetailComponent implements OnInit {
             .subscribe({
               next: (user) => {
                 this.user = user;
+                this.profileId = user.profileId;
                 this.firstName = user.firstName;
                 this.lastName = user.lastName;
                 this.email = user.email;
@@ -55,6 +62,17 @@ export class UserDetailComponent implements OnInit {
                 this.numeroCni = user.numeroCni;
                 this.boutiqueIds = user.boutiqueIds;
                 this.notificationIds = user.notificationIds;
+
+                this.imgService.getAccountImage(this.id)
+                .subscribe({
+                  next: (imgRes) => {
+                    this.imgType = imgRes.type;
+                    this.imgSrc = imgRes.donnees;
+                  },
+                  error(err) {
+                    console.log("Unexpected error while retreiving profile", err)
+                  },
+                })
 
                 // Fetch shops using boutiqueIds
                 if (this.boutiqueIds.length > 0) {

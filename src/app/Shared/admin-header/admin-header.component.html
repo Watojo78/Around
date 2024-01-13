@@ -13,7 +13,7 @@
                     <i class="fi fi-tr-bells"></i>
                 </div>
                 <div class="notifs-body">
-                    <div class="notification-row" *ngFor="let notification of lastEightNotifs | orderBy:'createdAt':true">
+                    <div class="notification-row" *ngFor="let notification of notifs | orderBy:'createdAt':true">
                         <div class="account-profile">
                             <img 
                               *ngIf="notification.compteId == 0 || !notification.compteId" 
@@ -30,6 +30,10 @@
                         <div class="details">
                             <p><span>{{ notification.firstName }} {{ notification.lastName }}</span> a créé une nouvelle boutique et attend activation</p>
                             <span>{{ notification.createdAt | formatDate }}</span>
+                        </div>
+                        <div class="actions" *ngIf="notification.titre == 'Nouvelle Boutique'">
+                            <button mat-raised-button>Accepter</button>
+                            <button mat-raised-button>Décliner</button>
                         </div>
                     </div>
                 </div>

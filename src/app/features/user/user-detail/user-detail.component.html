@@ -19,7 +19,10 @@
     </div> 
     <div class="detail-content"> 
         <div class="content-head">   
-            <img src="../../../assets/avatar_pp_icon.svg" height="126">
+            <div class="head-profile">  
+                <img *ngIf="!profileId" src="{{defaultSrc}}" height="126">
+                <img *ngIf="profileId != 0" src="data:{{imgType}};base64,{{imgSrc}}" height="126">
+            </div>
             <div class="head-fullName ">
                 <h5>{{firstName}} {{lastName}}</h5>
                 <span *ngIf="roleId == 1">Client</span>
@@ -87,7 +90,7 @@
                         </div>
                     </div>
                     <div class="shop-footer">
-                        <button mat-button>Désactiver la boutique</button>
+                        <button mat-button disabled>Désactiver la boutique</button>
                     </div>
                 </div>
                 <div class="others-management">

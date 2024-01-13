@@ -49,7 +49,7 @@ export class CategoryListComponent implements AfterViewInit {
         next: () => {
           console.log("Catégorie supprimée avec succès ")
           this.snackBar.open(
-            this.formatSnackbar('Category deleted successfully!', 'Deleted', 'Categoy'),
+            this.formatSnackbar('Category deleted successfully!', 'Deleted', 'Category'),
             '',
             {
               duration: 3000,

@@ -8,6 +8,7 @@ import { OrderByPipe } from './order-by.pipe';
 import { ActiveCountPipe } from './active-count.pipe';
 import { ProfileUserListPipe } from './profile-user-list.pipe';
 import { ProfileUserNotificationPipe } from './profile-user-notification.pipe';
+import { FormatOpenHourDayPipe } from './format-open-hour-day.pipe';
 
 
 
@@ -21,7 +22,8 @@ import { ProfileUserNotificationPipe } from './profile-user-notification.pipe';
     OrderByPipe,
     ActiveCountPipe,
     ProfileUserListPipe,
-    ProfileUserNotificationPipe
+    ProfileUserNotificationPipe,
+    FormatOpenHourDayPipe
   ],
   exports: [
     FormatDatePipe,
@@ -32,7 +34,8 @@ import { ProfileUserNotificationPipe } from './profile-user-notification.pipe';
     OrderByPipe,
     ActiveCountPipe,
     ProfileUserListPipe,
-    ProfileUserNotificationPipe
+    ProfileUserNotificationPipe,
+    FormatOpenHourDayPipe
   ]
 })
 export class CustomPipeModule { }

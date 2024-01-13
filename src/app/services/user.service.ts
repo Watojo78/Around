@@ -70,4 +70,9 @@ export class UserService {
     return payloadJson;
   }
 
+  getUsersCreatedBetween(startDate: string, endDate: string): Observable<any>{
+    const url = this.apiUrl + `/api-around2/comptes/createdBetween/${startDate}/${endDate}`;
+    return this.http.get(url, {headers: headers});
+  }
+
 }

@@ -9,6 +9,7 @@ import { UserService } from '../../../services/user.service';
 import { Image } from '../../../models/image';
 import { User } from '../../../models/user';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'user-list',
@@ -32,7 +33,7 @@ export class UserListComponent implements AfterViewInit {
   constructor(
     private userService: UserService, 
     private roleService: RoleService,
-    private paginatorIntl: MatPaginatorIntl) {
+    private snackBar: MatSnackBar) {
       this.userService.getCurrentUser()
         .subscribe({
           next: (currentUser) => {
@@ -84,18 +85,45 @@ export class UserListComponent implements AfterViewInit {
 
   deleteUser(id: number){
     this.userService.deleteAccount(id)
-    .subscribe(res => {
-      alert("Utilisateur supprimé avec succès")
-      window.location.reload();
+    .subscribe({
+      next:() => {
+        console.log("Compte supprimée avec succès ")
+        this.snackBar.open(
+          this.formatSnackbar('Account deleted successfully!', 'Deleted', 'Account'),
+          '',
+          {
+            duration: 3000,
+            panelClass: ['success-snackbar'] // Optional custom CSS class
+          }
+        );
+        window.location.reload();
+      },
+      error: (err) => {
+        console.error("An unexpected error occurs while deleting user: =>",err.message);
+        this.snackBar.open(
+          this.formatSnackbar('Error deleting account: ' + err.message, 'Error', 'Account'),
+          '',
+          {
+            duration: 3000,
+            panelClass: ['error-snackbar'] // Optional custom CSS class
+          }
+        );
+      }
     });
   }
 
   enableUser(id: number){
     this.userService.activateUser(id)
-    .subscribe(res => {
-      alert("Compte activé avec succès :)")
-      window.location.reload();
+    .subscribe({
+      next:() => {
+        alert("Compte activé avec succès :)")
+        window.location.reload();
+      },
     })
+  }
+
+  private formatSnackbar(message: string, action: string, entityName: string): string {
+    return `${action.toUpperCase()} ${entityName}: ${message}`;
   }
 
 

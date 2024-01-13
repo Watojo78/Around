@@ -80,22 +80,18 @@
 
 h4{font-weight: 400;}
 
-.recent{
+#growth{
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     column-gap: 1.26rem;
     width: 100%;
 
-    &-transactions{
+    &-accounts, &-shops{
         width: 50%;
     }
 
-    &-accounts{
-        width: 50%;
-    }
-
-    &-transactions, &-accounts{
+    &-accounts, &-shops{
         padding: .7rem;
         background-color: rgb(255, 255, 255);
         color: rgb(33, 43, 54);

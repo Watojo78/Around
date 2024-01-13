@@ -4,6 +4,7 @@ import { UserService } from '../../../services/user.service';
 import { RoleService } from '../../../services/role.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ImageService } from '../../../services/image.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'user-edit',
@@ -28,6 +29,7 @@ export class UserEditComponent implements OnInit {
     private route: ActivatedRoute,
     private imgService: ImageService,
     private roleService: RoleService,
+    private matSnackbar: MatSnackBar,
     private fb:FormBuilder){
       this.userForm = this.fb.group({
         firstName:'',
@@ -49,15 +51,15 @@ export class UserEditComponent implements OnInit {
           this.imgService.getAccountImage(this.id)
           .subscribe({
             next: (profile) => {
-              const file = profile;
-              console.log(file)
-              if(file){
-                this.selectedImage = file;
-                this.previewImage(file);
+              const type = profile.type;
+              const url = profile.donnees
+              if(type && url){
+                this.imageUrl = `data:${type};base64,${url}`;
               }
             },
             error: (err) => {
-              console.log("La catégorie n'a aucune miniature", err)
+              console.log("Une erreur est survenue lors de la récupération du profil", err.message);
+              this.matSnackbar.open("Une erreur est survenue lors de la récupération du profil", "Fermer", {duration: 5000});
             }
           })
           this.userService.getUser(this.id)
@@ -76,6 +78,7 @@ export class UserEditComponent implements OnInit {
                 } else {
                   // Handle other errors
                   console.error('Error retrieving user:', error);
+                  this.matSnackbar.open("Une erreur est survenue lors de la récupération de l'utilisateur", "Fermer", {duration: 5000});
                 }
               },
             });
@@ -94,6 +97,7 @@ export class UserEditComponent implements OnInit {
               const compteId = payloadJson.compteId; // Extract compteId from response
               const fullName = payloadJson.fullName;
   
+              this.matSnackbar.open("L'utilisateur a été modifié avec succès", "Fermer", {duration: 3000});
               console.log("Now registering profile img...")
   
               if (!this.selectedImage) {
@@ -110,18 +114,18 @@ export class UserEditComponent implements OnInit {
               .subscribe({
                 next: (res: any)=>{
                   console.log('Instance créée avec succès :).')
-                  alert("profil maj avec succès")
+                  this.matSnackbar.open("Profil maj avec succès", "Fermer", {duration: 5000});
                   this.router.navigate(['/dashboard/user/list'])
                 },
                 error: (err: any)=>{
-                  alert("erreur lors de la maj du profil")
-                  console.log("erreur lors de la maj du profil", err)
+                  this.matSnackbar.open("Une erreur est survenue lors de la maj du profil", "Fermer", {duration: 5000});
+                  console.log("erreur lors de la maj du profil", err.message)
                 }
               })
             },
             error: (err: any)=>{
-              alert("erreur lors de la maj de l'utilisateur")
-              console.log("erreur de maj de l'utilisateur: ", err)
+              this.matSnackbar.open("Une erreur est survenue lors de la maj de l'utilisateur", "Fermer", {duration: 5000});
+              console.log("erreur de maj de l'utilisateur: ", err.message)
             }
           })
       }

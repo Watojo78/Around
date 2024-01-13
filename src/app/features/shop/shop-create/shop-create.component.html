@@ -170,7 +170,7 @@
                 <label for="heureOuverture" id="heureOuverture" style="font-size: 15px; font-weight: 500">Heures d'Ouverture:</label>
                 <div class="form-group ophours" formGroupName="heureOuverture">
                     <div class="openHours" *ngFor="let day of daysOfWeek" [formGroupName]="day">
-                        <span style="width: 40%; font-size: 14px; text-transform: lowercase;">{{day}}</span>
+                        <span style="width: 40%; font-size: 14px;">{{ day | formatOpenHourDay }}</span>
                         <mat-form-field appearance="fill"> 
                             <mat-label>Heure de début</mat-label>
                             <input 

@@ -6,6 +6,7 @@ import { CategoryService } from '../../../services/category.service';
 import { ShopService } from '../../../services/shop.service';
 import { ServiceService } from '../../../services/service.service';
 import { ImageService } from '../../../services/image.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-service-list',
@@ -35,41 +36,40 @@ export class ServiceListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
+    private snackBar: MatSnackBar,
     private serService: ServiceService,
     private catService : CategoryService,
-    private shopService: ShopService,
-    private imgService: ImageService,
-    private paginatorIntl: MatPaginatorIntl){}
+    private imgService: ImageService){}
 
-    ngAfterViewInit() {
-      this.fetchServices()
-      this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+  ngAfterViewInit() {
+    this.fetchServices()
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+  }
+
+
+  getCatName(catId: number): string | undefined {
+    if (this.catMap.has(catId)) {
+      return this.catMap.get(catId);
     }
-
-
-    getCatName(catId: number): string | undefined {
-      if (this.catMap.has(catId)) {
-        return this.catMap.get(catId);
-      }
       return 'Unknown Category';
-    }
+  }
 
-    getImageType(id: number): string | undefined{
-      if (this.imgTypeMap?.has(id)) {
-        return this.imgTypeMap.get(id);
-      }
-      return;
+  getImageType(id: number): string | undefined{
+    if (this.imgTypeMap?.has(id)) {
+      return this.imgTypeMap.get(id);
     }
+    return;
+  }
   
-    getImageSrc(id: number): string | undefined{
-      if (this.imgSrcMap?.has(id)) {
-        return this.imgSrcMap.get(id) as string;
-      }
-      return '';
+  getImageSrc(id: number): string | undefined{
+    if (this.imgSrcMap?.has(id)) {
+      return this.imgSrcMap.get(id) as string;
     }
+    return '';
+  }
 
-    private fetchServices(){
-      this.serService.getAllServices()
+  private fetchServices(){
+    this.serService.getAllServices()
       .subscribe({
         next: (serviceRes) => {
           this.loadedServices = serviceRes;
@@ -136,19 +136,39 @@ export class ServiceListComponent implements AfterViewInit {
         error: (err) =>{
           console.log("An unexpected error occurs while retreiving services:",err)
         }
-      });
-    }
+    });
+  }
 
-    deleteService(id: number){
-      this.serService.delService(id)
+  deleteService(id: number){
+    this.serService.delService(id)
       .subscribe({
         next: (res) => {
-          alert("Service supprimé avec succès ")
+          this.snackBar.open(
+            this.formatSnackbar('Service supprimé avec succès!', 'Suppression', 'Service'),
+            '',
+            {
+              duration: 3000,
+              panelClass: ['success-snackbar'] // Optional custom CSS class
+            }
+          );
           window.location.reload();
         },
         error: (err) => {
-          console.log("An unexpected error occurs while deleting the service ", err)
+          console.log("An unexpected error occurs while deleting the service ", err.message),
+          this.snackBar.open(
+            this.formatSnackbar('Une erreur est survenue lors de la suppression du service!' + err.message, 'Erreur', 'Service'),
+            '',
+            {
+              duration: 3000,
+              panelClass: ['error-snackbar'] // Optional custom CSS class
+            }
+          );
         }
-      });
-    }
+    });
+  }
+
+  private formatSnackbar(message: string, action: string, entityName: string): string {
+    return `${action.toUpperCase()} ${entityName}: ${message}`;
+  }
+
 }

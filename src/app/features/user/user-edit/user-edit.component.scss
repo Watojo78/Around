@@ -179,6 +179,21 @@ h4{
     &.submit{background-color: black !important;}
 }
 
+.image{
+    &-preview{
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        vertical-align: bottom;
+        background-size: cover;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
 .mat-mdc-form-field{
     width: 100%;
     font-size: .86rem;

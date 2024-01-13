@@ -10,6 +10,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CustomPipeModule } from '../../custom-pipe/custom-pipe.module';
+import { UserService } from '../../services/user.service';
 
 
 @NgModule({
@@ -28,6 +29,8 @@ import { CustomPipeModule } from '../../custom-pipe/custom-pipe.module';
     CustomPipeModule
   ],
   
-  providers: [],
+  providers: [
+    UserService
+  ],
 })
 export class UserModule { }

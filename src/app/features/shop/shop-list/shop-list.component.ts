@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NeighborhoodService } from '../../../services/neighborhood.service';
 import { ShopService } from '../../../services/shop.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'shop-list',
@@ -29,6 +30,7 @@ export class ShopListComponent implements AfterViewInit {
   constructor(
     private http: HttpClient,
     private shopService: ShopService,
+    private snackBar: MatSnackBar,
     private neighborhoodService: NeighborhoodService){}
 
   ngAfterViewInit() {
@@ -167,14 +169,34 @@ export class ShopListComponent implements AfterViewInit {
   deleteShop(id: number){
     this.shopService.deleteShop(id)
     .subscribe({
-      next:(res) => {
-        alert("Boutique supprimé avec succès ")
+      next:() => {
+        console.log("Boutique supprimée avec succès ")
+        this.snackBar.open(
+          this.formatSnackbar('Shop deleted successfully!', 'Deleted', 'Shop'),
+          '',
+          {
+            duration: 3000,
+            panelClass: ['success-snackbar'] // Optional custom CSS class
+          }
+        );
         window.location.reload();
       },
       error: (err) => {
-        console.log("Unexpected error occurs while deleting the shop", err)
+        this.snackBar.open(
+          this.formatSnackbar('Error deleting shop: ' + err.message, 'Error', 'Shop'),
+          '',
+          {
+            duration: 5000,
+            panelClass: ['error-snackbar'] // Optional custom CSS class
+          }
+        );
+        console.log("Unexpected error occurs while deleting the shop", err.message)
       }
     });
+  }
+
+  private formatSnackbar(message: string, action: string, entityName: string): string {
+    return `${action.toUpperCase()} ${entityName}: ${message}`;
   }
 
 }

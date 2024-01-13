@@ -49,32 +49,9 @@
                         placeholder="Max 500 caractères."></textarea>
                 </mat-form-field>
             </div>
-            <div class="form-group thumb" (click)="openFileInput()">
-                <input 
-                    accept="image/*" 
-                    type="file" 
-                    #fileInput
-                    (change)="onFileSelected($event)"
-                    style="display: none;">
-                <div *ngIf="imageUrl" class="image-preview">
-                    <img [src]="imageUrl" alt="Service-Preview">
-                </div>
-                <div class="upload-placeholder">
-                    <div *ngIf="imageUrl" class="placeholder after">
-                        <img src="../../..../assets/fileupload1.svg" alt="" height="160">
-                        <h3><i class="fi fi-sr-camera-viewfinder"></i>&ensp;Remplacer l'image par une autre</h3>
-                        <span>Naviguer depuis la machine ou cherchez l'image depuis la machine</span>
-                    </div>
-                    <div *ngIf="!imageUrl" class="placeholder before">
-                        <img src="../../../assets/thumbnail.svg" alt="" height="198">
-                        <h5>Selectionner l'image</h5>
-                        <span>Naviguer depuis la machine ou cherchez l'image depuis la machine</span>
-                    </div>
-                </div>
-            </div>
             <div class="form-submission">
                 <button mat-raised-button class="submit" type="submit">
-                    Ajouter la Catégorie
+                    Mettre à jour la Catégorie
                 </button>
             </div>
         </div>  

@@ -45,11 +45,6 @@ const TREE_DATA: ParentNode[] = [
         name: 'Liste',
         route: 'role/list',
         icon: 'fi fi-ss-bullet',
-      }, 
-      {
-        name: 'Créer',
-        route: 'role/new',
-        icon: 'fi fi-ss-bullet',
       }],
   },
   {name: 'Promotion',

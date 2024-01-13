@@ -22,7 +22,11 @@
                         (change)="onFileSelected($event)"
                         style="display: none;">
                     <div *ngIf="imageUrl" class="image-preview">
-                        <img [src]="imageUrl" alt="Preview">
+                        <img    
+                            [src]="imageUrl" 
+                            alt="Preview" 
+                            loading="lazy"
+                            height="96">
                     </div>
                     <div class="upload-placeholder">
                         <i class="fi fi-sr-camera"></i>
