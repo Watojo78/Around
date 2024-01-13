@@ -27,9 +27,14 @@ export class RoleService {
     return this.http.get(url, {headers: headers});
   } //ok
 
-  updateRole(id:number): Observable<any>{
+  getRole(id:number): Observable<any>{
+    const url = this.apiUrl + `/api-around2/role/${id}`;
+    return this.http.get(url, {headers: headers});
+  }
+
+  updateRole(id:number, data: any): Observable<any>{
     const url = this.apiUrl + `/api-around2/role/update/${id}`;
-    return this.http.patch(url, {headers: headers});
+    return this.http.patch(url, data, {headers: headers});
   }
 
   delRole(id:number): Observable<any>{

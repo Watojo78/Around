@@ -2,6 +2,11 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { RoleService } from '../../../services/role.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { RoleCreateComponent } from '../role-create/role-create.component';
+import { RoleDetailComponent } from '../role-detail/role-detail.component';
+import { RoleDeleteComponent } from '../role-delete/role-delete.component';
 
 const token = sessionStorage.getItem('token');
 const headers = new HttpHeaders()
@@ -21,8 +26,10 @@ export class RoleListComponent implements OnInit {
   dataSource: any;
   sortedData: any;
 
-  constructor(private roleService : RoleService){
-  }
+  constructor(
+    private roleService : RoleService,
+    private matSnackbar: MatSnackBar,
+    private dialog: MatDialog){}
 
   ngOnInit() {
     this.fetchRoles()
@@ -37,11 +44,43 @@ export class RoleListComponent implements OnInit {
     });
   }
 
-  deleteRole(id: number){
-    this.roleService.delRole(id)
-    .subscribe(res => {
-      alert("Rôle supprimé avec succès ")
-      window.location.reload();
+  createRole(name: string){
+    this.roleService.newRole(name)
+   .subscribe({
+      next: (res) => {
+        alert("Rôle créé avec succès ")
+        this.matSnackbar.open("Rôle créé avec succès", "OK", {
+          duration: 2000,
+        })
+        window.location.reload();
+      },
+    })
+  }
+
+  openRoleCreateForm(){
+    this.dialog.open(RoleCreateComponent, {
+      width: '400px',
+    });
+  }
+
+  openRoleEditForm(data: any){
+    this.dialog.open(RoleCreateComponent, {
+      width: '400px',
+      data: {data: data}
+    });
+  }
+
+  openRoleDetail(id: number){
+    this.dialog.open(RoleDetailComponent, {
+      width: '400px',
+      data: {id: id}
+    });
+  }
+
+  confirmRoleDeletion(id: number){
+    this.dialog.open(RoleDeleteComponent, {
+      width: '400px',
+      data: {id: id}
     });
   }
 

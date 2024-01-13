@@ -16,6 +16,7 @@ const serviceRoutes: Routes = [
         { path: 'new', component: ServiceCreateComponent },
         { path: ':id', component: ServiceDetailComponent},
         { path: ':id/edit', component: ServiceEditComponent },
+        { path: '', redirectTo: 'list', pathMatch: 'full' },
         { 
           path: 'category', 
           loadChildren: () =>

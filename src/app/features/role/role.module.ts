@@ -7,6 +7,9 @@ import { RoleCreateComponent } from './role-create/role-create.component';
 import { RoleEditComponent } from './role-edit/role-edit.component';
 import { RoleComponent } from './role.component';
 import { SharedModule } from '../../Shared/shared.module';
+import { RoleDetailComponent } from './role-detail/role-detail.component';
+import { RoleDeleteComponent } from './role-delete/role-delete.component';
+import { CustomPipeModule } from '../../custom-pipe/custom-pipe.module';
 
 
 @NgModule({
@@ -14,11 +17,14 @@ import { SharedModule } from '../../Shared/shared.module';
     RoleListComponent,
     RoleCreateComponent,
     RoleEditComponent,
-    RoleComponent
+    RoleComponent,
+    RoleDetailComponent,
+    RoleDeleteComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
+    CustomPipeModule,
     RoleRoutingModule
   ]
 })

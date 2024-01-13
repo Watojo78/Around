@@ -17,6 +17,7 @@ const routes: Routes = [
         { path: 'profile', component: UserProfileComponent},
         { path: ':id', component: UserDetailComponent},
         { path: ':id/edit', component: UserEditComponent },
+        { path: '', redirectTo: 'list', pathMatch: 'full' }
       ]
     }  
 ];

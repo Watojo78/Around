@@ -139,8 +139,7 @@
           *ngFor="let role of roles"
           [disabled]="!roleCounts.get(role.id)">
           <ng-template mat-tab-label>
-            <span style="text-transform: lowercase;">{{ role.name }}s</span>
-            <span style="text-transform: lowercase;" *ngIf="role.name == 'role_user'">Customers</span>
+            <span>{{ role.name | formatRole }}s</span>
             <span class="tab-label-count">{{ roleCounts.get(role.id) || 0 }}</span>
           </ng-template>
           <table 

@@ -4,7 +4,8 @@
         <span>Bon retour à vous</span>
         <form 
             [formGroup]="authForm" 
-            (ngSubmit)="onSubmit()">
+            (ngSubmit)="onSubmit()"
+            *ngIf="isLogged">
             <div class="form-group">
                 <mat-form-field appearance="fill">
                     <mat-label for="email" id="email">Entrez votre email</mat-label>
@@ -39,6 +40,10 @@
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>&ensp;S'authentifier
             </button>
         </form>
+        
+        <div class="isLogged" *ngIf="!isLogged">
+            <p>Vous êtes déjà connectés :) !!</p>
+        </div>
     </div>
     <div class="wrapper-illus">
     </div>
