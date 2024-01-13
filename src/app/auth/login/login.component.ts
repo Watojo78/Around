@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit {
       .subscribe({
           next: (response) => {
               if (response.token) {
-                  this.isLogged = true;
                   this.router.navigate(['/dashboard']);
               } else {
                   console.error('Invalid login response');
