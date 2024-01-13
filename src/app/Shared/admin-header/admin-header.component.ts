@@ -3,7 +3,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import { ImageService } from '../../services/image.service';
 import { AuthService } from '../../auth/auth.service';
 import { NotificationService } from '../../services/notification.service';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { User } from '../../models/user';
 
 @Component({
@@ -92,6 +92,9 @@ export class AdminHeaderComponent implements AfterViewInit {
 
   private fetchNotifications(){
     this.notificationsService.getAllNotifications()
+    .pipe(
+      map((notificationsRes: any[]) => notificationsRes.filter((notification: { titre: string; }) => notification.titre === "Nouvelle boutique"))
+    )
     .subscribe({
       next: (notificationsRes) => {
         this.notifs = notificationsRes;

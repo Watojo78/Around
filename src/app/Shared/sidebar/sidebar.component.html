@@ -5,16 +5,31 @@
     <div class="sidebar-overview">
         <h4>Overview</h4>
         <div class="submenu">
-            <a [routerLink]="['/dashboard/']" routerLinkActive="active" class="submenu-item 1">
+            <a 
+                [routerLink]="['/dashboard/']" 
+                routerLinkActive="active" 
+                class="submenu-item 1">
                 <i class="fi fi-sr-home" style="font-size: 17px;"></i>&ensp;App
             </a>
-            <a [routerLink]="['/dashboard/analytics/']" routerLinkActive="active" class="submenu-item 1">
+            <a 
+                disabled
+                [routerLink]="['/dashboard/analytics/']" 
+                routerLinkActive="active" 
+                class="submenu-item 1">
                 <i class="fi fi-sr-chart-pie-alt"></i>&ensp;Analytique
             </a>
-            <a [routerLink]="['/dashboard/packs/']" routerLinkActive="active" class="submenu-item 2">
+            <a 
+                disabled
+                [routerLink]="['/dashboard/packs/']" 
+                routerLinkActive="active" 
+                class="submenu-item 2">
                 <i class="fi fi-sr-box-alt" style="font-size: 17px;"></i>&ensp;Packages
             </a>
-            <a [routerLink]="['/dashboard/payments-stats/']" routerLinkActive="active" class="submenu-item 3">
+            <a 
+                disabled
+                [routerLink]="['/dashboard/payments-stats/']" 
+                routerLinkActive="active" 
+                class="submenu-item 3">
                 <i class="fi fi-br-earnings" style="font-size: 17px;"></i>&ensp;Stats Paiements
             </a>
         </div>

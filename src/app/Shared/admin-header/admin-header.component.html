@@ -14,34 +14,38 @@
                 </div>
                 <div class="notifs-body">
                     <div class="notification-row" *ngFor="let notification of notifs | orderBy:'createdAt':true">
-                        <div class="account-profile">
-                            <img 
-                              *ngIf="notification.compteId == 0 || !notification.compteId" 
-                              src="{{defaultSrc}}" 
-                              loading="lazy" 
-                              height="42">
-                            <img 
-                              *ngIf="notification.compteId" 
-                              [src]="notification | profileUserNotification | async" 
-                              [alt]="notification.firstName" 
-                              loading="lazy" 
-                              height="42">
+                        <div class="row">
+                            <div class="row-profile">
+                                <img 
+                                  *ngIf="notification.compteId == 0 || !notification.compteId" 
+                                  src="{{defaultSrc}}" 
+                                  loading="lazy" 
+                                  height="42">
+                                <img 
+                                  *ngIf="notification.compteId" 
+                                  [src]="notification | profileUserNotification | async" 
+                                  loading="lazy" 
+                                  height="42"
+                                  alt="...">
+                            </div>
+                            <div class="row-details">
+                                <p><span>{{ notification.firstName }} {{ notification.lastName }}</span> a créé une nouvelle boutique et attend activation</p>
+                                <span>{{ notification.createdAt | formatDate }}</span>
+                            </div>
                         </div>
-                        <div class="details">
-                            <p><span>{{ notification.firstName }} {{ notification.lastName }}</span> a créé une nouvelle boutique et attend activation</p>
-                            <span>{{ notification.createdAt | formatDate }}</span>
-                        </div>
-                        <div class="actions" *ngIf="notification.titre == 'Nouvelle Boutique'">
-                            <button mat-raised-button>Accepter</button>
-                            <button mat-raised-button>Décliner</button>
+                        <div class="actions">
+                            <button mat-raised-button disabled>Accepter</button>
+                            <button mat-flat-button class="decline" disabled>Décliner</button>
                         </div>
                     </div>
                 </div>
             </mat-menu> 
         </span>
         <span class="submenu-item three">
-            <button mat-icon-button>
-                <i class="fi fi-sr-settings" matBadge="7" matBadgeColor="warn"></i>
+            <button 
+                mat-icon-button
+                disabled>
+                <i class="fi fi-sr-settings rotating" matBadgeColor="warn"></i>
             </button>
         </span>
         <span class="submenu-item four">
@@ -59,7 +63,7 @@
                 <div class="profile-body">
                     <a mat-menu-item routerLink="/dashboard">Dashboard</a>
                     <a mat-menu-item routerLink="/dashboard/user/profile">Profil</a>
-                    <a mat-menu-item routerLink="/dashboard/settings">Paramètres</a>
+                    <a mat-menu-item routerLink="/dashboard/settings" disabled>Paramètres</a>
                 </div>
                 <div class="profile-footer">
                     <button mat-menu-item (click)="onLogout()">
