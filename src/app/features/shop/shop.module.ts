@@ -10,6 +10,7 @@ import { ShopListComponent } from './shop-list/shop-list.component';
 import { ShopService } from '../../services/shop.service';
 import { SharedModule } from '../../Shared/shared.module';
 import { CustomPipeModule } from '../../custom-pipe/custom-pipe.module';
+import { ShopDeleteComponent } from './shop-delete/shop-delete.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { CustomPipeModule } from '../../custom-pipe/custom-pipe.module';
     ShopEditComponent,
     ShopDetailComponent,
     ShopComponent,
-    ShopListComponent
+    ShopListComponent,
+    ShopDeleteComponent
   ],
   imports: [
     CommonModule,

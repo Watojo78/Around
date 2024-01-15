@@ -5,6 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NeighborhoodService } from '../../../services/neighborhood.service';
 import { ShopService } from '../../../services/shop.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ShopDeleteComponent } from '../shop-delete/shop-delete.component';
 
 @Component({
   selector: 'shop-list',
@@ -31,6 +33,7 @@ export class ShopListComponent implements AfterViewInit {
     private http: HttpClient,
     private shopService: ShopService,
     private snackBar: MatSnackBar,
+    private dialog: MatDialog,
     private neighborhoodService: NeighborhoodService){}
 
   ngAfterViewInit() {
@@ -161,42 +164,19 @@ export class ShopListComponent implements AfterViewInit {
         })
       },
       error: (err) =>{
-        console.log("Unexpected error occurs while fetching the shops", err)
+        console.log("Unexpected error occurs while fetching the shops", err.message)
+        this.snackBar.open('Unexpected error occurs while fetching the shops', 'Failed', {
+          duration: 3000
+        });
       }
     });
   }
 
-  deleteShop(id: number){
-    this.shopService.deleteShop(id)
-    .subscribe({
-      next:() => {
-        console.log("Boutique supprimée avec succès ")
-        this.snackBar.open(
-          this.formatSnackbar('Shop deleted successfully!', 'Deleted', 'Shop'),
-          '',
-          {
-            duration: 3000,
-            panelClass: ['success-snackbar'] // Optional custom CSS class
-          }
-        );
-        window.location.reload();
-      },
-      error: (err) => {
-        this.snackBar.open(
-          this.formatSnackbar('Error deleting shop: ' + err.message, 'Error', 'Shop'),
-          '',
-          {
-            duration: 5000,
-            panelClass: ['error-snackbar'] // Optional custom CSS class
-          }
-        );
-        console.log("Unexpected error occurs while deleting the shop", err.message)
-      }
+  confirmShopDeletion(id: number){
+    this.dialog.open(ShopDeleteComponent, {
+      width: 'auto',
+      data: {id: id}
     });
-  }
-
-  private formatSnackbar(message: string, action: string, entityName: string): string {
-    return `${action.toUpperCase()} ${entityName}: ${message}`;
   }
 
 }

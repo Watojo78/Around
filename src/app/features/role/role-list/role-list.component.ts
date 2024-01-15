@@ -56,19 +56,6 @@ export class RoleListComponent implements OnInit {
       });
   }
 
-  createRole(name: string){
-    this.roleService.newRole(name)
-   .subscribe({
-      next: (res) => {
-        alert("Rôle créé avec succès ")
-        this.matSnackbar.open("Rôle créé avec succès", "OK", {
-          duration: 2000,
-        })
-        window.location.reload();
-      },
-    })
-  }
-
   openRoleCreateForm(){
     this.dialog.open(RoleCreateComponent, {
       width: '400px',

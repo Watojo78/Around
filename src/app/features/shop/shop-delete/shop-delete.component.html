@@ -1,0 +1,19 @@
+<h3 mat-dialog-title style="font-family: Poppins; font-weight: 500;">
+    Suppression Boutique
+</h3>
+<div mat-dialog-content>
+    <p style="font-size: 13px;">Voulez-vous vraiment supprimer la boutique: {{shopName}} ?<br>Le processus est irréversible</p>
+</div>
+<div mat-dialog-actions align="center">
+  <button 
+    mat-button 
+    [mat-dialog-close]="false">
+    Annuler</button>
+  <button 
+    mat-button 
+    class="deletion"
+    [mat-dialog-close]="true" 
+    (click)="deleteShop(id)"
+    cdkFocusInitial>
+    Confirmer</button>
+</div>
