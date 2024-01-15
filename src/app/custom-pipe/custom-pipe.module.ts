@@ -9,6 +9,7 @@ import { ProfileUserListPipe } from './profile-user-list.pipe';
 import { ProfileUserNotificationPipe } from './profile-user-notification.pipe';
 import { FormatOpenHourDayPipe } from './format-open-hour-day.pipe';
 import { FormatRolePipe } from './format-role.pipe';
+import { FormattedCountPipe } from './formatted-count.pipe';
 
 
 
@@ -23,7 +24,8 @@ import { FormatRolePipe } from './format-role.pipe';
     ProfileUserListPipe,
     ProfileUserNotificationPipe,
     FormatOpenHourDayPipe,
-    FormatRolePipe
+    FormatRolePipe,
+    FormattedCountPipe
   ],
   exports: [
     FormatDatePipe,
@@ -36,6 +38,7 @@ import { FormatRolePipe } from './format-role.pipe';
     ProfileUserNotificationPipe,
     FormatOpenHourDayPipe,
     FormatRolePipe,
+    FormattedCountPipe
   ]
 })
 export class CustomPipeModule { }

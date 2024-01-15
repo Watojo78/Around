@@ -33,21 +33,21 @@
         <div class="counters block1">
             <div class="infos">
                 <h4>Total Boutiques Actives</h4>
-                <h3>{{shops | activeCount }}</h3>
+                <h3>{{shops | activeCount | formattedCount: '.' }}</h3>
             </div>
             <i class="fi fi-sr-shopping-cart-check"></i>
         </div>
         <div class="counters block3">
             <div class="infos">
                 <h4>Total Comptes Actifs</h4>
-                <h3>{{ users | activeCount }}</h3>
+                <h3>{{ users | activeCount | formattedCount: '.' }}</h3>
             </div>
             <i class="fi fi-sr-user-check"></i>
         </div>
         <div class="counters block3">
             <div class="infos">
                 <h4>Total Services</h4>
-                <h3>{{countServices}}</h3>
+                <h3>{{countServices | formattedCount: '.' }}</h3>
             </div>
             <i class="fi fi-rr-time-twenty-four"></i>
         </div>

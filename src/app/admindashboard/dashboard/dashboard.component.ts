@@ -355,6 +355,7 @@ import {
   ApexStroke
 } from "ng-apexcharts";
 import { CategoryService } from '../../services/category.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -368,7 +369,19 @@ export type ChartOptions = {
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [
+    trigger('countAnimation', [
+      state('inactive', style({ opacity: 0 })),
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms ease-in', style({ opacity: 1 }))
+      ]),
+      transition(':increment', [
+        animate('200ms ease-in') // Adjust duration as needed
+      ])
+    ])
+  ]
 })
 export class DashboardComponent implements AfterViewInit {
   
@@ -388,6 +401,14 @@ export class DashboardComponent implements AfterViewInit {
   customersLength = 0;
   catMap!: Map<number, string>;
   userSeries = [49, 70, 89, 55]; 
+
+  countAnimationState = 'inactive'; // Initial state
+
+  incrementCount() {
+    this.countServices++;
+    this.countAnimationState = 'increment'; // Trigger animation
+    setTimeout(() => this.countAnimationState = 'inactive', 200); // Reset after animation
+  }
 
   constructor(
     private userService: UserService,
