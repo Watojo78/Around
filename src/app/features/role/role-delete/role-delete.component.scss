@@ -1,0 +1,10 @@
+
+.mdc-button{
+    width: 100%;
+    border-radius: 10px !important;
+
+    &.deletion{
+        color: white;
+        background-color: black !important;
+    }
+}

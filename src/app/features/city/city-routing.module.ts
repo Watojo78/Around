@@ -15,7 +15,8 @@ const routes: Routes = [
         { path: 'new', component: CityCreateComponent },
         { path: 'detail/:id', component: CityDetailComponent},
         { path: 'edit/:id', component: CityEditComponent },
-        { path: '', redirectTo: 'list', pathMatch: 'full' }
+        { path: '', redirectTo: 'list', pathMatch: 'full' },
+        { path: '**', redirectTo: 'list', pathMatch: 'full' }
       ]
     }
 ];

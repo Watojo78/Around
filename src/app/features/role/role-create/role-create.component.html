@@ -1,23 +1,32 @@
-<form [formGroup]="roleForm" (ngSubmit)="onFormSubmit()" class="new-content">
-  <h3 mat-dialog-title>Creation de Rôle</h3>
-  <mat-dialog-content>
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>Nom du rôle</mat-label>
-        <input matInput type="text" formControlName="name" required />
-      </mat-form-field>
-    </div>
-  </mat-dialog-content>
-  <mat-dialog-actions align="center">
-    <button mat-raised-button [mat-dialog-close]="false">Annuler</button>
-    <button
-      mat-raised-button
-      [mat-dialog-close]="true"
-      cdkFocusInitial
-      class="submit"
-      type="submit"
-    >
-      Créer le Rôle
-    </button>
-  </mat-dialog-actions>
-</form>
+<div class="new">
+  <form [formGroup]="roleForm" (ngSubmit)="onFormSubmit()" class="new-content">
+    <h3 mat-dialog-title style="font-family: Poppins; font-weight: 500;">
+      Création de Rôle
+  </h3>
+    <mat-dialog-content>
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Nom du rôle</mat-label>
+          <input matInput type="text" formControlName="name" required />
+        </mat-form-field>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button 
+        mat-button 
+        color="warn"
+        [mat-dialog-close]="false">
+        Annuler
+      </button>
+      <button
+        mat-button
+        [mat-dialog-close]="true"
+        cdkFocusInitial
+        class="submit"
+        type="submit"
+      >
+        Créer le Rôle
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

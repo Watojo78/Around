@@ -15,7 +15,8 @@ const shopRoutes: Routes = [
         { path: 'new', component: ShopCreateComponent },
         { path: ':id', component: ShopDetailComponent},
         { path: ':id/edit', component: ShopEditComponent },
-        { path: '', redirectTo: 'list', pathMatch: 'full' }
+        { path: '', redirectTo: 'list', pathMatch: 'full' },
+        { path: '**', redirectTo: 'list', pathMatch: 'full' }
       ]
     }  
 ];

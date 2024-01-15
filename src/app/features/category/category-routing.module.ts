@@ -15,7 +15,8 @@ const routes: Routes = [
         { path: 'new', component: CategoryCreateComponent },
         { path: ':id', component: CategoryDetailComponent},
         { path: ':id/edit', component: CategoryEditComponent },
-        { path: '', redirectTo: 'list', pathMatch: 'full' }
+        { path: '', redirectTo: 'list', pathMatch: 'full' },
+        { path: '**', redirectTo: 'list', pathMatch: 'full' }
       ]
     }
 ];

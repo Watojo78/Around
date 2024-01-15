@@ -1,0 +1,9 @@
+.mdc-button{
+    width: 100%;
+    border-radius: 10px !important;
+
+    &.cancel{
+        color: white;
+        background-color: black !important;
+    }
+}

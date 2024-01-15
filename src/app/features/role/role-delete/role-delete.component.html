@@ -1,18 +1,19 @@
-<h3 mat-dialog-title>
+<h3 mat-dialog-title style="font-family: Poppins; font-weight: 500;">
     Suppression Rôle
 </h3>
-<mat-dialog-content>
-    <p>Voulez-vous vraiment supprimer le Rôle N° {{id}} ?</p>
-    <p>Le processus est irréversible</p>
-</mat-dialog-content>
-<mat-dialog-actions align="center">
+<div mat-dialog-content>
+    <p style="font-size: 13px;">Voulez-vous vraiment supprimer le Rôle N° {{id}} ?<br>Le processus est irréversible</p>
+</div>
+<div mat-dialog-actions align="center">
   <button 
     mat-button 
-    [mat-dialog-close]="false">Annuler</button>
+    [mat-dialog-close]="false">
+    Annuler</button>
   <button 
     mat-button 
+    class="deletion"
     [mat-dialog-close]="true" 
     (click)="deleteRole(id)"
     cdkFocusInitial>
     Confirmer</button>
-</mat-dialog-actions>
+</div>

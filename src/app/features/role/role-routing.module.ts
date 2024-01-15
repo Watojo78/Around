@@ -10,7 +10,8 @@ const roleRoutes: Routes = [
     component: RoleComponent,
     children: [
         { path: 'list', component: RoleListComponent },
-        { path: '', redirectTo: 'list', pathMatch: 'full' }
+        { path: '', redirectTo: 'list', pathMatch: 'full' },
+        { path: '**', redirectTo: 'list', pathMatch: 'full' }
       ]
     } 
 ];
