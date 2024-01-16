@@ -54,11 +54,11 @@ export class UserEditComponent implements OnInit {
         .subscribe((params: Params) => {
           this.id = +params['id'];
           this.isEditable = this.id !== this.currentUserId;
+
           this.imgService.getAccountImage(this.id)
           .subscribe({
             next: (profile) => {
               this.profileId = profile?.id;
-              console.log("voici l'id du profil", this.profileId)
               const type = profile?.type;
               const url = profile?.donnees
               if(type && url){
@@ -70,6 +70,7 @@ export class UserEditComponent implements OnInit {
               this.matSnackbar.open("Une erreur est survenue lors de la récupération du profil", "Erreur profil", {duration: 5000});
             }
           })
+
           this.userService.getUser(this.id)
             .subscribe({
               next: (user) => {
@@ -120,6 +121,7 @@ export class UserEditComponent implements OnInit {
         this.userService.updateUser(this.id, this.userForm.value)
           .subscribe({
             next :(res: any)=>{
+              const fullName = res.firstName + " " + res.lastName;
               this.matSnackbar.open("L'utilisateur a été mis  à jour avec succès", "Fermer", {duration: 5000});
               console.log("Now updating profile img...")
   
@@ -130,7 +132,7 @@ export class UserEditComponent implements OnInit {
         
               const formData = new FormData();
               formData.append('fichier', this.selectedImage);
-              formData.append('description', "profil utilisateur de ___ mis à jour");
+              formData.append('description', "Profil de "+fullName+" mis à jour");
               formData.append('compteId', this.id);
               console.log("Voici compteId", formData.get('compteId'));
 

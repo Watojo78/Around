@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CategoryEditComponent {
   id!: number;
   file: any;
+  catThumbId: any;
   categorieId: any;
   catName!: string;
   loadedServices: any;
@@ -45,11 +46,13 @@ export class CategoryEditComponent {
       this.route.params
         .subscribe((params: Params) => {
           this.id = +params['id'];
+
           this.imgService.getCatImage(this.id)
           .subscribe({
             next: (catThumb) => {
-              const type = catThumb.type;
-              const url = catThumb.donnees
+              this.catThumbId = catThumb?.id;
+              const type = catThumb?.type;
+              const url = catThumb?.donnees
               if(type && url){
                 this.imageUrl = `data:${type};base64,${url}`;
               }
@@ -59,6 +62,7 @@ export class CategoryEditComponent {
               this.matSnackbar.open("Une erreur est survenue lors de la récupération du profil", "Erreur profil", {duration: 5000});
             }
           })
+
           this.catService.getCategorie(this.id)
             .subscribe({
               next: (category) => {
@@ -90,36 +94,51 @@ export class CategoryEditComponent {
 
             console.log("Categorie Maj avec succès :)")
             this.matSnackbar.open("Catégorie mise à jour avec succès", "Succès", {duration: 5000});
-            console.log("Now registering profile img...")
+            console.log("Now registering category thumb img...")
 
             if (!this.selectedImage) {
-              console.log('Please select an image before uploading.:(');
+              this.router.navigate(['/dashboard/service/category/list'])
               return;
             }
 
             const formData = new FormData();
             formData.append('fichier', this.selectedImage);
             formData.append('description', "Thumbnail service:"+categoryName);
-            formData.append('categorieId', this.categorieId);
-            console.log(formData.get('categorieId'));
+            formData.append('categorieId', this.id.toString());
+            console.log("Voici categorieId: => ", formData.get('categorieId'));
+
+            if(!this.catThumbId){
+              this.imgService.newCatImage(formData)
+              .subscribe({
+                next: (res: any)=>{
+                  console.log('Miniature créée avec succès')
+                  this.matSnackbar.open("Miniature créée avec succès", "Fermer", {duration: 5000});
+                  this.router.navigate(['/dashboard/service/category/list'])
+                },
+                error: (err: any)=>{
+                  console.log("Une erreur est survenue lors de la création de la miniature", err);
+                  this.matSnackbar.open("Une erreur est survenue lors de la création du miniature", "Fermer", {duration: 5000});
+                }
+              })
+            }
             
-            this.updateThumbnail(this.id, formData)
+            this.imgService.updateImage(this.catThumbId, formData)
             .subscribe({
               next: (res: any)=>{
                 console.log('Miniature maj avec avec succès :).')
                 this.matSnackbar.open("Miniature Maj avec succès", "Succès", {duration: 5000});
-                this.router.navigate(['/dashboard/user/list'])
+                this.router.navigate(['/dashboard/service/category/list'])
               },
               error: (err: any)=>{
-                alert("erreur lors de Maj de la miniature du service")
-                console.log("erreur lors de Maj de la miniature du service", err)
+                console.log("erreur lors de Maj de la miniature de la categorie", err)
+                this.matSnackbar.open("Erreur lors de la Maj de la miniature de la catégorie", "Erreur", {duration: 5000});
               }
             })
-            this.router.navigate(['/dashboard/service/list'])
           },
+          
           error: (err: any)=>{
-            alert("Unexpected error while registering the category"+err)
-            console.log("Erreur d'enregistrement: ", err)
+            console.log("Erreur d'enregistrement de la categorie: ", err)
+            this.matSnackbar.open("Erreur d'enregistrement de la catégorie", "Erreur", {duration: 5000});
           }
         })
       }
@@ -146,10 +165,6 @@ export class CategoryEditComponent {
       reader.onload = () => {
         this.imageUrl = reader.result;
       };
-    }
-  
-    private updateThumbnail(id:number, data: any) {
-      return this.imgService.updateImage(id, data);
     }
 
     private fetchServices(){
