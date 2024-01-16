@@ -60,14 +60,14 @@ export class CategoryListComponent implements AfterViewInit {
         },
         error: (err) => {
           this.snackBar.open(
-            this.formatSnackbar('Error deleting category: ' + err.message, 'Error', 'Category'),
+            this.formatSnackbar('Error deleting category: ' + err, 'Error', 'Category'),
             '',
             {
               duration: 5000,
               panelClass: ['error-snackbar'] // Optional custom CSS class
             }
           );
-          console.log("Erreur lors de la suppression de la catégorie", err.message)
+          console.log("Erreur lors de la suppression de la catégorie", err)
         }
       });
     }

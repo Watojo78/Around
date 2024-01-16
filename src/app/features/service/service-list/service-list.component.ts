@@ -154,9 +154,9 @@ export class ServiceListComponent implements AfterViewInit {
           window.location.reload();
         },
         error: (err) => {
-          console.log("An unexpected error occurs while deleting the service ", err.message),
+          console.log("An unexpected error occurs while deleting the service ", err),
           this.snackBar.open(
-            this.formatSnackbar('Une erreur est survenue lors de la suppression du service!' + err.message, 'Erreur', 'Service'),
+            this.formatSnackbar('Une erreur est survenue lors de la suppression du service!' + err, 'Erreur', 'Service'),
             '',
             {
               duration: 3000,

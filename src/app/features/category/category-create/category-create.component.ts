@@ -77,14 +77,14 @@ export class CategoryCreateComponent {
           },
           error: (err: any)=>{
             this.snackBar.open(
-              this.formatSnackbar('Error creating category: ' + err.message, 'Error', 'Category'),
+              this.formatSnackbar('Error creating category: ' + err, 'Error', 'Category'),
               '',
               {
                 duration: 5000,
                 panelClass: ['error-snackbar'] // Optional custom CSS class
               }
             );
-            console.log("Erreur d'enregistrement: ", err.message)
+            console.log("Erreur d'enregistrement: ", err)
           }
         })
       }

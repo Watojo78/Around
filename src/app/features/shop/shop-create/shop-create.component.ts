@@ -106,7 +106,7 @@ export class ShopCreateComponent {
         },
         error: (err)=>{
           this.snackBar.open(
-            this.formatSnackbar('Error creating shop: ' + err.message, 'Error', 'Shop'),
+            this.formatSnackbar('Error creating shop: ' + err, 'Error', 'Shop'),
             '',
             {
               duration: 5000,
@@ -210,7 +210,7 @@ export class ShopCreateComponent {
         },
         error: (err: any) => {
           alert('Error while uploading images:(')
-          console.error('Error while uploading images:', err.message);
+          console.error('Error while uploading images:', err);
           // Handle errors gracefully, potentially retrying or notifying the user
         }
       });

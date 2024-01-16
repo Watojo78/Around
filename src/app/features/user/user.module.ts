@@ -12,6 +12,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CustomPipeModule } from '../../custom-pipe/custom-pipe.module';
 import { UserService } from '../../services/user.service';
 import { CustomDirectiveModule } from '../../custom-directive/custom-directive.module';
+import { UserDeleteComponent } from './user-delete/user-delete.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { CustomDirectiveModule } from '../../custom-directive/custom-directive.m
     UserEditComponent,
     UserDetailComponent,
     UserProfileComponent,
+    UserDeleteComponent,
   ],
   imports: [
     UserRoutingModule,

@@ -55,7 +55,7 @@ export class CategoryEditComponent {
               }
             },
             error: (err) => {
-              console.log("Une erreur est survenue lors de la récupération de la miniature", err.message)
+              console.log("Une erreur est survenue lors de la récupération de la miniature", err)
               this.matSnackbar.open("Une erreur est survenue lors de la récupération du profil", "Erreur profil", {duration: 5000});
             }
           })

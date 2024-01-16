@@ -60,14 +60,14 @@ export class ServiceCreateComponent {
           },
           error: (err: any)=>{
             this.snackBar.open(
-              this.formatSnackbar('Error creating user: ' + err.message, 'Error', 'User'),
+              this.formatSnackbar('Error creating user: ' + err, 'Error', 'User'),
               '',
               {
                 duration: 5000,
                 panelClass: ['error-snackbar'] // Optional custom CSS class
               }
             );
-            console.log("Erreur d'enregistrement du service: ", err.message)
+            console.log("Erreur d'enregistrement du service: ", err)
           }
         })
       }

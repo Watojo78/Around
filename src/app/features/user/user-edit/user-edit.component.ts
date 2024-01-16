@@ -66,7 +66,7 @@ export class UserEditComponent implements OnInit {
               }
             },
             error: (err) => {
-              console.log("Une erreur est survenue lors de la récupération du profil", err.message);
+              console.log("Une erreur est survenue lors de la récupération du profil", err);
               this.matSnackbar.open("Une erreur est survenue lors de la récupération du profil", "Erreur profil", {duration: 5000});
             }
           })
@@ -144,6 +144,7 @@ export class UserEditComponent implements OnInit {
                     this.router.navigate(['/dashboard/user/list'])
                   },
                   error: (err: any)=>{
+                    console.log("Une erreur est survenue lors de la création du profil", err);
                     this.matSnackbar.open("Une erreur est survenue lors de la création du profil", "Fermer", {duration: 5000});
                   }
                 })
@@ -158,13 +159,13 @@ export class UserEditComponent implements OnInit {
                 },
                 error: (err: any)=>{
                   this.matSnackbar.open("Une erreur est survenue lors de la maj du profil", "Fermer", {duration: 5000});
-                  console.log("erreur lors de la maj du profil", err.message)
+                  console.log("erreur lors de la maj du profil", err)
                 }
               })
             },
             error: (err: any)=>{
               this.matSnackbar.open("Une erreur est survenue lors de la maj de l'utilisateur", "Fermer", {duration: 5000});
-              console.log("erreur de maj de l'utilisateur: ", err.message)
+              console.log("erreur de maj de l'utilisateur: ", err)
             }
           })
       }

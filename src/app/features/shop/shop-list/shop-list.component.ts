@@ -164,7 +164,7 @@ export class ShopListComponent implements AfterViewInit {
         })
       },
       error: (err) =>{
-        console.log("Unexpected error occurs while fetching the shops", err.message)
+        console.log("Unexpected error occurs while fetching the shops", err)
         this.snackBar.open('Unexpected error occurs while fetching the shops', 'Failed', {
           duration: 3000
         });

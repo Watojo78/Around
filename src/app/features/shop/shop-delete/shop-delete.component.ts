@@ -2,8 +2,6 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RoleService } from '../../../services/role.service';
-import { RoleDeleteComponent } from '../../role/role-delete/role-delete.component';
 import { HttpClient } from '@angular/common/http';
 import { ShopService } from '../../../services/shop.service';
 
@@ -34,6 +32,10 @@ export class ShopDeleteComponent implements OnInit {
     .subscribe({
       next:(shop) => {
         this.shopName = shop.nomBoutique
+      },
+      error: (err) => {
+        console.log("Error getting shop",err);
+        this.snackBar.open("Error getting shop", "OK", {duration: 5000});
       }
     })
   }
@@ -41,7 +43,7 @@ export class ShopDeleteComponent implements OnInit {
   deleteShop(id: number){
     this.shopService.deleteShop(id)
     .subscribe({
-      next:(res) => {
+      next:() => {
         console.log("Boutique supprimée avec succès ")
         this.snackBar.open('Boutique supprimée avec succès!', 'Suppression Réussie',
           {
@@ -52,13 +54,13 @@ export class ShopDeleteComponent implements OnInit {
         this.snackBar.open('La page va se rafraichir...')
       },
       error: (err) => {
-        this.snackBar.open('Error deleting shop: ' + err.message, 'Echec de suppression',
+        this.snackBar.open('Error deleting shop: ' + err, 'Echec de suppression',
           {
             duration: 5000,
             panelClass: ['error-snackbar'] // Optional custom CSS class
           }
         );
-        console.log("Unexpected error occurs while deleting the shop", err.message)
+        console.log("Unexpected error occurs while deleting the shop", err)
       },
       complete: () => {
         this.dialogRef.close();

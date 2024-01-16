@@ -32,7 +32,7 @@ export class RoleDeleteComponent implements OnInit {
           this.roleName = res.name;
         },
         error: (err) => {
-          this.snackBar.open("Erreur lors de la récupération du rôle", "Ereur", err.message);
+          this.snackBar.open("Erreur lors de la récupération du rôle", "Ereur", err);
         }
       })
   }
@@ -46,8 +46,8 @@ export class RoleDeleteComponent implements OnInit {
           window.location.reload();
         },
         error: (err) => {
-          this.snackBar.open("Erreur lors de la suppression du rôle", "Ereur", err.message);
-          console.log("Une erreur innattendue est survenue lors de la tentative de suppression",err.message);
+          this.snackBar.open("Erreur lors de la suppression du rôle", "Ereur", err);
+          console.log("Une erreur innattendue est survenue lors de la tentative de suppression",err);
         }
       });
   }

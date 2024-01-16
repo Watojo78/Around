@@ -48,7 +48,7 @@ export class RoleListComponent implements OnInit {
           console.log("Liste des boutiques : ", this.dataSource)
         },
         error:(err) => {
-          console.log("Erreur lors de la récupération des rôles", err.message)
+          console.log("Erreur lors de la récupération des rôles", err)
           this.matSnackbar.open("Erreur lors de la récupération des rôles", "Erreur recupération", {
             duration: 2000,
           })

@@ -11,6 +11,8 @@ import { User } from '../../../models/user';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs';
+import { UserDeleteComponent } from '../user-delete/user-delete.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'user-list',
@@ -34,6 +36,7 @@ export class UserListComponent implements AfterViewInit {
   constructor(
     private userService: UserService, 
     private roleService: RoleService,
+    private dialog: MatDialog,
     private snackBar: MatSnackBar) {
       this.userService.getCurrentUser()
         .subscribe({
@@ -72,7 +75,7 @@ export class UserListComponent implements AfterViewInit {
           this.roleCounts = this.countByRole(users); // Update role counts
         },
         error: (err) => {
-          console.error("An unexpected error occurs while retreiving users: =>", err.message);
+          console.error("An unexpected error occurs while retreiving users: =>", err);
           this.snackBar.open("Unexpected error occurs while retreiving users.", "OK");
         },
       });
@@ -86,35 +89,6 @@ export class UserListComponent implements AfterViewInit {
           console.error("An unexpected error occurs while retreiving roles: =>",err);
         }
       });
-  }
-
-  deleteUser(id: number){
-    this.userService.deleteAccount(id)
-    .subscribe({
-      next:() => {
-        console.log("Compte supprimée avec succès ")
-        this.snackBar.open(
-          this.formatSnackbar('Account deleted successfully!', 'Deleted', 'Account'),
-          '',
-          {
-            duration: 3000,
-            panelClass: ['success-snackbar'] // Optional custom CSS class
-          }
-        );
-        window.location.reload();
-      },
-      error: (err) => {
-        console.error("An unexpected error occurs while deleting user: =>",err.message);
-        this.snackBar.open(
-          this.formatSnackbar('Error deleting account: ' + err.message, 'Error', 'Account'),
-          '',
-          {
-            duration: 3000,
-            panelClass: ['error-snackbar'] // Optional custom CSS class
-          }
-        );
-      }
-    });
   }
 
   enableUser(id: number){
@@ -131,7 +105,11 @@ export class UserListComponent implements AfterViewInit {
     return `${action.toUpperCase()} ${entityName}: ${message}`;
   }
 
-
-  private trackByUserId: TrackByFunction<User> = (index: number, user: User) => user.id;
+  confirmAccountDeletion(id: number){
+    this.dialog.open(UserDeleteComponent, {
+      width: 'auto',
+      data: {id: id}
+    });
+  }
 
 } 

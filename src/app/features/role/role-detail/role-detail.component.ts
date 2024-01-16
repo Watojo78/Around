@@ -32,7 +32,7 @@ export class RoleDetailComponent implements OnInit {
             this.role = response;
           },
           error: (err: any) => {
-            this.snackBar.open("Erreur lors de la lecture du rôle", "Erreur", err.message);
+            this.snackBar.open("Erreur lors de la lecture du rôle", "Erreur", err);
           }
         })
     }
