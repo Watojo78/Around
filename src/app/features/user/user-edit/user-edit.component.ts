@@ -14,6 +14,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UserEditComponent implements OnInit {
   user: any;
   id: any;
+  profileId: any;
+  roles: any;
   currentUserId!: number;
   fName!: string;
   lName!: string;
@@ -55,6 +57,8 @@ export class UserEditComponent implements OnInit {
           this.imgService.getAccountImage(this.id)
           .subscribe({
             next: (profile) => {
+              this.profileId = profile?.id;
+              console.log("voici l'id du profil", this.profileId)
               const type = profile?.type;
               const url = profile?.donnees
               if(type && url){
@@ -116,18 +120,12 @@ export class UserEditComponent implements OnInit {
         this.userService.updateUser(this.id, this.userForm.value)
           .subscribe({
             next :(res: any)=>{
-              console.log("Updated user",res);
-              /*const tokenParts = res.token.split('.');
-              const payloadBase64 = tokenParts[1];
-              const payloadJson = JSON.parse(atob(payloadBase64));
-              const compteId = payloadJson.compteId; // Extract compteId from response
-              const fullName = payloadJson.fullName;*/
-  
               this.matSnackbar.open("L'utilisateur a été mis  à jour avec succès", "Fermer", {duration: 5000});
               console.log("Now updating profile img...")
   
               if (!this.selectedImage) {
                 console.log('Please select an image before uploading.:(');
+                this.matSnackbar.open("Veuillez sélectionner une image avant de la télécharger", "Fermer", {duration: 3000});
                 return;
               }
         
@@ -137,7 +135,21 @@ export class UserEditComponent implements OnInit {
               formData.append('compteId', this.id);
               console.log("Voici compteId", formData.get('compteId'));
 
-              this.imgService.updateImage(this.id, formData)
+              if(!this.profileId){
+                this.imgService.newAccountImage(formData)
+                .subscribe({
+                  next: (res: any)=>{
+                    console.log('Instance créée avec succès')
+                    this.matSnackbar.open("Profil créé avec succès", "Fermer", {duration: 5000});
+                    this.router.navigate(['/dashboard/user/list'])
+                  },
+                  error: (err: any)=>{
+                    this.matSnackbar.open("Une erreur est survenue lors de la création du profil", "Fermer", {duration: 5000});
+                  }
+                })
+              }
+
+              this.imgService.updateImage(this.profileId, formData)
               .subscribe({
                 next: (res: any)=>{
                   console.log('Instance modifiée avec succès :).')
