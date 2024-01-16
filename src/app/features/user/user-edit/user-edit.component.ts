@@ -124,8 +124,7 @@ export class UserEditComponent implements OnInit {
               console.log("Now updating profile img...")
   
               if (!this.selectedImage) {
-                console.log('Please select an image before uploading.:(');
-                this.matSnackbar.open("Veuillez sélectionner une image avant de la télécharger", "Fermer", {duration: 3000});
+                this.router.navigate(['/dashboard/user/list'])
                 return;
               }
         
