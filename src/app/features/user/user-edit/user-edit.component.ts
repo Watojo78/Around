@@ -13,11 +13,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class UserEditComponent implements OnInit {
   user: any;
-  id!: number;
+  id: any;
+  currentUserId!: number;
   fName!: string;
   lName!: string;
   loadedRoles : any;
   userForm: FormGroup;
+  isEditable!: boolean;
   selectedImage: File | null = null;
   imageUrl: string | ArrayBuffer | null = null;
 
@@ -44,15 +46,17 @@ export class UserEditComponent implements OnInit {
     }
 
     ngOnInit() {
+      this.getCurrentUser()
       this.fetchRoles()
       this.route.params
         .subscribe((params: Params) => {
           this.id = +params['id'];
+          this.isEditable = this.id !== this.currentUserId;
           this.imgService.getAccountImage(this.id)
           .subscribe({
             next: (profile) => {
-              const type = profile.type;
-              const url = profile.donnees
+              const type = profile?.type;
+              const url = profile?.donnees
               if(type && url){
                 this.imageUrl = `data:${type};base64,${url}`;
               }
@@ -85,19 +89,41 @@ export class UserEditComponent implements OnInit {
         });
     }
 
+    
+
+  private getCurrentUser(){
+    this.userService.getCurrentUser()
+    .subscribe({
+      next: (user) => {
+        this.currentUserId = user.id;
+      },
+      error: (error) => {
+        if (error) {
+          // Redirect to dashboard if user not found
+          alert("L'utilisateur n'existe pas !!")
+          this.router.navigate(['/dashboard/user/list']);
+        } else {
+          // Handle other errors
+          console.error('Error retrieving user:', error);
+        }
+      },
+    });
+  }
+
     onFormSubmit(){
       if(this.userForm.valid){
         console.warn(this.userForm.value)
         this.userService.updateUser(this.id, this.userForm.value)
           .subscribe({
             next :(res: any)=>{
-              const tokenParts = res.token.split('.');
+              console.log("Updated user",res);
+              /*const tokenParts = res.token.split('.');
               const payloadBase64 = tokenParts[1];
               const payloadJson = JSON.parse(atob(payloadBase64));
               const compteId = payloadJson.compteId; // Extract compteId from response
-              const fullName = payloadJson.fullName;
+              const fullName = payloadJson.fullName;*/
   
-              this.matSnackbar.open("L'utilisateur a été modifié avec succès", "Fermer", {duration: 3000});
+              this.matSnackbar.open("L'utilisateur a été mis  à jour avec succès", "Fermer", {duration: 5000});
               console.log("Now updating profile img...")
   
               if (!this.selectedImage) {
@@ -107,14 +133,14 @@ export class UserEditComponent implements OnInit {
         
               const formData = new FormData();
               formData.append('fichier', this.selectedImage);
-              formData.append('description', "profil utilisateur de"+fullName);
-              formData.append('compteId', compteId);
-              console.log(formData.get('compteId'));
+              formData.append('description', "profil utilisateur de ___ mis à jour");
+              formData.append('compteId', this.id);
+              console.log("Voici compteId", formData.get('compteId'));
 
-              this.updateProfile(this.id, formData)
+              this.imgService.updateImage(this.id, formData)
               .subscribe({
                 next: (res: any)=>{
-                  console.log('Instance créée avec succès :).')
+                  console.log('Instance modifiée avec succès :).')
                   this.matSnackbar.open("Profil maj avec succès", "Fermer", {duration: 5000});
                   this.router.navigate(['/dashboard/user/list'])
                 },
@@ -154,10 +180,6 @@ export class UserEditComponent implements OnInit {
       reader.onload = () => {
         this.imageUrl = reader.result;
       };
-    }
-
-    private updateProfile(id:number, data: any){
-      return this.imgService.updateImage(id, data);
     }
   
     private fetchRoles(){

@@ -11,6 +11,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 })
 export class RoleDeleteComponent implements OnInit {
   id!: number;
+  roleName!: string;
 
   constructor(
     private roleService: RoleService,
@@ -21,6 +22,19 @@ export class RoleDeleteComponent implements OnInit {
   
   ngOnInit(): void {
     this.id = this.roleId.id;
+    this.getRole(this.id);
+  }
+
+  private getRole(id: number){
+    this.roleService.getRole(id)
+      .subscribe({
+        next: (res) => {
+          this.roleName = res.name;
+        },
+        error: (err) => {
+          this.snackBar.open("Erreur lors de la récupération du rôle", "Ereur", err.message);
+        }
+      })
   }
 
   deleteRole(id: number){

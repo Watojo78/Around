@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CustomPipeModule } from '../../custom-pipe/custom-pipe.module';
 import { UserService } from '../../services/user.service';
+import { CustomDirectiveModule } from '../../custom-directive/custom-directive.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { UserService } from '../../services/user.service';
     UserRoutingModule,
     SharedModule,
     HttpClientModule,
-    CustomPipeModule
+    CustomPipeModule,
+    CustomDirectiveModule
   ],
   
   providers: [
