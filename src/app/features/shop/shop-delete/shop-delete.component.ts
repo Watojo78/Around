@@ -2,7 +2,6 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpClient } from '@angular/common/http';
 import { ShopService } from '../../../services/shop.service';
 
 @Component({
@@ -15,7 +14,6 @@ export class ShopDeleteComponent implements OnInit {
   shopName!: string;
 
   constructor(
-    private http: HttpClient,
     private shopService: ShopService,
     private dialogRef: DialogRef<ShopDeleteComponent>,
     @Inject(MAT_DIALOG_DATA) public shopId: any,

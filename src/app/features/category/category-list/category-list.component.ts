@@ -3,9 +3,9 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CategoryService } from '../../../services/category.service';
-import { ShopService } from '../../../services/shop.service';
-import { ServiceService } from '../../../services/service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CategoryDeleteComponent } from '../category-delete/category-delete.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'category-list',
@@ -23,9 +23,9 @@ export class CategoryListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private serService: ServiceService,
     private catService : CategoryService,
-    private snackBar: MatSnackBar){}
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog){}
 
     ngAfterViewInit() {
       this.fetchCats()
@@ -34,47 +34,30 @@ export class CategoryListComponent implements AfterViewInit {
 
     private fetchCats(){
       this.catService.getAllCategories()
-      .subscribe(res => {
-        this.loadedCats = res;
-        this.catsLength = this.loadedCats.length;
-        this.dataSource = new MatTableDataSource(this.loadedCats);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      })
-    }
-
-    deleteCat(id: number){
-      this.catService.delCategorie(id)
       .subscribe({
-        next: () => {
-          console.log("Catégorie supprimée avec succès ")
-          this.snackBar.open(
-            this.formatSnackbar('Category deleted successfully!', 'Deleted', 'Category'),
-            '',
-            {
-              duration: 3000,
-              panelClass: ['success-snackbar'] // Optional custom CSS class
-            }
-          );
-          window.location.reload();
+        next: (res) => {
+          this.loadedCats = res;
+          this.catsLength = this.loadedCats.length;
+          this.dataSource = new MatTableDataSource(this.loadedCats);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         },
         error: (err) => {
-          this.snackBar.open(
-            this.formatSnackbar('Error deleting category: ' + err, 'Error', 'Category'),
-            '',
-            {
-              duration: 5000,
-              panelClass: ['error-snackbar'] // Optional custom CSS class
-            }
-          );
-          console.log("Erreur lors de la suppression de la catégorie", err)
+          this.snackBar.open("Erreur lors du chargement des catégories", err, 
+          {
+            duration: 4000,
+          })
+          console.log("Erreur lors du chargement des catégories",err)
         }
+      }
+    )
+    }
+
+    confirmCatDeletion(id: number){
+      this.dialog.open(CategoryDeleteComponent, {
+        width: 'auto',
+        data: {id: id}
       });
     }
-
-    private formatSnackbar(message: string, action: string, entityName: string): string {
-      return `${action.toUpperCase()} ${entityName}: ${message}`;
-    }
-
 
 }

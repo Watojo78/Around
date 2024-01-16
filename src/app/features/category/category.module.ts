@@ -8,6 +8,7 @@ import { CategoryEditComponent } from './category-edit/category-edit.component';
 import { CategoryDetailComponent } from './category-detail/category-detail.component';
 import { CategoryComponent } from './category.component';
 import { SharedModule } from '../../Shared/shared.module';
+import { CategoryDeleteComponent } from './category-delete/category-delete.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { SharedModule } from '../../Shared/shared.module';
     CategoryCreateComponent,
     CategoryEditComponent,
     CategoryDetailComponent,
-    CategoryComponent
+    CategoryComponent,
+    CategoryDeleteComponent
   ],
   imports: [
     CommonModule,

@@ -30,7 +30,6 @@ export class ShopListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
-    private http: HttpClient,
     private shopService: ShopService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,

@@ -8,6 +8,7 @@ import { ServiceEditComponent } from './service-edit/service-edit.component';
 import { ServiceDetailComponent } from './service-detail/service-detail.component';
 import { ServiceComponent } from './service.component';
 import { SharedModule } from '../../Shared/shared.module';
+import { ServiceDeleteComponent } from './service-delete/service-delete.component';
 
 
 
@@ -17,7 +18,8 @@ import { SharedModule } from '../../Shared/shared.module';
     ServiceCreateComponent,
     ServiceEditComponent,
     ServiceDetailComponent,
-    ServiceComponent
+    ServiceComponent,
+    ServiceDeleteComponent
   ],
   imports: [
     CommonModule,

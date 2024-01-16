@@ -3,10 +3,11 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CategoryService } from '../../../services/category.service';
-import { ShopService } from '../../../services/shop.service';
 import { ServiceService } from '../../../services/service.service';
 import { ImageService } from '../../../services/image.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ServiceDeleteComponent } from '../service-delete/service-delete.component';
 
 @Component({
   selector: 'app-service-list',
@@ -39,6 +40,7 @@ export class ServiceListComponent implements AfterViewInit {
     private snackBar: MatSnackBar,
     private serService: ServiceService,
     private catService : CategoryService,
+    private dialog: MatDialog,
     private imgService: ImageService){}
 
   ngAfterViewInit() {
@@ -54,55 +56,12 @@ export class ServiceListComponent implements AfterViewInit {
       return 'Unknown Category';
   }
 
-  getImageType(id: number): string | undefined{
-    if (this.imgTypeMap?.has(id)) {
-      return this.imgTypeMap.get(id);
-    }
-    return;
-  }
-  
-  getImageSrc(id: number): string | undefined{
-    if (this.imgSrcMap?.has(id)) {
-      return this.imgSrcMap.get(id) as string;
-    }
-    return '';
-  }
-
   private fetchServices(){
     this.serService.getAllServices()
       .subscribe({
         next: (serviceRes) => {
           this.loadedServices = serviceRes;
           this.servicesLength = this.loadedServices.length;
-
-          this.imgService.getAllImages()
-          .subscribe({
-            next: (imgs) => {
-              this.imgSrcMap = new Map();
-              this.imgTypeMap = new Map();
-
-              imgs.forEach((img: {id: number; type: string;}) => {
-                this.imgTypeMap.set(img.id, img.type);
-              });
-              imgs.forEach((img: {id: number; donnees: string;}) => {
-                this.imgSrcMap.set(img.id, img.donnees);
-              });
-
-              // Enrich user objects with img type
-              for (const service of this.loadedServices) {
-                if (this.imgTypeMap.has(service.id)) {
-                  service.img = this.imgTypeMap.get(service.id);
-                } 
-                if (this.imgSrcMap.has(service.id)) {
-                  service.img = this.imgSrcMap.get(service.id);
-                } 
-              }
-
-            },
-            error: (err) => {
-              console.log("An unexpected error occurs while retreiving images => ", err)
-            }
-          })
 
           this.catService.getAllCategories()
           .subscribe({
@@ -130,45 +89,25 @@ export class ServiceListComponent implements AfterViewInit {
               },
               error: (err) => {
                 console.log("An unexpected error occurs while retreiving categories", err)
+                this.snackBar.open('Problem retreiving categories, see log for details', err, {
+                    duration: 2000
+                  })
               }
           });
         },
         error: (err) =>{
           console.log("An unexpected error occurs while retreiving services:",err)
+          this.snackBar.open('Problem retreiving services, see log for details', err, {
+            duration: 2000
+          })
         }
     });
   }
 
-  deleteService(id: number){
-    this.serService.delService(id)
-      .subscribe({
-        next: (res) => {
-          this.snackBar.open(
-            this.formatSnackbar('Service supprimé avec succès!', 'Suppression', 'Service'),
-            '',
-            {
-              duration: 3000,
-              panelClass: ['success-snackbar'] // Optional custom CSS class
-            }
-          );
-          window.location.reload();
-        },
-        error: (err) => {
-          console.log("An unexpected error occurs while deleting the service ", err),
-          this.snackBar.open(
-            this.formatSnackbar('Une erreur est survenue lors de la suppression du service!' + err, 'Erreur', 'Service'),
-            '',
-            {
-              duration: 3000,
-              panelClass: ['error-snackbar'] // Optional custom CSS class
-            }
-          );
-        }
+  confirmServiceDeletion(id: number){
+    this.dialog.open(ServiceDeleteComponent, {
+      width: 'auto',
+      data: {id: id}
     });
   }
-
-  private formatSnackbar(message: string, action: string, entityName: string): string {
-    return `${action.toUpperCase()} ${entityName}: ${message}`;
-  }
-
 }
