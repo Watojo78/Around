@@ -143,6 +143,7 @@ export class UserEditComponent implements OnInit {
                     console.log('Instance créée avec succès')
                     this.matSnackbar.open("Profil créé avec succès", "Fermer", {duration: 5000});
                     this.router.navigate(['/dashboard/user/list'])
+                    return;
                   },
                   error: (err: any)=>{
                     console.log("Une erreur est survenue lors de la création du profil", err);

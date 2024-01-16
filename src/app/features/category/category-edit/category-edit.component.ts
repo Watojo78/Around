@@ -114,6 +114,7 @@ export class CategoryEditComponent {
                   console.log('Miniature créée avec succès')
                   this.matSnackbar.open("Miniature créée avec succès", "Fermer", {duration: 5000});
                   this.router.navigate(['/dashboard/service/category/list'])
+                  return;
                 },
                 error: (err: any)=>{
                   console.log("Une erreur est survenue lors de la création de la miniature", err);
@@ -135,7 +136,7 @@ export class CategoryEditComponent {
               }
             })
           },
-          
+
           error: (err: any)=>{
             console.log("Erreur d'enregistrement de la categorie: ", err)
             this.matSnackbar.open("Erreur d'enregistrement de la catégorie", "Erreur", {duration: 5000});
