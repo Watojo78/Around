@@ -6,7 +6,7 @@ import { NeighborhoodService } from '../../../services/neighborhood.service';
 import { ServiceService } from '../../../services/service.service';
 import { ShopService } from '../../../services/shop.service';
 import { UserService } from '../../../services/user.service';
-import { Observable, forkJoin, catchError, of } from 'rxjs';
+import { Observable, forkJoin, catchError, of, map } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -52,7 +52,7 @@ export class ShopCreateComponent {
       tel: 0,
       niu: '',
       serviceIds:[''],
-      compteIds:[''],
+      ownerId:[''],
       /*imageIds: this.fb.array([]),*/
       quartierId: 1,
       heureOuverture: this.fb.group(
@@ -81,9 +81,15 @@ export class ShopCreateComponent {
         next :(shopId)=>{
           this.shopId = shopId;
           console.log("Boutique créée à 75% :); now processing shop's marker...", shopId)
+          this.snackBar.open("Boutique créée à 75% :)", "Succès", {
+            duration: 5000,
+          })
 
           if (!this.selectedMarker) {
-            console.log('Please select an image before uploading.:(');
+            console.log('Aucun marqueur sélectionné.:(');
+            this.snackBar.open("Aucun marqueur sélectionné.:(", "", {
+              duration: 5000,
+            })
             return;
           }
 
@@ -92,36 +98,41 @@ export class ShopCreateComponent {
           markerData.append('description', "shop's marker");
           markerData.append('boutiqueId', shopId);
           console.log(markerData.get('description'));
+          this.snackBar.open("Traitement du marqueur...", "", {
+            duration: 5000,
+          })
           this.uploadMarker(markerData)
           .subscribe({
               next: (res: any)=>{
-                console.log('Instance créée avec succès :).')
-                alert("Marqueur créé avec succès :); now processing shop's images...")
+                console.log('Marqueur créé avec succès :).')
+                this.snackBar.open('Marqueur créé avec succès :)', 'Fermer', 
+                {
+                  duration: 5000
+                }
+                )
               },
               error: (err: any)=>{
-                alert("erreur lors de création du marker de la boutique")
                 console.log("Echec de création du marqueur, échec :(", err)
+                this.snackBar.open('Erreur lors de la création du marqueur', 'Fermer',
+                  {
+                    duration: 5000,
+                    panelClass: ['error-snackbar'] // Optional custom CSS class
+                  }
+                );
               }
             })
         },
         error: (err)=>{
-          this.snackBar.open(
-            this.formatSnackbar('Error creating shop: ' + err, 'Error', 'Shop'),
-            '',
+          this.snackBar.open('Erreur à la création de la Boutique', '',
             {
               duration: 5000,
               panelClass: ['error-snackbar'] // Optional custom CSS class
             }
           );
-          alert("Erreur lors de la création de la boutique")
           console.log("Une erreur inanttendue est survenue lors de la création de la boutique",err)
         }
       })
     }
-  }
-
-  private formatSnackbar(message: string, action: string, entityName: string): string {
-    return `${action.toUpperCase()} ${entityName}: ${message}`;
   }
 
   openMarkerInput(): void {
@@ -182,7 +193,13 @@ export class ShopCreateComponent {
               this.uploadImages(this.shopId);
             }
           } catch (error) {
-            console.error('Error processing image:', error);
+            console.error('Error processing images:', error);
+            this.snackBar.open('Erreur lors du traitement des images:'+ error, 'Fermer',
+              {
+                duration: 5000,
+                panelClass: ['error-snackbar'] // Optional custom CSS class
+              }
+            );
           }
         };
       }
@@ -199,18 +216,21 @@ export class ShopCreateComponent {
           // Handle the processed images (e.g., display success messages, clear stored data)
           console.log("Images uploaded successfully :) =>", processedImages,"Création de la boutique 100% achevée.");
           this.imageData = []; // Clear temporary storage
-          this.snackBar.open(
-            this.formatSnackbar('Shop 100% created successfully!', 'Created', 'Shop'),
-            '',
+          this.snackBar.open('Shop 100% créé avec succès!', 'Fermer',
             {
-              duration: 3000,
+              duration: 5000,
               panelClass: ['success-snackbar'] // Optional custom CSS class
             }
           );
         },
         error: (err: any) => {
-          alert('Error while uploading images:(')
           console.error('Error while uploading images:', err);
+          this.snackBar.open('Erreur lors de l\'ajout des images', 'Fermer',
+            {
+              duration: 5000,
+              panelClass: ['error-snackbar'] // Optional custom CSS class
+            }
+          );
           // Handle errors gracefully, potentially retrying or notifying the user
         }
       });
@@ -262,6 +282,11 @@ export class ShopCreateComponent {
 
   private fetchUsers(){
     this.userService.getAllUsers()
+    .pipe(
+      // Filter users with roles 'gerant' and 'partner'
+      map((users) => users.filter((user: { roleId: number; }) => user.roleId == 3 || user.roleId == 4)),
+      // Sort by creation date (descending)
+    )
     .subscribe({
       next: (res) => {
         this.loadedUsers = res;
@@ -284,3 +309,5 @@ export class ShopCreateComponent {
     });
   }
 }
+
+

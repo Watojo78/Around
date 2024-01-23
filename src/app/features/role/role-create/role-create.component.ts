@@ -28,14 +28,15 @@ export class RoleCreateComponent {
       this.roleService.newRole(this.roleForm.value)
         .subscribe({
           next: (res) => {
-            this.dialogRef.close();
             this.snackbar.open('Role Créé avec succès!', 'Succès Création', {
               duration: 4000
             })
+            this.dialogRef.close(res);
             window.location.reload();
           },
           error: (err) => {
-            this.snackbar.open('Erreur lors de la création du role!', 'Erreur Création', {
+            console.log('Erreur lors de la création du role! :(',err)
+            this.snackbar.open('Erreur lors de la création du role!'+err, 'Erreur Création', {
               duration: 4000
             })
           }

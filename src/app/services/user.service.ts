@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 
 const token = sessionStorage.getItem('token');
@@ -19,7 +19,7 @@ export class UserService {
 
   getCurrentUser(): Observable<any>{
     const url = this.apiUrl + '/api-around2/current-user';
-    return this.http.get(url, { headers: headers });
+    return this.http.get(url, { headers: headers })
   } //ok
 
   newUser(data: any): Observable<any>{
@@ -47,15 +47,20 @@ export class UserService {
     return this.http.delete(url, { headers: headers });
   } //ok
 
-  activateUser(id: number): Observable<any>{
-    const url = this.apiUrl + `/api-around2/comptes/activate/${id}`;
-    return this.http.put(url, {headers: headers});
+  initiateActivation(email: string): Observable<any>{
+    const url = this.apiUrl + `/api-around2/activation/initiate?email=${email}`;
+    return this.http.post(url, email, {headers: headers});
   } //?
 
-  changePassword(userEmail: string): Observable<any>{
-    const url = this.apiUrl + `/api-around2/users/${userEmail}/change-password?oldPassword=&newPassword=`;
-    return this.http.post(url, headers)
-  } //implicate session reset, then relogin superAdmin
+  verifyActivation(email: string): Observable<any>{
+    const url = this.apiUrl + `/api-around2/activation/verify?email=${email}`;
+    return this.http.post(url, {headers: headers});
+  }
+
+  changePassword(email: string, data: any): Observable<any>{
+    const url = this.apiUrl + `/api-around2/users/${email}/change-password?oldPassword=${data.oldPassword}&newPassword=${data.newPassword}`;
+    return this.http.post(url, data, {headers: headers});
+  }
 
   getCurrentUserToken(): Observable<any> {
     // Retrieve the token from the chosen storage location

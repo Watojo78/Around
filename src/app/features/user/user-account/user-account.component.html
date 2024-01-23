@@ -1,0 +1,193 @@
+<div class="account">
+    <div class="account-header">
+        <div class="account-infos">
+            <h4>Compte</h4>
+            <div class="account-route">
+                <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active">Dashboard</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/user/list']" routerLinkActive="router-link-active">Utilisateurs</a>
+                <i class="fi fi-ss-bullet"></i>
+                <a [routerLink]="['/dashboard/user/account']" routerLinkActive="router-link-active">Compte</a>
+            </div>
+        </div>
+    </div>
+    <mat-tab-group fitInkBarToContent mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="1ms">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <i class="fi fi-sr-id-badge"></i>
+                <span>Général</span>
+            </ng-template>
+            <form class="account-content" [formGroup]="userForm" (ngSubmit)="onFormSubmit()">
+                <div class="content-profile">
+                    <div class="profile">
+                        <div class="profile-wrapper" (click)="openFileInput()">
+                            <input accept="image/*" type="file" #fileInput (change)="onFileSelected($event)"
+                                style="display: none;">
+                            <div *ngIf="imageUrl" class="image-preview">
+                                <img [src]="imageUrl" alt="Preview" loading="lazy" height="96">
+                            </div>
+                            <div class="upload-placeholder">
+                                <i class="fi fi-sr-camera"></i>
+                                <p *ngIf="!imageUrl">Charger l'image</p>
+                                <p *ngIf="imageUrl">Maj l'image</p>
+                            </div>
+                        </div>
+                    </div>
+                    <span>Format(s) d'images accepté(s): *.png, *.jpg, *jpeg, *svg</span>
+                    <div class="profile-activation">
+                        <div class="activation-infos">
+                            <h5>Activation du Compte</h5>
+                            <p>En cliquant, vous consentez à mettre à jour le statut de votre compte.</p>
+                        </div>
+                        <mat-slide-toggle formControlName="active"></mat-slide-toggle>
+                    </div>
+                </div>
+                <div class="content-form">
+                    <div class="form-group">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Nom</mat-label>
+                            <input matInput type="text" formControlName="firstName" required>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Prénom(s)</mat-label>
+                            <input matInput type="text" formControlName="lastName" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email" formControlName="email" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Tel</mat-label>
+                            <input matInput type="tel" formControlName="tel" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="fill">
+                            <mat-label>CNI</mat-label>
+                            <input matInput type="text" formControlName="numeroCni" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-submission">
+                        <button mat-raised-button color="warn" class="cancel" disabled>
+                            Réinitialiser
+                        </button>
+                        <button mat-raised-button class="submit" type="submit">
+                            Mettre à Jour
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </mat-tab>
+        <mat-tab disabled>
+            <ng-template mat-tab-label>
+                <i class="fi fi-sr-bell"></i>
+                <span>Notifications</span>
+            </ng-template>
+        </mat-tab>
+        <mat-tab disabled>
+            <ng-template mat-tab-label>
+                <i class="fi fi-rr-share-square"></i>
+                <span>Réseaux Sociaux</span>
+            </ng-template>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <i class="fi fi-sr-key"></i>
+                <span>Sécurité</span>
+            </ng-template>
+            <div class="security-wrapper">
+                <mat-stepper linear #stepper>
+                    <mat-step [stepControl]="initiateReset">
+                        <form [formGroup]="initiateReset" (ngSubmit)="startingReset()" class="reset">
+                            <ng-template matStepLabel>Réinitialisation</ng-template>
+                            <div class="form-group">
+                                <mat-form-field>
+                                    <mat-label>Email</mat-label>
+                                    <input matInput formControlName="email" required>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <button mat-button class="next" type="submit" matStepperNext>Suivant</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="verifyOtp">
+                        <form [formGroup]="verifyOtp" class="reset" (ngSubmit)="verifyOtpCode()">
+                            <ng-template matStepLabel>Vérifier OTP</ng-template>
+                            <div class="otp-form">
+                                <div class="form-group otp">
+                                    <mat-form-field>
+                                        <input matInput formControlName="otp" required>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group otp">
+                                    <mat-form-field>
+                                        <input matInput formControlName="otp" required>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group otp">
+                                    <mat-form-field>
+                                        <input matInput formControlName="otp" required>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group otp">
+                                    <mat-form-field>
+                                        <input matInput formControlName="otp" required>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group otp">
+                                    <mat-form-field>
+                                        <input matInput formControlName="otp" required>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group otp">
+                                    <mat-form-field>
+                                        <input matInput formControlName="otp" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button mat-button matStepperPrevious>Précédent</button>
+                                <button mat-button class="next" type="submit" matStepperNext>Confirmer OTP</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="resetPassword">
+                        <form [formGroup]="resetPassword" class="reset" (ngSubmit)="processingReset()">
+                            <ng-template matStepLabel>OTP et nouveau Mot de passe</ng-template>
+                            <div class="form-group">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Votre code OTP</mat-label>
+                                    <input matInput type="text" formControlName="otp" required />
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Nouveau Mot de passe</mat-label>
+                                    <input matInput type="password" formControlName="password" required />
+                                </mat-form-field>
+                            </div>
+                            <div class="form-actions">
+                                <button mat-button matStepperPrevious>Précedent</button>
+                                <button mat-button matStepperNext class="next" type="submit">Réinitialiser le Mot de
+                                    passe</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Done</ng-template>
+                        <p>You are now done.</p>
+                        <div>
+                            <button mat-button matStepperPrevious>Précédent</button>
+                            <button mat-button (click)="stepper.reset()">Terminer</button>
+                        </div>
+                    </mat-step>
+                </mat-stepper>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

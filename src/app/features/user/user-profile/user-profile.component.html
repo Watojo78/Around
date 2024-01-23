@@ -10,7 +10,7 @@
                 <button mat-button disabled>{{firstName}} {{lastName}}</button>
             </div>
         </div>
-        <a [routerLink]="['/dashboard/user/',id,'\edit']" routerLinkActive="router-link-active" >
+        <a [routerLink]="['/dashboard/user/account']" routerLinkActive="router-link-active" >
             <button mat-raised-button>
                 <i class="fa-solid fa-pencil"></i>
                 <span>Editer</span>
@@ -64,35 +64,10 @@
                     <span *ngIf="!numeroCni">Aucun N° de CNI enregistré</span>
                 </div>
                 <div class="about-footer">
-                    <button mat-button disabled>Changer Mot de passe</button>
+                    <button mat-button (click)="openChangePassword(email)">Changer Mot de passe</button>
                 </div>
             </div>
             <div class="nfos-others">
-                <div class="others-shop" *ngFor="let shop of shops">
-                    <div class="shop-header">
-                        <h5>Boutique: {{shop.nomBoutique}}</h5>
-                    </div>
-                    <div class="shop-body">
-                        <img src="../../../assets/backhero.svg" alt="">
-                        <div class="container">
-                            <h6>Services</h6>
-                            <div class="categories">
-                              <h2 *ngFor="let category of categories">
-                                {{ category }}
-                              </h2>
-                              <div *ngFor="let service of services">
-                                <div class="service">
-                                  <h3>{{ service.category }} - {{ service.nomService }}</h3>
-                                  <p>{{ service.description }}</p>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-footer">
-                        <button mat-button disabled>Désactiver la boutique</button>
-                    </div>
-                </div>
                 <div class="others-management">
                     <div class="management-header">
                         <h5>Gestion du Compte</h5>

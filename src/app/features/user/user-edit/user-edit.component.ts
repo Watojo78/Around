@@ -94,26 +94,25 @@ export class UserEditComponent implements OnInit {
         });
     }
 
-    
-
-  private getCurrentUser(){
-    this.userService.getCurrentUser()
-    .subscribe({
-      next: (user) => {
-        this.currentUserId = user.id;
-      },
-      error: (error) => {
-        if (error) {
-          // Redirect to dashboard if user not found
-          alert("L'utilisateur n'existe pas !!")
-          this.router.navigate(['/dashboard/user/list']);
-        } else {
-          // Handle other errors
-          console.error('Error retrieving user:', error);
-        }
-      },
-    });
-  }
+    private getCurrentUser(){
+      this.userService.getCurrentUser()
+      .subscribe({
+        next: (user) => {
+          this.currentUserId = user.id;
+          console.log("test user",user)
+        },
+        error: (error) => {
+          if (error) {
+            // Redirect to dashboard if user not found
+            alert("L'utilisateur n'existe pas !!")
+            this.router.navigate(['/dashboard/user/list']);
+          } else {
+            // Handle other errors
+            console.error('Error retrieving user:', error);
+          }
+        },
+      });
+    }
 
     onFormSubmit(){
       if(this.userForm.valid){

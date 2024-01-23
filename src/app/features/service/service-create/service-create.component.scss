@@ -19,10 +19,11 @@
     }    
 
     &-route{
+        font-size: 14px;
         align-items: center;
+        column-gap: .56rem;
         justify-content: space-between;
         i{
-            padding: 0 .4rem;
             display: flex;
             align-items: center;
             font-size: 9.1px;

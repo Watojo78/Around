@@ -114,11 +114,11 @@
                 </div>
             </div>  
             <div class="form-section">
-                <span style="font-size: 15px; font-weight: 500">Gérants & Services</span>
+                <span style="font-size: 15px; font-weight: 500">Propriétaire & Services</span>
                 <div class="form-group">
                     <mat-form-field appearance="fill"> 
-                        <mat-label>Gérant(s)</mat-label>
-                        <mat-select formControlName="compteIds" multiple>
+                        <mat-label>Propriétaire</mat-label>
+                        <mat-select formControlName="ownerId">
                             <mat-option *ngFor="let user of loadedUsers" [value]="user.id">
                                 {{user.firstName}} {{user.lastName}}
                             </mat-option>

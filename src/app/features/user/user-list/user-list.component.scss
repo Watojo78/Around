@@ -18,10 +18,11 @@
     }    
 
     &-route{
+        font-size: 14px;
         align-items: center;
+        column-gap: .56rem;
         justify-content: space-between;
         i{
-            padding: 0 .4rem;
             display: flex;
             align-items: center;
             font-size: 9.1px;
@@ -84,6 +85,7 @@ table{
 
 .tab-label-count{
     padding: .32rem;
+    font-weight: 500;
     border-radius: 5.6px;
     background-color: black;
     color: white;

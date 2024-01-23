@@ -18,7 +18,7 @@ export class UserDeleteComponent implements OnInit{
     private http: HttpClient,
     private userService: UserService,
     private dialogRef: DialogRef<UserDeleteComponent>,
-    @Inject(MAT_DIALOG_DATA) public accountId: any,
+    @Inject(MAT_DIALOG_DATA) private accountId: any,
     private snackBar: MatSnackBar) {}
 
   

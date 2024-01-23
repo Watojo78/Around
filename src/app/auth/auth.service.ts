@@ -30,6 +30,7 @@ export class AuthService {
               token: response.token as string,
             };
             this.user$.next(user);
+            sessionStorage.setItem('email', user.email)
             sessionStorage.setItem('token', user.token);
           }
         })

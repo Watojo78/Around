@@ -5,14 +5,11 @@ import { TrackByFunction } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { RoleService } from '../../../services/role.service';
 import { UserService } from '../../../services/user.service';
-
-import { Image } from '../../../models/image';
-import { User } from '../../../models/user';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs';
 import { UserDeleteComponent } from '../user-delete/user-delete.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UserActivateComponent } from '../user-activate/user-activate.component';
 
 @Component({
   selector: 'user-list',
@@ -32,6 +29,7 @@ export class UserListComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+shouldShowPortal: any;
 
   constructor(
     private userService: UserService, 
@@ -91,16 +89,6 @@ export class UserListComponent implements AfterViewInit {
       });
   }
 
-  enableUser(id: number){
-    this.userService.activateUser(id)
-    .subscribe({
-      next:() => {
-        alert("Compte activé avec succès :)")
-        window.location.reload();
-      },
-    })
-  }
-
   private formatSnackbar(message: string, action: string, entityName: string): string {
     return `${action.toUpperCase()} ${entityName}: ${message}`;
   }
@@ -109,6 +97,13 @@ export class UserListComponent implements AfterViewInit {
     this.dialog.open(UserDeleteComponent, {
       width: 'auto',
       data: {id: id}
+    });
+  }
+
+  confirmInitActivation(email: string){
+    this.dialog.open(UserActivateComponent, {
+      width: '490px',
+      data: {email: email}
     });
   }
 

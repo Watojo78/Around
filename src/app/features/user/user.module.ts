@@ -13,6 +13,12 @@ import { CustomPipeModule } from '../../custom-pipe/custom-pipe.module';
 import { UserService } from '../../services/user.service';
 import { CustomDirectiveModule } from '../../custom-directive/custom-directive.module';
 import { UserDeleteComponent } from './user-delete/user-delete.component';
+import { UserActivateComponent } from './user-activate/user-activate.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { UserAccountComponent } from './user-account/user-account.component';
+import { InitiateResetComponent } from './initiate-reset/initiate-reset.component';
 
 
 @NgModule({
@@ -24,6 +30,12 @@ import { UserDeleteComponent } from './user-delete/user-delete.component';
     UserDetailComponent,
     UserProfileComponent,
     UserDeleteComponent,
+    UserActivateComponent,
+    ChangePasswordComponent,
+    VerifyOtpComponent,
+    ResetPasswordComponent,
+    UserAccountComponent,
+    InitiateResetComponent,
   ],
   imports: [
     UserRoutingModule,

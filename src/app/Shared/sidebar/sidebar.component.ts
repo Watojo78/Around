@@ -36,6 +36,11 @@ const TREE_DATA: ParentNode[] = [
         name: 'Créer',
         route: 'user/new',
         icon: 'fi fi-ss-bullet',
+      }, 
+      {
+        name: 'Compte',
+        route: 'user/account',
+        icon: 'fi fi-ss-bullet',
       }],
   },
   {name: 'Role',
