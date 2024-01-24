@@ -1,6 +1,12 @@
 <div class="headerwrapper">
-    <div class="menu icon">
-            <i class="fi fi-rr-search"></i>
+    <div class="search icon">
+        <button mat-icon-button (keydown)="handleKeyDown($event)" (click)="openSearch()">
+            <i class="fi fi-br-search"></i>
+        </button>
+        <span class="search command">
+            <i class="fi fi-sr-command"></i>
+            <p>Y</p>
+        </span>
     </div>
     <div class="submenu">
         <span class="submenu-item one">

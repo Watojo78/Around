@@ -1,0 +1,32 @@
+<div class="search-container">
+    <div class="search header">
+        <h3 mat-dialog-title style="font-family: Poppins; font-weight: 500;">
+            <mat-form-field>
+                <div matPrefix class="prefix">
+                    <i class="fi fi-br-search"></i>
+                </div>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Search..." type="text">
+                <span class="suffix" matSuffix>
+                    Esc
+                </span>
+            </mat-form-field>
+        </h3>
+    </div>
+    <div class="search wrapper">
+        <div mat-dialog-content>
+            <div style="margin-bottom: 8rem;">
+                <ng-container *ngFor="let route of filteredRoutes">
+                    <a [routerLink]="'/dashboard/' + route.path" class="search row" [mat-dialog-close]="true">
+                        <div class="route url">
+                            <h4 class="row title">{{ route.name }}</h4>
+                            <p class="row route">/dashboard/{{ route.path }}</p>
+                        </div>
+                        <span class="route category">
+                            {{getCatRoute(route.categoryId)}}
+                        </span>
+                    </a>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

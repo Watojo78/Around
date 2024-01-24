@@ -14,6 +14,7 @@ import { PaymentStatisticComponent } from './payment-statistic/payment-statistic
 import { SettingsComponent } from './settings/settings.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CustomPipeModule } from '../custom-pipe/custom-pipe.module';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CustomPipeModule } from '../custom-pipe/custom-pipe.module';
     AnalyticComponent,
     PaymentStatisticComponent,
     SettingsComponent,
+    SearchComponent,
   ],
   imports: [ 
     AdmindashboardRoutingModule,

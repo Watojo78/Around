@@ -1,10 +1,11 @@
 import { UserService } from '../../services/user.service';
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, HostListener } from '@angular/core';
 import { ImageService } from '../../services/image.service';
 import { AuthService } from '../../auth/auth.service';
 import { NotificationService } from '../../services/notification.service';
 import { firstValueFrom, map } from 'rxjs';
-import { User } from '../../models/user';
+import { MatDialog } from '@angular/material/dialog';
+import { SearchComponent } from '../../admindashboard/search/search.component';
 
 @Component({
   selector: 'admin-header',
@@ -26,8 +27,19 @@ export class AdminHeaderComponent implements AfterViewInit {
   notificationCount: any;
   loadingName = false;
   defaultSrc= "../../../assets/avatar_pp_icon.svg";
+  
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.closeSearch();
+    } else if (event.key === 'y' && (event.ctrlKey || event.metaKey)) {
+      this.openSearch();
+    }
+  }
+
 
   constructor(
+    private dialog: MatDialog,
     private authService: AuthService,
     private imgService: ImageService,
     private userService: UserService,
@@ -108,6 +120,17 @@ export class AdminHeaderComponent implements AfterViewInit {
 
   onLogout(): void {
     this.authService.logout();
+  }
+
+  openSearch(){
+    this.dialog.open(SearchComponent, {
+      width: '39%',
+      height: '65%'
+    })
+  }
+
+  closeSearch(){
+    this.dialog.closeAll();
   }
 
 }

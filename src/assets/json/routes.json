@@ -1,0 +1,122 @@
+[
+  {
+    "categoryId": 1,
+    "name": "Liste",
+    "path": "user",
+    "icon": "fi fi-sr-users"
+  },
+  {
+    "categoryId": 1,
+    "name": "Créer",
+    "path": "user/new",
+    "icon": "fi fi-ss-bullet"
+  },
+  {
+    "categoryId": 1,
+    "name": "Compte",
+    "path": "user/account",
+    "icon": "fi fi-ss-bullet"
+  },
+  {
+    "categoryId": 3,
+    "name": "Liste",
+    "path": "role",
+    "icon": "fi fi-rr-user-gear"
+  },
+  {
+    "categoryId": 4,
+    "name": "Liste",
+    "path": "promotion",
+    "icon": "fi fi-sr-ticket"
+  },
+  {
+    "categoryId": 4,
+    "name": "Créer",
+    "path": "promotion/new",
+    "icon": "fi fi-ss-bullet"
+  },
+  {
+    "categoryId": 2,
+    "name": "Liste",
+    "path": "shop",
+    "icon": "fi fi-sr-shopping-cart"
+  },
+  {
+    "categoryId": 2,
+    "name": "Créer",
+    "path": "shop/new",
+    "icon": "fi fi-ss-bullet"
+  },
+  {
+    "categoryId": 5,
+    "name": "Liste",
+    "path": "service",
+    "icon": "fi fi-sr-shipping-fast"
+  },
+  {
+    "categoryId": 5,
+    "name": "Créer",
+    "path": "service/new",
+    "icon": "fi fi-ss-bullet"
+  },
+  {
+    "categoryId": 6,
+    "name": "Liste",
+    "path": "category",
+    "icon": "fi fi-sr-filters"
+  },
+  {
+    "categoryId": 6,
+    "name": "Créer",
+    "path": "service/category/new",
+    "icon": "fi fi-ss-bullet"
+  },
+  {
+    "categoryId": 7,
+    "name": "Liste",
+    "path": "country",
+    "icon": "fi fi-sr-flag"
+  },
+  {
+    "categoryId": 7,
+    "name": "Créer",
+    "path": "country/new",
+    "icon": "fi fi-ss-bullet"
+  },
+  {
+    "categoryId": 8,
+    "name": "Liste",
+    "path": "region",
+    "icon": "fi fi-sr-location-arrow"
+  },
+  {
+    "categoryId": 8,
+    "name": "Créer",
+    "path": "country/region/new",
+    "icon": "fi fi-ss-bullet"
+  },
+  {
+    "categoryId": 9,
+    "name": "Liste",
+    "path": "city",
+    "icon": "fi fi-sr-location-arrow"
+  },
+  {
+    "categoryId": 9,
+    "name": "Créer",
+    "path": "country/region/city/new",
+    "icon": "fi fi-ss-bullet"
+  },
+  {
+    "categoryId": 10,
+    "name": "Liste",
+    "path": "neighborhood",
+    "icon": "fi fi-sr-location-arrow"
+  },
+  {
+    "categoryId": 10,
+    "name": "Créer",
+    "path": "country/region/city/neighborhood/new",
+    "icon": "fi fi-ss-bullet"
+  }
+]

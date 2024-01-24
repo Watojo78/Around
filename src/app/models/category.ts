@@ -1,3 +1,3 @@
-export interface category {
+export interface Category {
     
 }

@@ -6,7 +6,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: .35rem 2rem;
+  padding: .28rem 2rem;
   background-color: rgba(255, 255, 255, 0.56);
   backdrop-filter: blur(4px);
   position: fixed;
@@ -31,8 +31,35 @@
     }
 }
 
+.search{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+
+  &.icon{
+    column-gap: .56rem;
+  }
+  
+  &.command{
+    border-radius: 8px;
+    column-gap: .14rem;
+    padding: .1rem .4rem;
+    background-color: rgba(232, 232, 232, 0.922);
+
+    &>p{
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
+
+  .fi{
+    font-size: 14px;
+  }
+}
+
 .fi{
-  font-size: 20px;
+  font-size: 18px;
   display: flex;
   text-align: center;
   justify-content: center;
@@ -170,7 +197,6 @@
   border-radius: 10px !important;
 }
 
-
 @keyframes rotating {
   from {
     -ms-transform: rotate(0deg);
@@ -188,11 +214,10 @@
   }
 }
 
-
 .rotating {
-  -webkit-animation: rotating 2s linear infinite;
-  -moz-animation: rotating 2s linear infinite;
-  -ms-animation: rotating 2s linear infinite;
-  -o-animation: rotating 2s linear infinite;
-  animation: rotating 2s linear infinite;
+  -webkit-animation: rotating 7s linear infinite;
+  -moz-animation: rotating 7s linear infinite;
+  -ms-animation: rotating 7s linear infinite;
+  -o-animation: rotating 7s linear infinite;
+  animation: rotating 7s linear infinite;
 }

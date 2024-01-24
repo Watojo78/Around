@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "name": "User"
+    },
+    {
+        "id": 2,
+        "name": "Shop"
+    },
+    {
+        "id": 3,
+        "name": "Role"
+    },
+    {
+        "id": 4,
+        "name": "Promotion"
+    },
+    {
+        "id": 5,
+        "name": "Service"
+    },
+    {
+        "id": 6,
+        "name": "Category"
+    },
+    {
+        "id": 7,
+        "name": "Country"
+    },
+    {
+        "id": 8,
+        "name": "Region"
+    },
+    {
+        "id": 9,
+        "name": "City"
+    },
+    {
+        "id": 10,
+        "name": "Neighboorhood"
+    }
+]
